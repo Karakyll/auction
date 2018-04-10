@@ -12,8 +12,8 @@ public class User {
 
     private String userName;
     private String password;
+    private Boolean enabled;
     private Set<Role> roles;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +33,15 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Column(name = "enabled", nullable = false)
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")

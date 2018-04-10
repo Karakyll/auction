@@ -1,12 +1,17 @@
 package by.auction.repository;
 
-import by.auction.entity.Auction;
+import by.auction.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
-public interface CategoryRepisitory extends JpaRepository<Auction, Long>{
+public interface CategoryRepisitory extends JpaRepository<Category, Long>{
 
+    List<Category> findAll();
 
+    Optional<Category> findByName(String name);
 
 }
