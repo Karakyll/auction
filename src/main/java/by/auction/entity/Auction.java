@@ -1,5 +1,8 @@
 package by.auction.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -13,6 +16,7 @@ public class Auction implements Serializable {
 
     private Long id;
     private User owner;
+    private String owner_name;
     private Product product;
     private Date createTime;
     private Date endTime;
@@ -30,7 +34,8 @@ public class Auction implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
     public User getOwner() {
         return owner;
@@ -38,6 +43,11 @@ public class Auction implements Serializable {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    @Transient
+    public String getOwner_name() {
+        return owner.getUserName();
     }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -50,6 +60,7 @@ public class Auction implements Serializable {
         this.product = product;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy hh:mm")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", nullable = false)
     public Date getCreateTime() {
@@ -60,6 +71,7 @@ public class Auction implements Serializable {
         this.createTime = createTime;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy hh:mm")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "end_time", nullable = false)
     public Date getEndTime() {

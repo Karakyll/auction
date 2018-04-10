@@ -1,6 +1,8 @@
 package by.auction.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,6 +17,7 @@ public class Product implements Serializable {
     private Long id;
     private String name;
     private Category category;
+    private String category_name;
     private Double price;
     private String description;
 
@@ -39,6 +42,7 @@ public class Product implements Serializable {
         this.name = name;
     }
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category")
     public Category getCategory() {
@@ -47,6 +51,11 @@ public class Product implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Transient
+    public String getCategory_name() {
+        return category.getName();
     }
 
     @Column(name = "price", nullable = false)

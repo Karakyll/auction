@@ -1,6 +1,9 @@
 package by.auction.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,7 +18,9 @@ public class Bet implements Serializable {
 
     private Long id;
     private Auction auction;
+    private Long auction_id;
     private User user;
+    private String user_name;
     private Date betTime;
     private Double price;
 
@@ -30,6 +35,7 @@ public class Bet implements Serializable {
         this.id = id;
     }
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "auction_id")
     public Auction getAuction() {
@@ -40,7 +46,13 @@ public class Bet implements Serializable {
         this.auction = auction;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Transient
+    public Long getAuction_id() {
+        return auction.getId();
+    }
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "username")
     public User getUser() {
         return user;
@@ -50,6 +62,12 @@ public class Bet implements Serializable {
         this.user = user;
     }
 
+    @Transient
+    public String getUser_name() {
+        return user.getUserName();
+    }
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy hh:mm")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "bet_time", nullable = false)
     public Date getBetTime() {

@@ -1,5 +1,7 @@
 package by.auction.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -27,6 +29,7 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
+    @JsonIgnore
     @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
@@ -36,6 +39,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    @JsonIgnore
     @Column(name = "enabled", nullable = false)
     public Boolean getEnabled() {
         return enabled;
@@ -45,7 +49,8 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @JsonIgnore
+    @Transient
     public Set<Role> getRoles() {
         return roles;
     }
