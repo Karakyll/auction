@@ -3,7 +3,7 @@ CREATE DATABASE auction;
 \c auction;
 
 CREATE TABLE users (
-	username varchar(50) NOT NULL,
+	username varchar(50) NOT NULL UNIQUE,
 	password varchar(255) NOT NULL,
 	enabled BOOLEAN NOT NULL DEFAULT true,
 	CONSTRAINT users_pk PRIMARY KEY (username)
@@ -24,7 +24,7 @@ CREATE TABLE user_roles (
 
 
 CREATE TABLE categories (
-	name varchar(50) NOT NULL,
+	name varchar(50) NOT NULL UNIQUE,
 	CONSTRAINT categories_pk PRIMARY KEY (name)
 ) WITH (
   OIDS=FALSE

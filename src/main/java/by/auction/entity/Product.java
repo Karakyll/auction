@@ -3,6 +3,10 @@ package by.auction.entity;
 
 import javax.persistence.*;
 
+
+/**
+ * Класс для маппинга сущности Товар на таблицу в БД.
+ */
 @Entity
 @Table(name = "products")
 public class Product {
@@ -25,7 +29,7 @@ public class Product {
         this.id = id;
     }
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 50)
     public String getName() {
         return name;
     }

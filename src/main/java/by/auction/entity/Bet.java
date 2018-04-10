@@ -4,6 +4,10 @@ package by.auction.entity;
 import javax.persistence.*;
 import java.util.Date;
 
+
+/**
+ * Класс для маппинга сущности Ставка на таблицу в БД.
+ */
 @Entity
 @Table(name = "bets")
 public class Bet {
