@@ -18,6 +18,7 @@ import java.util.Locale;
  */
 @Configuration
 @EnableWebMvc
+@ComponentScan(basePackages = "by.auction.controller")
 public class WebConfig implements WebMvcConfigurer {
 
     /*
