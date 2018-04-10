@@ -30,7 +30,7 @@ public class Bet {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "auction_id")
     public Auction getAuction() {
         return auction;
     }

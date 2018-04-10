@@ -7,7 +7,7 @@ import javax.persistence.*;
  * Класс для маппинга сущности Роль на таблицу в БД.
  */
 @Entity
-@Table(name = "user_roles")
+@Table(name = "user_roles", uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "role"})})
 public class Role {
 
     private Long id;
@@ -35,7 +35,7 @@ public class Role {
         this.user = user;
     }
 
-    @Column(name = "role", nullable = false, unique = true, length = 50)
+    @Column(name = "role", nullable = false, length = 50)
     public String getRole() {
         return role;
     }

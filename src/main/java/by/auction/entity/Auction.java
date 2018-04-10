@@ -30,7 +30,7 @@ public class Auction {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "owner")
     public User getOwner() {
         return owner;
     }
@@ -39,8 +39,8 @@ public class Auction {
         this.owner = owner;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
     public Product getProduct() {
         return product;
     }
