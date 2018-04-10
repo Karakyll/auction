@@ -13,7 +13,7 @@ CREATE TABLE users (
 
 
 CREATE TABLE user_roles (
-	user_role_id serial NOT NULL,
+	user_role_id bigserial NOT NULL,
 	username varchar(50) NOT NULL REFERENCES users(username),
 	role varchar(50) NOT NULL,
   CONSTRAINT uniq_username_role UNIQUE (username, role),
@@ -32,7 +32,7 @@ CREATE TABLE categories (
 
 
 CREATE TABLE products (
-	id serial NOT NULL,
+	id bigserial NOT NULL,
 	name varchar(50) NOT NULL,
 	category varchar(50) NOT NULL REFERENCES categories(name),
 	price float8 NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE products (
 
 
 CREATE TABLE auctions (
-	id serial NOT NULL,
+	id bigserial NOT NULL,
 	owner varchar(50) NOT NULL REFERENCES users(username),
 	product_id bigint NOT NULL UNIQUE REFERENCES products(id),
 	create_time TIMESTAMP NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE auctions (
 
 
 CREATE TABLE bets (
-	id serial NOT NULL,
+	id bigserial NOT NULL,
 	auction_id bigint NOT NULL REFERENCES auctions(id),
 	username varchar(50) NOT NULL REFERENCES users(username),
 	bet_time TIMESTAMP NOT NULL,
