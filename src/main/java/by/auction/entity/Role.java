@@ -2,13 +2,14 @@ package by.auction.entity;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Класс для маппинга сущности Роль на таблицу в БД.
  */
 @Entity
 @Table(name = "user_roles", uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "role"})})
-public class Role {
+public class Role implements Serializable {
 
     private Long id;
     private User user;

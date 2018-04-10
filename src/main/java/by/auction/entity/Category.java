@@ -1,6 +1,7 @@
 package by.auction.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 /**
@@ -8,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "categories")
-public class Category {
+public class Category implements Serializable {
 
     private String name;
 

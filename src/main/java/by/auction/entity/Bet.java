@@ -2,6 +2,7 @@ package by.auction.entity;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -10,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "bets")
-public class Bet {
+public class Bet implements Serializable {
 
     private Long id;
     private Auction auction;

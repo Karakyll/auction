@@ -2,6 +2,7 @@ package by.auction.entity;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 /**
@@ -9,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Serializable {
 
     private Long id;
     private String name;
