@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CategoryRepisitory extends JpaRepository<Category, Long>{
+public interface CategoryRepository extends JpaRepository<Category, String>{
 
     List<Category> findAll();
 

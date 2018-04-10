@@ -18,7 +18,7 @@ public interface AuctionRepository extends JpaRepository<Auction, Long>{
 
     List<Auction> findAuctionsByFinished(Boolean finished);
 
-    List<Auction> findAuctionsByProductCategory(Category category);
+    List<Auction> findAuctionsByProductCategoryName(String categoryName);
 
     List<Auction> findAuctionsByProductNameContains(String searchTag);
 
