@@ -2,6 +2,7 @@ package by.auction.controller;
 
 import by.auction.entity.Category;
 import by.auction.entity.Product;
+import by.auction.service.CategoryService;
 import by.auction.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @RequestMapping(method = RequestMethod.GET)
     ResponseEntity getAllProducts() {
         return ResponseEntity.ok(productService.findAll());
@@ -36,6 +40,10 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity saveProduct(@RequestBody Product product) {
+        if (!categoryService.findByName(product.getCategory_name()).isPresent()) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
         Product result = new Product();
 
         result.setName(product.getName());
