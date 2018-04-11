@@ -55,7 +55,10 @@ public class Product implements Serializable {
 
     @Transient
     public String getCategory_name() {
-        return category.getName();
+        if (category_name == null) {
+            category_name = category.getName();
+        }
+        return category_name;
     }
 
     @Column(name = "price", nullable = false)

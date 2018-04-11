@@ -48,7 +48,10 @@ public class Bet implements Serializable {
 
     @Transient
     public Long getAuction_id() {
-        return auction.getId();
+        if (auction_id == null){
+            auction_id = auction.getId();
+        }
+        return auction_id;
     }
 
     @JsonIgnore
@@ -64,7 +67,10 @@ public class Bet implements Serializable {
 
     @Transient
     public String getUser_name() {
-        return user.getUserName();
+        if (user_name == null) {
+            user_name = user.getUserName();
+        }
+        return user_name;
     }
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy hh:mm")

@@ -47,7 +47,10 @@ public class Auction implements Serializable {
 
     @Transient
     public String getOwner_name() {
-        return owner.getUserName();
+        if (owner_name == null){
+            owner_name = owner.getUserName();
+        }
+        return owner_name;
     }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

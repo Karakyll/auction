@@ -13,6 +13,12 @@ public class Category implements Serializable {
 
     private String name;
 
+    public Category() {};
+
+    public Category(String name) {
+        this.name = name;
+    }
+
     @Id
     @Column(name = "name", nullable = false, unique = true, length = 50)
     public String getName() {
