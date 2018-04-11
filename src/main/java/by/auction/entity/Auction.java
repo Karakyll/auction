@@ -53,7 +53,7 @@ public class Auction implements Serializable {
         return owner_name;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     public Product getProduct() {
         return product;
