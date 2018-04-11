@@ -43,7 +43,7 @@ public class AuctionController {
     @RequestMapping(value = "/{auctionId:[\\d]+}", method = RequestMethod.GET)
     ResponseEntity getAuctionById(@PathVariable Long auctionId) {
         if (auctionService.findById(auctionId).isPresent()) {
-            return ResponseEntity.ok(auctionService.findById(auctionId));
+            return ResponseEntity.ok(auctionService.findById(auctionId).get());
         } else {
             return ResponseEntity.notFound().build();
         }
