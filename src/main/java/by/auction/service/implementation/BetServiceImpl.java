@@ -1,4 +1,4 @@
-package by.auction.service.implementations;
+package by.auction.service.implementation;
 
 import by.auction.entity.Bet;
 import by.auction.repository.BetRepository;

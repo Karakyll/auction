@@ -1,10 +1,9 @@
-package by.auction.service.implementations;
+package by.auction.service.implementation;
 
 import by.auction.entity.User;
 import by.auction.repository.UserRepository;
 import by.auction.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
