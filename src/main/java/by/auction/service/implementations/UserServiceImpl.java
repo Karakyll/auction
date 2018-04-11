@@ -44,15 +44,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User ban(String userName) throws UsernameNotFoundException{
-
-        if (findByUserName(userName).isPresent()){
-            throw new UsernameNotFoundException(userName);
-        }
-
+    public User enable(Boolean enable, String userName) {
         User user = findByUserName(userName).get();
-        user.setEnabled(false);
-
+        user.setEnabled(enable);
         return userRepository.save(user);
     }
 }

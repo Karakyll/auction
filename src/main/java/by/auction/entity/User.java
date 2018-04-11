@@ -15,11 +15,11 @@ public class User implements Serializable {
 
     private String userName;
     private String password;
+    private String set_password;
     private Boolean enabled;
     private Set<Role> roles;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "username", nullable = false, unique = true, length = 50)
     public String getUserName() {
         return userName;
@@ -39,7 +39,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @JsonIgnore
+    @Transient
+    public String getSet_password() {
+        return set_password;
+    }
+
     @Column(name = "enabled", nullable = false)
     public Boolean getEnabled() {
         return enabled;
