@@ -18,6 +18,7 @@
         <hibernate.version>5.2.16.Final</hibernate.version>
         <spring.version>5.0.5.RELEASE</spring.version>
         <spring.security.version>5.0.4.RELEASE</spring.security.version>
+        <springsecurityoauth2.version>2.3.1.RELEASE</springsecurityoauth2.version>
     </properties>
 
     <dependencies>
@@ -98,6 +99,14 @@
         </dependency>
 
 
+        <!-- Spring Security OAuth2-->
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>${springsecurityoauth2.version}</version>
+        </dependency>
+
+
         <!-- Servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -112,6 +121,14 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.9.5</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
         </dependency>
 
 
@@ -134,6 +151,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
+                    <warName>auction</warName>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>

@@ -53,8 +53,7 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-    @JsonIgnore
-    @Transient
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     public Set<Role> getRoles() {
         return roles;
     }

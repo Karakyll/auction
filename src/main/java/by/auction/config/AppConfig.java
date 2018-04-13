@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  */
 @Configuration
 @EnableWebMvc
-@Import({DataConfig.class,  WebConfig.class})
+@Import({DataConfig.class,  WebConfig.class, SecurityConfig.class, OAuth2ServerConfig.class})
 public class AppConfig {
 
 }
