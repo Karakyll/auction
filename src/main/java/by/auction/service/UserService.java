@@ -17,6 +17,10 @@ public interface UserService {
 
     void deleteByUserName(String userName);
 
-    User enable(Boolean ban, String userName);
+    void enable(Boolean ban, String userName);
+
+    void promote(String userName);
+
+    void demote(String userName);
 
 }

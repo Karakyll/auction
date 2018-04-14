@@ -1,14 +1,18 @@
 package by.auction.controller;
 
+import by.auction.entity.Role;
 import by.auction.entity.User;
 import by.auction.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.management.relation.RoleStatus;
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/admin")
@@ -51,7 +55,7 @@ public class AdminController {
 
             result.setUserName(user.getUserName());
             result.setPassword(user.getSet_password());
-            result.setEnabled(user.getEnabled());
+            result.setEnabled(false);
 
             result = userService.save(result);
 
@@ -77,10 +81,23 @@ public class AdminController {
     ResponseEntity enableUser(@RequestParam("enable") Boolean enable, @RequestParam("username") String username) {
         if (userService.findByUserName(username).isPresent()) {
             userService.enable(enable, username);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(userService.findByUserName(username).get());
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @RequestMapping(value = "/users", params = {"promote", "username"}, method = RequestMethod.PUT)
+    ResponseEntity promoteUser(@RequestParam("promote") Boolean promote, @RequestParam("username") String username) {
+        if (promote && userService.findByUserName(username).isPresent()) {
+            userService.promote(username);
+            return ResponseEntity.ok(userService.findByUserName(username).get());
+        }
+        if (!promote && userService.findByUserName(username).isPresent()) {
+            userService.demote(username);
+            return ResponseEntity.ok(userService.findByUserName(username).get());
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }

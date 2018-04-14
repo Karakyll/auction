@@ -1,6 +1,7 @@
 package by.auction.repository;
 
 import by.auction.entity.Role;
+import by.auction.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public interface RoleRepository extends JpaRepository<Role, Long>{
 
     Optional<Role> findById(Long id);
 
-    List<Role> findRolesByUserUserName(String userName);
+    Optional<Role> findRoleByUserAndRole(User user, String role);
+
+    void deleteRoleByUserAndRole(User user, String role);
 
 }
