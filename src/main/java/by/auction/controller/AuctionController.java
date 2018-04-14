@@ -126,4 +126,17 @@ public class AuctionController {
         }
     }
 
+    @RequestMapping(value = "/{auctionId:[\\d]+}", params = "finish", method = RequestMethod.PUT)
+    ResponseEntity finishAuction(@PathVariable Long auctionId, @RequestParam Boolean finish) {
+        if (!auctionService.findById(auctionId).isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        if (finish) {
+            Auction auction = auctionService.findById(auctionId).get();
+            auction.setFinished(finish);
+            auctionService.save(auction);
+        }
+        return ResponseEntity.ok(auctionService.findById(auctionId).get());
+    }
+
 }
