@@ -33,7 +33,7 @@ public class OAuth2ServerConfig {
         public void configure(HttpSecurity http) throws Exception {
             http.anonymous().disable()
                     .authorizeRequests()
-                    .antMatchers("/admin/**").hasAuthority("ADMIN")
+                    .antMatchers("/login/**").hasAuthority("ADMIN")
                     .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
         }
     }

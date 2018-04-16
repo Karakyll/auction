@@ -19,6 +19,7 @@
         <spring.version>5.0.5.RELEASE</spring.version>
         <spring.security.version>5.0.4.RELEASE</spring.security.version>
         <springsecurityoauth2.version>2.3.1.RELEASE</springsecurityoauth2.version>
+        <logback.version>1.2.3</logback.version>
     </properties>
 
     <dependencies>
@@ -121,6 +122,14 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.9.5</version>
+        </dependency>
+
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
 
 

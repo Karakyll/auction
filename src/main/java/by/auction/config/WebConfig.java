@@ -21,6 +21,18 @@ import java.util.Locale;
 @ComponentScan(basePackages = "by.auction.controller")
 public class WebConfig implements WebMvcConfigurer {
 
+    /**
+     * Bean for message source.
+     * Set params: package with massages property file? encoding.
+     */
+    @Bean
+    public MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("/i18n/messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
+    }
+
     /*
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
