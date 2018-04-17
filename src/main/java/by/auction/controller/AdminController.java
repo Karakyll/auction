@@ -30,7 +30,7 @@ public class AdminController {
     @RequestMapping(method = RequestMethod.GET)
     public String helloAdmin() {
         logger.info(messageSource.getMessage("controller.admin.hello", null, Locale.getDefault()));
-        return messageSource.getMessage("admin.hello", null, Locale.getDefault());
+        return messageSource.getMessage("hello.admin", null, Locale.getDefault());
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
