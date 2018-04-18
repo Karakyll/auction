@@ -1,6 +1,5 @@
 package by.auction.config;
 
-
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +16,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+/**
+ * Configuration class for Data source.
+ * Including Hibernate configuration and JpaRepositories
+ */
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:properties/database.properties")

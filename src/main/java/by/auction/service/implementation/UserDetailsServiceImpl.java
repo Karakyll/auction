@@ -22,7 +22,6 @@ import java.util.Set;
  * Service for finding users and roles in database.
  * Need for Spring security configuration
  */
-
 @Service("userDetailsService")
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -35,6 +34,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
+    /**
+     * Load user. Grant with roles, found in DB.
+     * @param userName
+     * @return user object for spring security
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 

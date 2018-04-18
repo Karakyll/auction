@@ -1,6 +1,5 @@
 package by.auction.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,9 +7,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-
 /**
- * Класс для маппинга сущности Ставка на таблицу в БД.
+ * Mapping entity to DB table "bets"
  */
 @Entity
 @Table(name = "bets")
@@ -46,6 +44,10 @@ public class Bet implements Serializable {
         this.auction = auction;
     }
 
+    /**
+     * This field need to represent only "auction_id" property instead full auction object
+     * @return
+     */
     @Transient
     public Long getAuction_id() {
         if (auction_id == null){
@@ -65,6 +67,10 @@ public class Bet implements Serializable {
         this.user = user;
     }
 
+    /**
+     * This field need to represent only "user_name" property instead full user object
+     * @return
+     */
     @Transient
     public String getUser_name() {
         if (user_name == null) {

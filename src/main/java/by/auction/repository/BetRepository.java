@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Repository for data management in a table "bets"
+ */
 @Repository
 public interface BetRepository extends JpaRepository<Bet, Long>{
 

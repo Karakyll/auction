@@ -8,6 +8,9 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.*;
 
+/**
+ * Initializer for Web application.
+ */
 public class WebAppInitializer implements WebApplicationInitializer {
 
     @Override
@@ -24,10 +27,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
         container.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain"))
                 .addMappingForServletNames(null, false, "dispatcher");
-/*
-        container.addFilter("OAuth2LoginAuthenticationFilter", new DelegatingFilterProxy("OAuth2LoginAuthenticationFilter"))
-                .addMappingForServletNames(null, false, "dispatcher");
-*/
+
     }
 
 }

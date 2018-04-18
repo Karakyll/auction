@@ -1,14 +1,12 @@
 package by.auction.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 /**
- * Класс для маппинга сущности Товар на таблицу в БД.
+ * Mapping entity to DB table "products"
  */
 @Entity
 @Table(name = "products")
@@ -53,6 +51,10 @@ public class Product implements Serializable {
         this.category = category;
     }
 
+    /**
+     * This field need to represent only "category_name" property instead full category object
+     * @return
+     */
     @Transient
     public String getCategory_name() {
         if (category_name == null) {

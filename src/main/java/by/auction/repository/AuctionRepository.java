@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Repository for data management in a table "auctions"
+ */
 @Repository
 public interface AuctionRepository extends JpaRepository<Auction, Long>{
 

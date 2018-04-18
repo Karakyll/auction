@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service for data management in a table "auctions"
+ */
 public interface AuctionService {
 
     List<Auction> findAll();

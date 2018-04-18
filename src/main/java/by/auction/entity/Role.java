@@ -1,13 +1,12 @@
 package by.auction.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Класс для маппинга сущности Роль на таблицу в БД.
+ * Mapping entity to DB table "user_roles"
  */
 @Entity
 @Table(name = "user_roles", uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "role"})})

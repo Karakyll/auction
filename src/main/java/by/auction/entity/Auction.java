@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Класс для маппинга сущности Аукцион на таблицу в БД.
+ * Mapping entity to DB table "auctions"
  */
 @Entity
 @Table(name = "auctions")
@@ -45,6 +45,10 @@ public class Auction implements Serializable {
         this.owner = owner;
     }
 
+    /**
+     * This field need to represent only "owner_name" property instead full user object
+     * @return
+     */
     @Transient
     public String getOwner_name() {
         if (owner_name == null){

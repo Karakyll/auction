@@ -5,6 +5,9 @@ import by.auction.entity.Bet;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service for data management in a table "bets"
+ */
 public interface BetService {
 
     List<Bet> findAll();

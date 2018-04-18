@@ -19,7 +19,6 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 /**
  * Configuration class for Spring Security
  */
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
@@ -32,12 +31,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     DaoAuthenticationProvider authenticationProvider;
 
+    /**
+     * Authentication manager for OAuth2
+     */
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
+    /**
+     * Token store for OAuth2
+     */
     @Bean
     public TokenStore tokenStore() {
         return new InMemoryTokenStore();

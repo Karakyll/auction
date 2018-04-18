@@ -3,9 +3,8 @@ package by.auction.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 /**
- * Класс для маппинга сущности Категория на таблицу в БД.
+ * Mapping entity to DB table "categories"
  */
 @Entity
 @Table(name = "categories")

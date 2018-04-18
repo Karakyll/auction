@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Locale;
 
+/**
+ * Rest controller. Implement bet api to manage bets.
+ * Map all /bets requests
+ */
 @RestController
 @RequestMapping(value = "/bets")
 @CrossOrigin
@@ -35,12 +38,24 @@ public class BetController {
 
     private static final Logger logger = LoggerFactory.getLogger(BetController.class);
 
+    /**
+     * Map /bets GET requests
+     * Find all bets
+     * @return - JSON with found bets
+     */
     @RequestMapping(method = RequestMethod.GET)
     ResponseEntity getAllBets() {
         logger.info(messageSource.getMessage("controller.bet.get", null, Locale.getDefault()));
         return ResponseEntity.ok(betService.findAll());
     }
 
+    /**
+     * Map /bets?id= GET requests
+     * Find bet by id
+     * If bet not found - response with NotFound status
+     * @param id
+     * @return - JSON with found bet
+     */
     @RequestMapping(params = "id", method = RequestMethod.GET)
     ResponseEntity getBetById(@RequestParam("id") Long id) {
         logger.info(messageSource.getMessage("controller.bet.get.by.id", new Object[]{id}, Locale.getDefault()));
@@ -53,6 +68,13 @@ public class BetController {
         }
     }
 
+    /**
+     * Map /bets?auctionId= GET requests
+     * Find bets by auction id
+     * If auction not found - response with NotFound status
+     * @param auctionId
+     * @return - JSON with found bets
+     */
     @RequestMapping(params = "auctionId", method = RequestMethod.GET)
     ResponseEntity getBetsByAuctionId(@RequestParam("auctionId") Long auctionId) {
         logger.info(messageSource.getMessage("controller.bet.get.by.auction.id", new Object[]{auctionId}, Locale.getDefault()));
@@ -65,6 +87,13 @@ public class BetController {
         }
     }
 
+    /**
+     * Map /bets?username= GET requests
+     * Find bets by username
+     * IF user not found - response with NotFound status
+     * @param username
+     * @return - JSON with found bets
+     */
     @RequestMapping(params = "username", method = RequestMethod.GET)
     ResponseEntity getBetsByUserName(@RequestParam("username") String username) {
         logger.info(messageSource.getMessage("controller.bet.get.by.username", new Object[]{username}, Locale.getDefault()));
@@ -77,6 +106,13 @@ public class BetController {
         }
     }
 
+    /**
+     * Map /bets POST requests
+     * Save bet
+     * If auction or user specified in body not found - response with UnprocessableEntity status
+     * @param bet
+     * @return - link to saved bet with JSON in body
+     */
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity saveBet(@RequestBody Bet bet) {
         logger.info(messageSource.getMessage("controller.bet.post.save.bet", new Object[]{bet}, Locale.getDefault()));
@@ -103,6 +139,13 @@ public class BetController {
         return ResponseEntity.created(location).body(result);
     }
 
+    /**
+     * Map /bets?delete= DELETE requests
+     * Delete bet by id
+     * If bet not found - response with NotFound status
+     * @param id
+     * @return - status Ok
+     */
     @RequestMapping(params = "delete", method = RequestMethod.DELETE)
     ResponseEntity deleteBet(@RequestParam("delete") Long id) {
         logger.info(messageSource.getMessage("controller.bet.delete.bet", new Object[]{id}, Locale.getDefault()));

@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Repository for data management in a table "user_roles"
+ */
 public interface RoleRepository extends JpaRepository<Role, Long>{
 
     List<Role> findAll();

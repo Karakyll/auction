@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+/**
+ * Implementation for interface ProductService
+ */
 @Service("productService")
 @Transactional
 public class ProductServiceImpl implements ProductService {
@@ -26,24 +29,42 @@ public class ProductServiceImpl implements ProductService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
+    /**
+     * Find all products
+     * @return list of found products
+     */
     @Override
     public List<Product> findAll() {
         logger.info(messageSource.getMessage("service.product.find.all", null, Locale.getDefault()));
         return productRepository.findAll();
     }
 
+    /**
+     * Find product by ID
+     * @param id
+     * @return Optional of found product
+     */
     @Override
     public Optional<Product> findById(Long id) {
         logger.info(messageSource.getMessage("service.product.find.by.id", new Object[]{id}, Locale.getDefault()));
         return productRepository.findById(id);
     }
 
+    /**
+     * Save product in DB
+     * @param product
+     * @return saved product
+     */
     @Override
     public Product save(Product product) {
         logger.info(messageSource.getMessage("service.product.save", new Object[]{product}, Locale.getDefault()));
         return productRepository.save(product);
     }
 
+    /**
+     * Delete product by ID
+     * @param id
+     */
     @Override
     public void deleteById(Long id) {
         logger.info(messageSource.getMessage("service.product.delete.by.id", new Object[]{id}, Locale.getDefault()));

@@ -5,6 +5,9 @@ import by.auction.entity.User;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service for data management in a table "users"
+ */
 public interface UserService {
 
     List<User> findAll();

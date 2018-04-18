@@ -15,11 +15,17 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
+/**
+ * Configuration classes for OAuth2 server
+ */
 @Configuration
 public class OAuth2ServerConfig {
 
     private static final String RESOURCE_ID = "auction_rest_api";
 
+    /**
+     * Configuration resource server
+     */
     @Configuration
     @EnableResourceServer
     protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
@@ -29,6 +35,9 @@ public class OAuth2ServerConfig {
             resources.resourceId(RESOURCE_ID).stateless(false);
         }
 
+        /**
+         * HttpSecurity configuration
+         */
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http.anonymous().disable()
@@ -38,6 +47,9 @@ public class OAuth2ServerConfig {
         }
     }
 
+    /**
+     * Configuration authorization server
+     */
     @Configuration
     @EnableAuthorizationServer
     protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
@@ -53,6 +65,9 @@ public class OAuth2ServerConfig {
             security.allowFormAuthenticationForClients();
         }
 
+        /**
+         * Configuration for OAuth2 clients
+         */
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 

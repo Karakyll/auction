@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * Класс для маппинга сущности Пользователь на таблицу в БД.
+ * Mapping entity to DB table "users"
  */
 @Entity
 @Table(name = "users")
@@ -39,6 +39,10 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    /**
+     * This field need to create user. Usual password filed is JsonIgnored.
+     * @return
+     */
     @Transient
     public String getSet_password() {
         return set_password;
