@@ -1,0 +1,5 @@
+auction-client-angular/node_modules/
+server/logs/
+target/
+out/
+auction-client-angular/dist/
