@@ -3,3 +3,5 @@ server/logs/
 target/
 out/
 auction-client-angular/dist/
+.idea/
+src/main/webapp
