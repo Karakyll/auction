@@ -1,3 +1,13 @@
 <p>
   category works!
 </p>
+<table *ngFor="let category of categories">
+  <tr>{{category.name}}</tr>
+  <tr><button (click)="deleteCategory(category); $event.stopPropagation();">X</button></tr>
+</table>
+
+<div>
+  <label>Save category</label>
+  <input type="string" [(ngModel)]="inputCategory">
+</div>
+<button (click)="saveCategory(); $event.stopPropagation();">Save</button>
