@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Locale;
 
 @RestController
-@RequestMapping(value = { "/", "/about" })
+@RequestMapping(value = { "/api/", "/api/about" })
 @CrossOrigin
 public class MainController {
 

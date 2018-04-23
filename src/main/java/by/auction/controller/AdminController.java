@@ -18,7 +18,7 @@ import java.util.Locale;
  * Map all /admin requests
  */
 @RestController
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/api/admin")
 @CrossOrigin
 public class AdminController {
 

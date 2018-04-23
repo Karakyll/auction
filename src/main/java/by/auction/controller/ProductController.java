@@ -20,7 +20,7 @@ import java.util.Locale;
  * Map all /products requests
  */
 @RestController
-@RequestMapping(value = "/products")
+@RequestMapping(value = "/api/products")
 @CrossOrigin
 public class ProductController {
 

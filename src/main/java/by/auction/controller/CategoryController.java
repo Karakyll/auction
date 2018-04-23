@@ -16,7 +16,7 @@ import java.util.Locale;
  * Map all /categories requests
  */
 @RestController
-@RequestMapping(value = "/categories")
+@RequestMapping(value = "/api/categories")
 @CrossOrigin
 public class CategoryController {
 

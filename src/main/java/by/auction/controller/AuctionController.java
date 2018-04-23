@@ -25,7 +25,7 @@ import java.util.Locale;
  * Map all /auctions requests
  */
 @RestController
-@RequestMapping(value = "/auctions")
+@RequestMapping(value = "/api/auctions")
 @CrossOrigin
 public class AuctionController {
 

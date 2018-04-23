@@ -20,7 +20,7 @@ import java.util.Locale;
  * Map all /bets requests
  */
 @RestController
-@RequestMapping(value = "/bets")
+@RequestMapping(value = "/api/bets")
 @CrossOrigin
 public class BetController {
 
