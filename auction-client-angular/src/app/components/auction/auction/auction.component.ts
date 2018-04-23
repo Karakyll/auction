@@ -14,7 +14,7 @@ export class AuctionComponent implements OnInit {
   constructor(private auctionService:AuctionService) { }
 
   ngOnInit() {
-    this.auctionService.getAuctions().subscribe((res) => {
+    this.auctionService.getAllAuctions().subscribe((res) => {
       this.auctions = res;
     });
   }

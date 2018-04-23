@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {Observable} from "rxjs/Observable";
-import {Auction} from "../../models/auction";
+import { Observable } from "rxjs/Observable";
+import { Auction } from "../../models/auction";
 
 const uri= 'http://localhost:8081/auctions';
 
 @Injectable()
 export class AuctionService {
 
-  constructor(private http:HttpClient) { };
+  constructor(private http:HttpClient) { }
 
-  getAuctions():Observable<Auction[]> {
+  getAllAuctions():Observable<Auction[]> {
     return this.http.get<Auction[]>(uri);
   }
 
@@ -48,7 +48,7 @@ export class AuctionService {
     });
   }
 
-  saveAuction(auction):Observable<Auction> {
+  saveAuction(auction:Auction):Observable<Auction> {
     return this.http.post<Auction>(uri, auction);
   }
 
