@@ -9,17 +9,20 @@ import { AuctionComponent } from "./components/auction/auction.component";
 import { ProductComponent } from "./components/product/product.component";
 import { CategoryComponent } from "./components/category/category.component";
 import { BetComponent } from "./components/bet/bet.component";
+import { UserComponent } from './components/user/user.component';
 
 import { AuctionService } from "./services/auction/auction.service";
 import { ProductService } from "./services/product/product.service";
 import { CategoryService } from "./services/category/category.service";
 import { BetService } from "./services/bet/bet.service";
+import { UserService } from "./services/user/user.service";
 
 const appRoutes: Routes = [
   {path:'auctions', component:AuctionComponent},
   {path:'products', component:ProductComponent},
   {path:'categories', component:CategoryComponent},
-  {path:'bets', component:BetComponent}
+  {path:'bets', component:BetComponent},
+  {path:'users', component:UserComponent}
 ];
 
 @NgModule({
@@ -28,7 +31,8 @@ const appRoutes: Routes = [
     AuctionComponent,
     ProductComponent,
     CategoryComponent,
-    BetComponent
+    BetComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,8 @@ const appRoutes: Routes = [
     AuctionService,
     ProductService,
     CategoryService,
-    BetService
+    BetService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
