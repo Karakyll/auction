@@ -59,7 +59,7 @@ public class AuctionControllerTest {
     public void getAllAuctions_ShouldReturnListOfAuctions() throws Exception {
         when(auctionServiceMock.findAll()).thenReturn(auctions);
 
-        mockMvc.perform(get("/auctions"))
+        mockMvc.perform(get("/api/auctions"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(application_JSON_UTF8))
                 .andExpect(jsonPath("$", hasSize(4)))
@@ -88,7 +88,7 @@ public class AuctionControllerTest {
     public void getAuctionById_ShouldReturnAuctionWithID() throws Exception {
         when(auctionServiceMock.findById(3L)).thenReturn(Optional.of(auctions.get(2)));
 
-        mockMvc.perform(get("/auctions/{id}", 3L))
+        mockMvc.perform(get("/api/auctions/{id}", 3L))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(application_JSON_UTF8))
                 .andExpect(jsonPath("$.id", is(3)))
@@ -110,7 +110,7 @@ public class AuctionControllerTest {
     public void getAuctionsByCategory_CategoryNotFound_ShouldReturnStatusCode404() throws Exception {
         when(categoryServiceMock.findByName("test")).thenReturn(Optional.empty());
 
-        mockMvc.perform(get("/auctions").param("category", "test"))
+        mockMvc.perform(get("/api/auctions").param("category", "test"))
                 .andExpect(status().isNotFound());
 
         verify(auctionServiceMock, times(0)).findByCategoryName("test");
