@@ -18,9 +18,15 @@ export class AuctionService {
     return this.http.get<Auction>(uri + "/" + id);
   }
 
-  getOngoingAuctions(finished):Observable<Auction[]> {
+  getOngoingAuctions():Observable<Auction[]> {
     return this.http.get<Auction[]>(uri, {
-      params:new HttpParams().set('finished', finished)
+      params:new HttpParams().set('finished', "false")
+    });
+  }
+
+  getFinishedAuctions():Observable<Auction[]> {
+    return this.http.get<Auction[]>(uri, {
+      params:new HttpParams().set('finished', "true")
     });
   }
 
