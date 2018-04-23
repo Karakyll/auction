@@ -5,18 +5,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { AuctionComponent } from './components/auction/auction/auction.component';
-import { ProductComponent } from "./components/product/product/product.component";
-import { CategoryComponent } from './components/category/category/category.component';
+import { AuctionComponent } from "./components/auction/auction.component";
+import { ProductComponent } from "./components/product/product.component";
+import { CategoryComponent } from "./components/category/category.component";
+import { BetComponent } from "./components/bet/bet.component";
 
 import { AuctionService } from "./services/auction/auction.service";
 import { ProductService } from "./services/product/product.service";
 import { CategoryService } from "./services/category/category.service";
+import { BetService } from "./services/bet/bet.service";
 
 const appRoutes: Routes = [
   {path:'auctions', component:AuctionComponent},
   {path:'products', component:ProductComponent},
-  {path:'categories', component:CategoryComponent}
+  {path:'categories', component:CategoryComponent},
+  {path:'bets', component:BetComponent}
 ];
 
 @NgModule({
@@ -24,7 +27,8 @@ const appRoutes: Routes = [
     AppComponent,
     AuctionComponent,
     ProductComponent,
-    CategoryComponent
+    CategoryComponent,
+    BetComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,8 @@ const appRoutes: Routes = [
   providers: [
     AuctionService,
     ProductService,
-    CategoryService
+    CategoryService,
+    BetService
   ],
   bootstrap: [AppComponent]
 })
