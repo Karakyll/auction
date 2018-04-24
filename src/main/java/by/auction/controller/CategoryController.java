@@ -17,7 +17,6 @@ import java.util.Locale;
  */
 @RestController
 @RequestMapping(value = "/api/categories")
-@CrossOrigin
 public class CategoryController {
 
     @Autowired

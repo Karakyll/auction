@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.config.annotation.*;
 
 /**
@@ -14,6 +15,8 @@ import org.springframework.web.servlet.config.annotation.*;
 @EnableWebMvc
 @ComponentScan(basePackages = "by.auction.controller")
 public class WebConfig implements WebMvcConfigurer {
+
+    private final String corsOrigin = "http://localhost:4200";
 
     /**
      * Bean for message source.
@@ -36,6 +39,23 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("forward:/index.html");
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedOrigins(corsOrigin)
+                .allowedHeaders(
+                        HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN,
+                        HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS,
+                        HttpHeaders.CONTENT_TYPE,
+                        HttpHeaders.AUTHORIZATION,
+                        HttpHeaders.ACCEPT
+
+                )
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 
 }

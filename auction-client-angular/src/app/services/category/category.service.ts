@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 import { Category } from "../../models/category";
 
-const uri= 'http://localhost:8081/categories';
+const uri= 'http://localhost:8081/api/categories';
 
 @Injectable()
 export class CategoryService {

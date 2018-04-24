@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -60,9 +62,17 @@ public class OAuth2ServerConfig {
         @Autowired
         private AuthenticationManager authenticationManager;
 
+        @Autowired
+        private UserDetailsService userDetailsService;
+
+        @Autowired
+        private PasswordEncoder passwordEncoder;
+
         @Override
         public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-            security.allowFormAuthenticationForClients();
+            security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()")
+                    .allowFormAuthenticationForClients()
+                    .passwordEncoder(passwordEncoder);
         }
 
         /**
@@ -76,12 +86,37 @@ public class OAuth2ServerConfig {
                     .authorizedGrantTypes("password", "authorization_code", "refresh_token", "client_credentials")
                     .scopes("read","write","edit")
                     .secret("secret")
-                    .accessTokenValiditySeconds(120);
+                    .accessTokenValiditySeconds(120)
+                    .and()
+                    .withClient("auctionClientIdImplicid")
+                    .authorizedGrantTypes("implicit")
+                    .scopes("read", "write", "foo", "bar")
+                    .autoApprove(false)
+                    .accessTokenValiditySeconds(3600)
+                    .and()
+                    .withClient("auctionClientIdPassword")
+                    .secret("secret")
+                    .authorizedGrantTypes("password", "authorization_code", "refresh_token")
+                    .scopes("read","write","edit")
+                    .accessTokenValiditySeconds(3600) // 1 hour
+                    .refreshTokenValiditySeconds(2592000) // 30 days
+                    .and()
+                    .withClient("clientcred")
+                    .secret("123456")
+                    .authorizedGrantTypes("client_credentials")
+                    .scopes("trust")
+                    .resourceIds(RESOURCE_ID)
+                    .and()
+                    .withClient("clientauthcode")
+                    .secret("123456")
+                    .authorizedGrantTypes("authorization_code", "refresh_token")
+                    .scopes("read", "write")
+                    .resourceIds(RESOURCE_ID);
         }
 
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-            endpoints.tokenStore(tokenStore).authenticationManager(authenticationManager);
+            endpoints.tokenStore(tokenStore).authenticationManager(authenticationManager).userDetailsService(userDetailsService);
         }
     }
 

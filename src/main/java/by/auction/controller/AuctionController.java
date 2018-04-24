@@ -26,7 +26,6 @@ import java.util.Locale;
  */
 @RestController
 @RequestMapping(value = "/api/auctions")
-@CrossOrigin
 public class AuctionController {
 
     @Autowired

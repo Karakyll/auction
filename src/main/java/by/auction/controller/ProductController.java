@@ -21,7 +21,6 @@ import java.util.Locale;
  */
 @RestController
 @RequestMapping(value = "/api/products")
-@CrossOrigin
 public class ProductController {
 
     @Autowired

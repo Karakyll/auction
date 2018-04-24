@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Locale;
 
 @RestController
-@RequestMapping(value = { "/api/", "/api/about" })
-@CrossOrigin
+@RequestMapping(value = { "/", "about" })
 public class MainController {
 
     @Autowired

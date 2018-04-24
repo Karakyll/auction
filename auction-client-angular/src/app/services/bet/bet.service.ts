@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 import {Bet} from "../../models/bet";
 
-const uri = 'http://localhost:8081/bets';
+const uri = 'http://localhost:8081/api/bets';
 
 @Injectable()
 export class BetService {

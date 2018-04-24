@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
-import {User} from "../../models/user";
+import { OAuthService} from 'angular-oauth2-oidc';
+import { User } from "../../models/user";
 
-const uri= 'http://localhost:8081/admin/users';
+const uri= 'http://localhost:8081/api/admin/users';
 
 @Injectable()
 export class UserService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private oauthService:OAuthService){}
 
   getAllUsers():Observable<User[]> {
+    /*const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'Authorization': 'Bearer '+this.oauthService.getAccessToken()
+      })
+    };*/
     return this.http.get<User[]>(uri);
   }
 

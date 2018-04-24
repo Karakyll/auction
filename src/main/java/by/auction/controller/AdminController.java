@@ -19,7 +19,6 @@ import java.util.Locale;
  */
 @RestController
 @RequestMapping(value = "/api/admin")
-@CrossOrigin
 public class AdminController {
 
     @Autowired

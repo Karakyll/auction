@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 /**
  * Configuration class for Spring Security
@@ -61,11 +62,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .httpBasic().disable()
-                .authorizeRequests()
-                .antMatchers("/login/**").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers("/login").permitAll()
+                .antMatchers("/oauth/token/revokeById/**").permitAll()
+                .antMatchers("/tokens/**").permitAll()
+                .anyRequest().authenticated()
+                .and().csrf().disable().exceptionHandling()
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"));
     }
 
     /**

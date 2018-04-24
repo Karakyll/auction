@@ -21,7 +21,6 @@ import java.util.Locale;
  */
 @RestController
 @RequestMapping(value = "/api/bets")
-@CrossOrigin
 public class BetController {
 
     @Autowired
