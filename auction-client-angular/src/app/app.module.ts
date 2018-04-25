@@ -19,7 +19,9 @@ import { CategoryService } from "./services/category/category.service";
 import { BetService } from "./services/bet/bet.service";
 import { UserService } from "./services/user/user.service";
 import { LoginService } from "./services/login/login.service";
-
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HeaderComponent } from './components/header/header.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 
 const appRoutes: Routes = [
@@ -28,7 +30,8 @@ const appRoutes: Routes = [
   {path:'categories', component:CategoryComponent},
   {path:'bets', component:BetComponent},
   {path:'users', component:UserComponent},
-  {path:'llogin', component:LoginComponent}
+  {path:'login', component:LoginComponent},
+  {path:'signup', component:SignupComponent}
 ];
 
 @NgModule({
@@ -39,7 +42,10 @@ const appRoutes: Routes = [
     CategoryComponent,
     BetComponent,
     UserComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent,
+    HeaderComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

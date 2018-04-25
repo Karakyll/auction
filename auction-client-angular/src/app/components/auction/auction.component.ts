@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuctionService } from "../../services/auction/auction.service";
 import { Auction } from "../../models/auction";
+import { ActivatedRoute, Router } from "@angular/router";
 
 
 @Component({
@@ -12,12 +13,17 @@ export class AuctionComponent implements OnInit {
 
   auctions:Auction[];
 
-  constructor(private auctionService:AuctionService) { }
+  constructor(private auctionService:AuctionService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.auctionService.getAllAuctions().subscribe((res) => {
-      this.auctions = res;
+    this.activatedRoute.params.subscribe(params => {
+      console.log("get param");
+      console.log(params['searchTag']);
     });
+    this.auctionService.getOngoingAuctions().subscribe(res => {
+      this.auctions = res;
+    })
+
   }
 
   deleteAuction(auction) {
