@@ -1,0 +1,19 @@
+.bg-dark {
+  background-color: #212529 !important;
+}
+.nav-item {
+  margin: 1px;
+}
+.navbar {
+  padding-top: 1px;
+}
+.form-inline {
+  margin-top: 5px;
+}
+.form-control-sm {
+  margin-right: 5px;
+  border: 0px;
+}
+.btn-sm {
+  border: 0px;
+}
