@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { OAuthModule } from "angular-oauth2-oidc";
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
+import {CollapseModule, BsModalRef, ModalModule} from "ngx-bootstrap";
 
 import { AppComponent } from './app.component';
 import { AuctionComponent } from "./components/auction/auction.component";
@@ -12,6 +13,11 @@ import { CategoryComponent } from "./components/category/category.component";
 import { BetComponent } from "./components/bet/bet.component";
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/login/login.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HeaderComponent } from './components/header/header.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { AuctionDetailsComponent } from './components/auction-details/auction-details.component';
+import { AboutComponent } from './components/about/about.component';
 
 import { AuctionService } from "./services/auction/auction.service";
 import { ProductService } from "./services/product/product.service";
@@ -19,19 +25,17 @@ import { CategoryService } from "./services/category/category.service";
 import { BetService } from "./services/bet/bet.service";
 import { UserService } from "./services/user/user.service";
 import { LoginService } from "./services/login/login.service";
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { HeaderComponent } from './components/header/header.component';
-import { SignupComponent } from './components/signup/signup.component';
 
 
 const appRoutes: Routes = [
+  {path:'', component:AboutComponent},
   {path:'auctions', component:AuctionComponent},
   {path:'products', component:ProductComponent},
-  {path:'categories', component:CategoryComponent},
   {path:'bets', component:BetComponent},
   {path:'users', component:UserComponent},
   {path:'login', component:LoginComponent},
-  {path:'signup', component:SignupComponent}
+  {path:'signup', component:SignupComponent},
+  {path:'auctions/:id', component:AuctionDetailsComponent}
 ];
 
 @NgModule({
@@ -45,14 +49,18 @@ const appRoutes: Routes = [
     LoginComponent,
     NavbarComponent,
     HeaderComponent,
-    SignupComponent
+    SignupComponent,
+    AuctionDetailsComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    OAuthModule.forRoot()
+    Angular2FontawesomeModule,
+    CollapseModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [
     AuctionService,
@@ -60,7 +68,8 @@ const appRoutes: Routes = [
     CategoryService,
     BetService,
     UserService,
-    LoginService
+    LoginService,
+    BsModalRef
   ],
   bootstrap: [AppComponent]
 })

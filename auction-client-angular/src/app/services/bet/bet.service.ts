@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable, Output, TemplateRef} from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 import {Bet} from "../../models/bet";
@@ -8,7 +8,16 @@ const uri = 'http://localhost:8081/api/bets';
 @Injectable()
 export class BetService {
 
+  bets:Bet[];
+
   constructor(private http:HttpClient) { }
+
+  @Output() change: EventEmitter<Bet[]> = new EventEmitter();
+
+  toggle(bets) {
+    this.bets = bets;
+    this.change.emit(this.bets);
+  }
 
   getAllBets():Observable<Bet[]> {
     return this.http.get<Bet[]>(uri);

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
-import { OAuthService} from 'angular-oauth2-oidc';
 import { User } from "../../models/user";
 
 const uri= 'http://localhost:8081/api/admin/users';
@@ -9,7 +8,7 @@ const uri= 'http://localhost:8081/api/admin/users';
 @Injectable()
 export class UserService {
 
-  constructor(private http:HttpClient, private oauthService:OAuthService){}
+  constructor(private http:HttpClient){}
 
   getAllUsers():Observable<User[]> {
     /*const httpOptions = {

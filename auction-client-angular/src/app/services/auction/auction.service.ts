@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 import { Auction } from "../../models/auction";
@@ -9,6 +9,12 @@ const uri= 'http://localhost:8081/api/auctions';
 export class AuctionService {
 
   constructor(private http:HttpClient) { }
+
+  @Output() search: EventEmitter<string> = new EventEmitter();
+
+  searchTagChange(searchTag:string) {
+    this.search.emit(searchTag);
+  }
 
   getAllAuctions():Observable<Auction[]> {
     return this.http.get<Auction[]>(uri);
