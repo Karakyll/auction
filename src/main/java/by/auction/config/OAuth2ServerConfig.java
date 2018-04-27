@@ -44,7 +44,7 @@ public class OAuth2ServerConfig {
         public void configure(HttpSecurity http) throws Exception {
             http.anonymous().disable()
                     .authorizeRequests()
-                    .antMatchers("/login/**").hasAuthority("ADMIN")
+                    .antMatchers("/bets/**").hasRole("ADMIN")
                     .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
         }
     }

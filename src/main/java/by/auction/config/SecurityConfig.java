@@ -62,12 +62,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login").permitAll()
-                .antMatchers("/oauth/token/revokeById/**").permitAll()
-                .antMatchers("/tokens/**").permitAll()
-                .anyRequest().authenticated()
-                .and().csrf().disable().exceptionHandling()
-                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"));
+        http.csrf().disable()
+                .anonymous().disable()
+                .authorizeRequests()
+                .antMatchers("/oauth/token").permitAll()
+                .antMatchers("/bets/**").hasRole("ADMIN");
     }
 
     /**
