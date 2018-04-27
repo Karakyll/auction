@@ -1,0 +1,10 @@
+.card {
+  margin: 10px;
+  size: 100px;
+}
+.card-deck {
+  margin: 10px;
+}
+.card-block {
+  min-width: 100px;
+}

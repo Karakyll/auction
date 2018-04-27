@@ -1,31 +1,15 @@
-<p>
-  auction works!
-</p>
-<table>
-  <tr>
-    <td><b>Auction ID</b></td>
-    <td><b>Owner</b></td>
-    <td><b>Product</b></td>
-    <td><b>Price</b></td>
-    <td><b>Created</b></td>
-    <td><b>End time</b></td>
-    <td><b>Finished</b></td>
-    <td><b>Description</b></td>
-    <td><b>Delete auction</b></td>
-    <td><b>Duplicate auction</b></td>
-    <td><b>Finish auction</b></td>
-  </tr>
-  <tr *ngFor="let auction of auctions">
-    <td>{{auction.id}}</td>
-    <td>{{auction.owner_name}}</td>
-    <td>{{auction.product.name}}</td>
-    <td>{{auction.product.price}}</td>
-    <td>{{auction.createTime}}</td>
-    <td>{{auction.endTime}}</td>
-    <td>{{auction.finished}}</td>
-    <td>{{auction.description}}</td>
-    <td><button (click)="deleteAuction(auction); $event.stopPropagation();">X</button></td>
-    <td><button (click)="saveAuction(auction); $event.stopPropagation();">♥</button></td>
-    <td><button (click)="finishAuction(auction); $event.stopPropagation();">S</button></td>
-  </tr>
-</table>
+<div class="card-deck">
+  <div *ngFor="let auction of auctions">
+      <div class="card" routerLink="/auctions/{{auction.id}}">
+        <div class="card-header">
+          <h4 class="card-title">{{auction.product.name}}</h4>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{auction.description}}</p>
+        </div>
+        <div class="card-footer">
+          <p class="card-text"><b>Price:</b> {{auction.product.price}} $</p>
+        </div>
+      </div>
+  </div>
+</div>

@@ -13,15 +13,23 @@ export class AuctionComponent implements OnInit {
 
   auctions:Auction[];
 
-  constructor(private auctionService:AuctionService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private auctionService:AuctionService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      console.log("get param");
-      console.log(params['searchTag']);
-    });
-    this.auctionService.getOngoingAuctions().subscribe(res => {
-      this.auctions = res;
+    let param = this.route.snapshot.paramMap.get('search');
+    if (!param) {
+      this.auctionService.getOngoingAuctions().subscribe(res => {
+        this.auctions = res;
+      });
+    } else {
+      this.auctionService.getAuctionsProductContains(param).subscribe(res => {
+        this.auctions = res;
+      });
+    }
+    this.auctionService.search.subscribe(searchTag => {
+      this.auctionService.getAuctionsProductContains(searchTag).subscribe(res => {
+        this.auctions = res;
+      })
     })
 
   }
