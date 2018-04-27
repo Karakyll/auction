@@ -1,0 +1,30 @@
+<div class="auction-detail">
+  <div class="jumbotron">
+    <div class="container">
+      <h2 *ngIf="auction">{{auction.product.name}}</h2>
+      <table class="table">
+        <tr>
+          <td>
+            <h5 *ngIf="auction">{{auction.product.description}}</h5>
+            <p *ngIf="auction">{{auction.description}}</p>
+          </td>
+          <td>
+            <div *ngIf="auction"><b>Start price: </b>{{auction.product.price}} $</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div *ngIf="bets"><b>Current bet: </b> {{bets[0].price}} $</div>
+            <button type="button" class="btn btn-sm btn-link" (click)="clickHistory(bets)">bets history</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-primary">Place a bet</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div>
+    </div>
+  </div>
+</div>
+<app-bet></app-bet>
