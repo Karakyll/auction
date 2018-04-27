@@ -33,10 +33,21 @@ export class AuctionDetailsComponent implements OnInit {
         }
       });
     });
+    this.betService.betsRefresh.subscribe(res => {
+      this.betService.getBetsByAuctionId(this.auction.id).subscribe(res => {
+        if (res.length !== 0) {
+          this.bets = res;
+        }
+      });
+    })
   }
 
-  clickHistory (bets) {
-    this.betService.toggle(bets);
+  clickHistory (auction) {
+    this.betService.toggleBets(auction);
+  }
+
+  clickNewBet(auction) {
+    this.betService.toggleNeBet(auction);
   }
 
 }

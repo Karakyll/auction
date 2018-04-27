@@ -2,21 +2,33 @@ import {EventEmitter, Injectable, Output, TemplateRef} from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 import {Bet} from "../../models/bet";
+import {Auction} from "../../models/auction";
 
 const uri = 'http://localhost:8081/api/bets';
 
 @Injectable()
 export class BetService {
 
-  bets:Bet[];
+  auction:Auction;
 
   constructor(private http:HttpClient) { }
 
-  @Output() change: EventEmitter<Bet[]> = new EventEmitter();
+  @Output() betsCall: EventEmitter<Auction> = new EventEmitter();
+  @Output() newBetCall: EventEmitter<Auction> = new EventEmitter();
+  @Output() betsRefresh: EventEmitter<any> = new EventEmitter();
 
-  toggle(bets) {
-    this.bets = bets;
-    this.change.emit(this.bets);
+  toggleBets(auction) {
+    this.auction = auction;
+    this.betsCall.emit(this.auction);
+  }
+
+  toggleNeBet(auction) {
+    this.auction = auction;
+    this.newBetCall.emit(this.auction);
+  }
+
+  refreshBets() {
+    this.betsRefresh.emit();
   }
 
   getAllBets():Observable<Bet[]> {

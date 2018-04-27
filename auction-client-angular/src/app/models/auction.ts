@@ -5,8 +5,8 @@ export class Auction {
     public id:number,
     public owner_name:string,
     public product:Product,
-    public createTime:number,
-    public endTime:number,
+    public createTime:string,
+    public endTime:string,
     public description:string,
     public finished:boolean
   ){};

@@ -1,33 +1,67 @@
 <div bsModal #betsModal="bs-modal" class="modal fade">
-  <div class="modal-dialog ">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 id="dialog-child-name" class="modal-title pull-left">Bets for: </h3>
-        <h3 *ngIf="auction" class="modal-title pull-right">{{auction.product.name}}</h3>
+        <div class="col col-4">
+          <h3 id="dialog-bets" class="modal-title pull-left">Bets for: </h3>
+        </div>
+        <div class="col ">
+          <h3 *ngIf="auction" class="modal-title">{{auction.product.name}}</h3>
+        </div>
+        <div class="col col-sm-1">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="hideBetsModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
       <div class="modal-body" *ngIf="!bets;else unset">
         <h5 class="modal-content">No bets yet.</h5>
       </div>
       <div class="modal-body" *ngFor="let bet of bets" #unset>
-        <div >
-          <table class="table">
-            <tr>
-              <td>
-                <div class="pull-left"><b>Date:</b> {{bet.betTime}}</div>
-              </td>
-              <td>
-                <div class="pull-left"><b>User: </b> {{bet.user_name}}</div>
-              </td>
-              <td>
-                <div class="pull-right"><b>Price: </b>{{bet.price}} $</div>
-              </td>
-            </tr>
-          </table>
+        <div class="row">
+          <div class="col col-sm-5"><b>Date:</b> {{bet.betTime}}</div>
+          <div class="col col-sm"><b>User: </b> {{bet.user_name}}</div>
+          <div class="col col-sm"><b>Price: </b>{{bet.price}} $</div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div bsModal #newBetModal="bs-modal" class="modal fade">
 
+<div bsModal #newBetModal="bs-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="col">
+          <h3 id="dialog-new-bet" class="modal-title pull-left">Place new bet</h3>
+        </div>
+        <div class="col">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="hideNewBetModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="bets || auction" class="modal-body">
+        <form (ngSubmit)="onSubmitNewBet()" #newBetForm="ngForm">
+          <div class="col col-sm form-group">
+            <label for="newBet">New bet: </label>
+            <input class="form-control form-control-sm"
+                   type="number"
+                   name="newBet"
+                   id="newBet"
+                   [(ngModel)]="newBet"
+                   [min]="bets ? bets[bets.length - 1] : auction.product.price"
+                   [step]="auction ? auction.product.price * 0.1 : 10"
+                   #betInput="ngModel"
+                   required>
+            <button  class="btn btn-primary"
+                    type="submit"
+                    [disabled]="!newBetForm.form.valid
+                    || newBet < auction.product.price
+                    || !bets || newBet < bets[bets.length - 1].price">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

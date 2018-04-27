@@ -25,6 +25,7 @@ import { CategoryService } from "./services/category/category.service";
 import { BetService } from "./services/bet/bet.service";
 import { UserService } from "./services/user/user.service";
 import { LoginService } from "./services/login/login.service";
+import { DateService } from "./services/date/date.service";
 
 
 const appRoutes: Routes = [
@@ -69,7 +70,8 @@ const appRoutes: Routes = [
     BetService,
     UserService,
     LoginService,
-    BsModalRef
+    BsModalRef,
+    DateService
   ],
   bootstrap: [AppComponent]
 })

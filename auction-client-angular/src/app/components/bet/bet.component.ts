@@ -1,9 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BetService} from "../../services/bet/bet.service";
-import {Bet} from "../../models/bet";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BetService } from "../../services/bet/bet.service";
+import { Bet } from "../../models/bet";
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import {Auction} from "../../models/auction";
-import {AuctionService} from "../../services/auction/auction.service";
+import { Auction } from "../../models/auction";
+import { AuctionService } from "../../services/auction/auction.service";
+import { DateService } from "../../services/date/date.service";
 
 @Component({
   selector: 'app-bet',
@@ -12,45 +13,66 @@ import {AuctionService} from "../../services/auction/auction.service";
 })
 export class BetComponent implements OnInit {
 
-  @ViewChild('betsModal') childModal: ModalDirective;
+  @ViewChild('betsModal') betsModal: ModalDirective;
+  @ViewChild('newBetModal') newBetModal: ModalDirective;
 
   config = {
-    keyboard: true
+    keyboard: true,
+    backdrop: false
   };
 
   bets:Bet[];
-
   auction:Auction;
+  newBet:number;
 
-  constructor(private betService:BetService, private auctionService: AuctionService) { }
+  constructor(private betService:BetService, private auctionService:AuctionService, private dateService:DateService) { }
 
   ngOnInit() {
-    this.betService.getAllBets().subscribe(res => {
-      this.bets = res;
-    });
-    this.betService.change.subscribe(bets => {
-      this.bets = bets;
-      if (bets) {
-        this.auctionService.getAuctionById(bets[0].auction_id).subscribe(res => {
-          this.auction = res;
+    this.betService.betsCall.subscribe(auction => {
+      this.auction = auction;
+      if (auction) {
+        this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {
+          this.bets = bets;
         })
       }
-      this.childModal.toggle();
-    })
+      this.betsModal.config = this.config;
+      this.betsModal.toggle();
+    });
+    this.betService.newBetCall.subscribe(auction => {
+      this.auction = auction;
+      if (auction) {
+        this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {
+          this.bets = bets;
+          if (this.bets.length == 0 ){
+            this.newBet = auction.product.price * 1.1;
+          } else {
+            this.newBet = this.bets[this.bets.length - 1].price * 1.1;
+          }
+        })
+      }
+      this.newBetModal.config = this.config;
+      this.newBetModal.toggle();
+    });
   }
 
-  deleteBet(bet) {
-    console.log("call delete");
-    this.betService.deleteBet(bet.id).subscribe();
-    console.log(bet);
+  hideBetsModal () {
+    this.betsModal.hide();
   }
 
-  saveBet(bet) {
-    console.log("call save");
+  hideNewBetModal () {
+    this.newBetModal.hide();
+  }
+
+  onSubmitNewBet() {
+    let bet = new Bet(null, this.auction.id, this.auction.owner_name, this.dateService.getDateTime(), this.newBet);
     this.betService.saveBet(bet).subscribe(res => {
-      console.log(res);
-    })
-
+      this.betService.refreshBets();
+      this.newBetModal.hide();
+    },
+      error => {
+      console.log("User or auction not found");
+      console.log(error);
+      })
   }
 
 }
