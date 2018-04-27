@@ -17,3 +17,24 @@
 .btn-sm {
   border: 0px;
 }
+.btn-dark {
+  background-color: #212529 !important;
+  border: 0px;
+  padding: 5px;
+  margin-top: 5px;
+}
+.dropdown-menu {
+  background-color: #495460;
+  padding: 1px;
+  min-width: 50px;
+}
+.dropdown-menu > button:hover {
+  background-color: #596572;
+}
+.dropdown-item {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 0px;
+  color: aliceblue;
+}

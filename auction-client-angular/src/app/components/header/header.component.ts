@@ -9,15 +9,20 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
 
-  public searchTag:string;
+  public searchTag:string = "";
 
-  constructor(private auctionService:AuctionService, private router: Router) { }
+  constructor(
+    private auctionService:AuctionService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
 
   search() {
-    this.router.navigate(["/auctions"], {queryParams: {search: this.searchTag}});
+    this.router.navigate(["/auctions", {search: this.searchTag}]);
+    this.auctionService.searchTagChange(this.searchTag);
+    this.searchTag = "";
   }
 
 }
