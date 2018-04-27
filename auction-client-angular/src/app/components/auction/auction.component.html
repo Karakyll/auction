@@ -1,4 +1,4 @@
-<div class="card-deck">
+<div  class="card-deck">
   <div *ngFor="let auction of auctions">
       <div class="card" routerLink="/auctions/{{auction.id}}">
         <div class="card-header">
@@ -12,4 +12,7 @@
         </div>
       </div>
   </div>
+</div>
+<div *ngIf="!auctions || auctions.length == 0">
+  <h2>No match found for your request</h2>
 </div>

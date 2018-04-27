@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { CategoryService } from "../../services/category/category.service";
 import { Category } from "../../models/category";
+import {AuctionService} from "../../services/auction/auction.service";
 
 @Component({
   selector: 'app-category',
@@ -15,7 +16,7 @@ export class CategoryComponent implements OnInit {
 
   inputCategory:string;
 
-  constructor(private categoryService:CategoryService) { }
+  constructor(private categoryService:CategoryService, private auctionService:AuctionService) { }
 
   ngOnInit() {
     this.categoryService.getAllCategories().subscribe((res) => {
@@ -24,6 +25,10 @@ export class CategoryComponent implements OnInit {
     this.categoryService.change.subscribe(isOpen => {
       this.isOpen = isOpen;
     })
+  }
+
+  changeCategory(category) {
+    this.auctionService.categoryChange(category);
   }
 
   saveCategory() {

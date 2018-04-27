@@ -26,8 +26,13 @@ export class AuctionComponent implements OnInit {
         this.auctions = res;
       });
     }
-    this.auctionService.search.subscribe(searchTag => {
+    this.auctionService.searchChanged.subscribe(searchTag => {
       this.auctionService.getAuctionsProductContains(searchTag).subscribe(res => {
+        this.auctions = res;
+      })
+    })
+    this.auctionService.categoryChanged.subscribe(categiry => {
+      this.auctionService.getAuctionsByCategory(categiry).subscribe(res => {
         this.auctions = res;
       })
     })
