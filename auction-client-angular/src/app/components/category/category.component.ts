@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { CategoryService } from "../../services/category/category.service";
 import { Category } from "../../models/category";
 
@@ -9,6 +9,8 @@ import { Category } from "../../models/category";
 })
 export class CategoryComponent implements OnInit {
 
+  isOpen = false;
+
   categories:Category[];
 
   inputCategory:string;
@@ -18,6 +20,9 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {
     this.categoryService.getAllCategories().subscribe((res) => {
       this.categories = res;
+    });
+    this.categoryService.change.subscribe(isOpen => {
+      this.isOpen = isOpen;
     })
   }
 

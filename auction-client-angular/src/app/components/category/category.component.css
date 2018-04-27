@@ -1,0 +1,13 @@
+#sidebar {
+  padding: 0px;
+}
+
+#sidebar .list-group-item {
+  border-radius: 0;
+  background-color: #333;
+  color: #ccc;
+  border-left: 0;
+  border-right: 0;
+  border-color: #2c2c2c;
+  white-space: nowrap;
+}
