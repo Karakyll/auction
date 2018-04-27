@@ -1,23 +1,33 @@
-<p>
-  bet works!
-</p>
-<table>
-  <tr>
-    <td><b>Bet ID</b></td>
-    <td><b>Auction ID</b></td>
-    <td><b>User</b></td>
-    <td><b>Bet time</b></td>
-    <td><b>price</b></td>
-    <td><b>Delete auction</b></td>
-    <td><b>Duplicate auction</b></td>
-  </tr>
-  <tr *ngFor="let bet of bets">
-    <td>{{bet.id}}</td>
-    <td>{{bet.auction_id}}</td>
-    <td>{{bet.user_name}}</td>
-    <td>{{bet.betTime}}</td>
-    <td>{{bet.price}}</td>
-    <td><button (click)="deleteBet(bet); $event.stopPropagation();">X</button></td>
-    <td><button (click)="saveBet(bet); $event.stopPropagation();">♥</button></td>
-  </tr>
-</table>
+<div bsModal #betsModal="bs-modal" class="modal fade">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="dialog-child-name" class="modal-title pull-left">Bets for: </h3>
+        <h3 *ngIf="auction" class="modal-title pull-right">{{auction.product.name}}</h3>
+      </div>
+      <div class="modal-body" *ngIf="!bets;else unset">
+        <h5 class="modal-content">No bets yet.</h5>
+      </div>
+      <div class="modal-body" *ngFor="let bet of bets" #unset>
+        <div >
+          <table class="table">
+            <tr>
+              <td>
+                <div class="pull-left"><b>Date:</b> {{bet.betTime}}</div>
+              </td>
+              <td>
+                <div class="pull-left"><b>User: </b> {{bet.user_name}}</div>
+              </td>
+              <td>
+                <div class="pull-right"><b>Price: </b>{{bet.price}} $</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #newBetModal="bs-modal" class="modal fade">
+
+</div>
