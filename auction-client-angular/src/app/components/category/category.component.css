@@ -10,4 +10,5 @@
   border-right: 0;
   border-color: #2c2c2c;
   white-space: nowrap;
+  min-width: 250px;
 }

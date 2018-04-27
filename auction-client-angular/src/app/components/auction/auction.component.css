@@ -5,6 +5,7 @@
 .card-deck {
   margin: 10px;
 }
-.card-block {
-  min-width: 100px;
+
+.col-sm {
+  min-width: 320px;
 }
