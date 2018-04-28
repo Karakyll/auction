@@ -1,47 +1,52 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams} from "@angular/common/http";
-import { Cookie } from "ng2-cookies"
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Router } from "@angular/router";
-import {ConfigService} from "../config/config.service";
-import {UserService} from "../user/user.service";
 import { Token } from "../../models/token";
-import {User} from "../../models/user";
+import { User } from "../../models/user";
+import { Observable } from "rxjs/Observable";
+import { Role } from "../../models/role";
 
 @Injectable()
 export class LoginService {
 
+  private API_BASE_HREF = 'http://localhost:8081/api/';
+  private HTTP_OPTIONS = {
+    headers: new HttpHeaders({
+      'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+      'Accept': 'application/json'
+    })
+  };
   private defaultToken: Token = {
     access_token: null,
     token_type: null,
     expires_in: 0,
     scope: null
   };
-
-  private deafultUser: User = {
+  private defaultUser: User = {
     userName: null,
     set_password: null,
     enabled: null,
     roles: null
   };
 
-  constructor(private http:HttpClient, private router:Router, private api:ConfigService, private userService:UserService) {
+  constructor(private http:HttpClient, private router:Router) {
   }
 
   obtainAccessToken(loginData) {
-
     const params = new HttpParams()
       .set('client_id', 'auctionClient')
       .append('client_secret', 'secret')
       .append('grant_type', 'password')
       .append('username', loginData.username)
       .append('password', loginData.password);
-
-    this.http.post('http://localhost:8081/oauth/token', params, this.api.get_login_http_options())
+    this.http.post('http://localhost:8081/oauth/token', params, this.HTTP_OPTIONS)
       .subscribe(
         data => {
           this.saveToken(data);
-          console.log("logout");
-          console.log(this.getToken());
+          this.getUserRoles(loginData.username).subscribe(res => {
+            this.saveUserData(new User(loginData.username,null, true, res))
+          });
+          console.log(this.getUserData());
           this.logout();
         },
         err => {
@@ -51,24 +56,17 @@ export class LoginService {
   }
 
   saveToken(token) {
-    console.log("in save");
     let expireDate = new Date().getTime() + (1000 * token.expires_in);
     localStorage.setItem('token', JSON.stringify(token));
     localStorage.setItem('expires_at', JSON.stringify(expireDate));
-    console.log("token");
-    console.log(this.getToken());
   }
 
-  getToken() {
+  getToken<Token>() {
     return JSON.parse(localStorage.getItem('token'));
   }
 
   checkToken() {
     return localStorage.getItem('token') != null;
-  }
-
-  logout() {
-    this.saveToken(this.defaultToken);
   }
 
   isExpired() {
@@ -80,6 +78,23 @@ export class LoginService {
     return JSON.parse(expiration) - new Date().getTime();
   }
 
+  saveUserData(user:User) {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
 
+  getUserData() {
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
+  logout() {
+    this.saveToken(this.defaultToken);
+    this.saveUserData(this.defaultUser);
+  }
+
+  getUserRoles(username:string):Observable<Role[]> {
+    let options = this.HTTP_OPTIONS;
+    options['params'] = new HttpParams().append('username', username);
+    return this.http.get<Role[]>(this.API_BASE_HREF + "roles/", options);
+  }
 
 }

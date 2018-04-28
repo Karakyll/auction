@@ -26,7 +26,6 @@ import { BetService } from "./services/bet/bet.service";
 import { UserService } from "./services/user/user.service";
 import { LoginService } from "./services/login/login.service";
 import { DateService } from "./services/date/date.service";
-import { ConfigService } from "./services/config/config.service";
 
 
 const appRoutes: Routes = [
@@ -73,7 +72,6 @@ const appRoutes: Routes = [
     LoginService,
     BsModalRef,
     DateService,
-    ConfigService
   ],
   bootstrap: [AppComponent]
 })

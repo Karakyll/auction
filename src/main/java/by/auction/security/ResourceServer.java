@@ -21,8 +21,8 @@ public class ResourceServer extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.anonymous().disable().authorizeRequests()
-                .antMatchers("/").permitAll()
                 .antMatchers("/admin**").hasAuthority("ADMIN")
+                .antMatchers("/api/roles").authenticated()
                 .and()
                 .exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
     }

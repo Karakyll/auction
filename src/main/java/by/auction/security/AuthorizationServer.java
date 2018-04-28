@@ -28,7 +28,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
                 .authorizedGrantTypes("password")
                 .scopes("read","write","edit")
                 .secret("secret")
-                .accessTokenValiditySeconds(120);
+                .accessTokenValiditySeconds(1200);
     }
 
     @Override

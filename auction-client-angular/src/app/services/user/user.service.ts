@@ -1,36 +1,44 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 import { User } from "../../models/user";
-import {ConfigService} from "../config/config.service";
+import {LoginService} from "../login/login.service";
 
 @Injectable()
 export class UserService {
 
-  constructor(private http:HttpClient, private api:ConfigService){}
+  private API_BASE_HREF = 'http://localhost:8081/api/';
+  private HTTP_OPTIONS = {
+    headers: new HttpHeaders({
+      'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+      'Accept': 'application/json'
+    })
+  };
+
+  constructor(private http:HttpClient, private api:LoginService){}
 
   uri() {
-    return this.api.get_api_base_href() + "admin/users";
+    return this.API_BASE_HREF + "admin/users";
   }
 
   getAllUsers():Observable<User[]> {
-    return this.http.get<User[]>(this.uri(), this.api.get_request_http_options());
+    return this.http.get<User[]>(this.uri(), this.HTTP_OPTIONS);
   }
 
   getUserByUserName(username:string):Observable<User> {
-    let options = this.api.get_request_http_options();
-    options.params.append('username', username);
+    let options = this.HTTP_OPTIONS;
+    options['params'] = new HttpParams().append('username', username);
     return this.http.get<User>(this.uri(), options);
   }
 
   getEnabledUsers(enabled):Observable<User[]> {
-    let options = this.api.get_request_http_options();
-    options.params.append('enabled', enabled);
+    let options = this.HTTP_OPTIONS;
+    options['params'] = new HttpParams().append('enabled', enabled);
     return this.http.get<User[]>(this.uri(), options);
   }
 
   saveUser(user:User):Observable<User> {
-    return this.http.post<User>(this.uri(), user, this.api.get_request_http_options());
+    return this.http.post<User>(this.uri(), user, this.HTTP_OPTIONS);
   }
 
   deleteUser(username:string) {
@@ -40,26 +48,26 @@ export class UserService {
   }
 
   enableUser(username:string):Observable<User> {
-    let options = this.api.get_request_http_options();
-    options.params.append('username', username).append('enable', "true");
+    let options = this.HTTP_OPTIONS;
+    options['params'] = new HttpParams().append('username', username).append('enable', "true");
     return this.http.put<User>(this.uri(), null, options);
   }
 
   disableUser(username:string):Observable<User> {
-    let options = this.api.get_request_http_options();
-    options.params.append('username', username).append('enable', "false");
+    let options = this.HTTP_OPTIONS;
+    options['params'] = new HttpParams().append('username', username).append('enable', "false");
     return this.http.put<User>(this.uri(), null, options);
   }
 
   promoteUser(username:string):Observable<User> {
-    let options = this.api.get_request_http_options();
-    options.params.append('username', username).append('promote', "true");
+    let options = this.HTTP_OPTIONS;
+    options['params'] = new HttpParams().append('username', username).append('promote', "true");
     return this.http.put<User>(this.uri(), null, options);
   }
 
   demoteUser(username:string):Observable<User> {
-    let options = this.api.get_request_http_options();
-    options.params.append('username', username).append('promote', "false");
+    let options = this.HTTP_OPTIONS;
+    options['params'] = new HttpParams().append('username', username).append('promote', "false");
     return this.http.put<User>(this.uri(), null, options);
   }
 
