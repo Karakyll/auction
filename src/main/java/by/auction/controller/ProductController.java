@@ -59,7 +59,7 @@ public class ProductController {
             logger.info(messageSource.getMessage("controller.product.get.by.id.ok", new Object[]{productId}, Locale.getDefault()));
             return ResponseEntity.ok(productService.findById(productId).get());
         } else {
-            logger.info(messageSource.getMessage("controller.product.error.bet.not.found", new Object[]{productId}, Locale.getDefault()));
+            logger.info(messageSource.getMessage("controller.product.error.product.not.found", new Object[]{productId}, Locale.getDefault()));
             return ResponseEntity.notFound().build();
         }
     }

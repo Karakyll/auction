@@ -21,13 +21,11 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
         container.addListener(new ContextLoaderListener(context));
 
+        context.setServletContext(container);
+
         ServletRegistration.Dynamic dispatcher = container.addServlet("dispatcher", new DispatcherServlet(context));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
 
-        container.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain"))
-                .addMappingForServletNames(null, false, "dispatcher");
-
     }
-
 }

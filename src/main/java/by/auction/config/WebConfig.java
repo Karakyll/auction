@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.*;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "by.auction.controller")
+@ComponentScan("by.auction")
 public class WebConfig implements WebMvcConfigurer {
 
     private final String corsOrigin = "http://localhost:4200";
@@ -30,7 +30,6 @@ public class WebConfig implements WebMvcConfigurer {
         return messageSource;
     }
 
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("*").addResourceLocations("");
@@ -39,6 +38,12 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("forward:/index.html");
+        registry.addViewController("/login").setViewName("forward:/index.html");
+        registry.addViewController("/login/**").setViewName("forward:/index.html");
+        registry.addViewController("/signup").setViewName("forward:/index.html");
+        registry.addViewController("/signup/**").setViewName("forward:/index.html");
+        registry.addViewController("/api").setViewName("forward:/index.html");
+        registry.addViewController("/api/**").setViewName("forward:/index.html");
     }
 
     @Override
@@ -52,7 +57,6 @@ public class WebConfig implements WebMvcConfigurer {
                         HttpHeaders.CONTENT_TYPE,
                         HttpHeaders.AUTHORIZATION,
                         HttpHeaders.ACCEPT
-
                 )
                 .allowCredentials(true)
                 .maxAge(3600);

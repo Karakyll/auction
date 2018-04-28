@@ -17,7 +17,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <hibernate.version>5.2.16.Final</hibernate.version>
         <spring.version>5.0.5.RELEASE</spring.version>
-        <spring.security.version>5.0.4.RELEASE</spring.security.version>
+        <spring.security.version>4.1.1.RELEASE</spring.security.version>
         <springsecurityoauth2.version>2.3.1.RELEASE</springsecurityoauth2.version>
         <logback.version>1.2.3</logback.version>
     </properties>
@@ -37,20 +37,12 @@
             <version>42.2.1</version>
         </dependency>
 
-
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-logging</artifactId>
-                    <groupId>commons-logging</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
-
 
         <!-- Spring WEB -->
         <dependency>
@@ -63,14 +55,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-logging</artifactId>
-                    <groupId>commons-logging</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
-
 
         <!-- Spring ORM -->
         <dependency>
@@ -85,7 +70,6 @@
             <version>2.0.6.RELEASE</version>
         </dependency>
 
-
         <!-- Spring Security -->
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -99,14 +83,12 @@
             <version>${spring.security.version}</version>
         </dependency>
 
-
         <!-- Spring Security OAuth2-->
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2</artifactId>
             <version>${springsecurityoauth2.version}</version>
         </dependency>
-
 
         <!-- Servlet -->
         <dependency>
@@ -116,14 +98,12 @@
             <scope>provided</scope>
         </dependency>
 
-
         <!-- JSON serializer -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.9.5</version>
         </dependency>
-
 
         <!-- Logging -->
         <dependency>
