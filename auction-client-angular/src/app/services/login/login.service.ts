@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Token } from "../../models/token";
@@ -28,7 +28,22 @@ export class LoginService {
     roles: null
   };
 
+  @Output() loggedChange: EventEmitter<boolean> = new EventEmitter();
+
   constructor(private http:HttpClient, private router:Router) {
+  }
+
+  test(data) {
+    this.saveUserData(new User(data.username,
+      null,
+      true,
+      [new Role(1,"ADMIN"), new Role(2, "USER")]));
+    this.saveToken(new Token("access1", "BEARER", 2000, ["read", "write"]));
+    this.loggedChange.emit(true);
+  }
+
+  isAuthenticated() {
+    return this.getUserData().userName !== null || !this.isExpired();
   }
 
   loginUser (loginData) {
@@ -38,6 +53,7 @@ export class LoginService {
         this.getUserRoles(loginData.username).subscribe(res => {
           this.saveUserData(new User(loginData.username,null, true, res))
         });
+        this.loggedChange.emit(true);
         return true;
       },
       err => {
@@ -83,13 +99,14 @@ export class LoginService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  getUserData() {
+  getUserData():User {
     return JSON.parse(localStorage.getItem('user'));
   }
 
   logout() {
     this.saveToken(this.defaultToken);
     this.saveUserData(this.defaultUser);
+    this.loggedChange.emit(false);
   }
 
   getUserRoles(username:string):Observable<Role[]> {
@@ -98,6 +115,15 @@ export class LoginService {
       params: new HttpParams().append('username', username)
     };
     return this.http.get<Role[]>(this.API_BASE_HREF + "roles/", options);
+  }
+
+  hasRole(role:string):boolean {
+    this.getUserData().roles.forEach(r => {
+      if(r.role === role) {
+        return true;
+      }
+    })
+    return false;
   }
 
 }

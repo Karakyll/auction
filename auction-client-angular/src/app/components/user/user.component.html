@@ -1,19 +1,14 @@
-<p>
-  user works!
-</p>
-<table>
-  <tr>
-    <td><b>Name</b></td>
-    <td><b>Enabled</b></td>
-    <td><b>Delete user</b></td>
-    <td><b>Enable user</b></td>
-    <td><b>Disable user</b></td>
-  </tr>
-  <tr *ngFor="let user of users">
-    <td>{{user.userName}}</td>
-    <td>{{user.enabled}}</td>
-    <td><button (click)="deleteUser(user); $event.stopPropagation();">X</button></td>
-    <td><button (click)="enableUser(user); $event.stopPropagation();">♥</button></td>
-    <td><button (click)="disableUser(user); $event.stopPropagation();">Ban</button></td>
-  </tr>
-</table>
+<div class="jumbotron jumbotron-fluid">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+      <h4>Welcome, {{user.userName}}</h4>
+    </div>
+    <div class="col"></div>
+  </div>
+
+</div>
+<div class="row">
+
+
+</div>

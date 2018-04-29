@@ -18,6 +18,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { AuctionDetailsComponent } from './components/auction-details/auction-details.component';
 import { AboutComponent } from './components/about/about.component';
+import { StartAuctionComponent } from './components/start-auction/start-auction.component';
 
 import { AuctionService } from "./services/auction/auction.service";
 import { ProductService } from "./services/product/product.service";
@@ -26,7 +27,7 @@ import { BetService } from "./services/bet/bet.service";
 import { UserService } from "./services/user/user.service";
 import { LoginService } from "./services/login/login.service";
 import { DateService } from "./services/date/date.service";
-import { StartAuctionComponent } from './components/start-auction/start-auction.component';
+import { RouterGuardService } from "./services/guard/router-guard.service";
 
 
 const appRoutes: Routes = [
@@ -34,7 +35,7 @@ const appRoutes: Routes = [
   {path:'auctions', component:AuctionComponent},
   {path:'products', component:ProductComponent},
   {path:'bets', component:BetComponent},
-  {path:'users', component:UserComponent},
+  {path:'user', component:UserComponent, canActivate:[RouterGuardService]},
   {path:'login', component:LoginComponent},
   {path:'signup', component:SignupComponent},
   {path:'auctions/:id', component:AuctionDetailsComponent}
@@ -74,6 +75,7 @@ const appRoutes: Routes = [
     LoginService,
     BsModalRef,
     DateService,
+    RouterGuardService
   ],
   bootstrap: [AppComponent]
 })

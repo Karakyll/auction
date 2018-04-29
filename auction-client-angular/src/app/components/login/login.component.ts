@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 export class LoginComponent implements OnInit {
 
   public loginData = {username: "", password: ""};
+  isFailed:boolean = false;
 
   constructor(
     private loginService:LoginService,
@@ -20,10 +21,13 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.loginService.loginUser(this.loginData)) {
+    /*if (this.loginService.loginUser(this.loginData)) {
       this.router.navigate(["/"]);
-    }
-
+    } else {
+      this.isFailed = true;
+    }*/
+    this.loginService.test(this.loginData);
+    this.router.navigate(["/"]);
   }
 
   logout() {
