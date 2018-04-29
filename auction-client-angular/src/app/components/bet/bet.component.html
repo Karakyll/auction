@@ -50,8 +50,8 @@
                    name="newBet"
                    id="newBet"
                    [(ngModel)]="newBet"
-                   [min]="bets ? bets[bets.length - 1] : auction.product.price"
-                   [step]="auction ? auction.product.price * 0.1 : 10"
+                   [min]="bets ? bets[bets.length - 1] : +auction.product.price.toFixed(2)"
+                   [step]="auction ? +(auction.product.price * 0.1).toFixed(2) : 10"
                    #betInput="ngModel"
                    required>
             <button  class="btn btn-primary"

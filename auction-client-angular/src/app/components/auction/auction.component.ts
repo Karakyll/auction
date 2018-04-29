@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuctionService } from "../../services/auction/auction.service";
 import { Auction } from "../../models/auction";
 import { ActivatedRoute, Router } from "@angular/router";
+import {LoginService} from "../../services/login/login.service";
 
 
 @Component({
@@ -16,7 +17,12 @@ export class AuctionComponent implements OnInit {
   showFin:boolean = false;
 
 
-  constructor(private auctionService:AuctionService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private auctionService:AuctionService,
+    private router:Router,
+    private route:ActivatedRoute,
+    private auth:LoginService
+  ) { }
 
   ngOnInit() {
     let search = this.route.snapshot.paramMap.get('search');
@@ -72,18 +78,14 @@ export class AuctionComponent implements OnInit {
     }
   }
 
-  deleteAuction(auction) {
-    this.auctionService.deleteAuctionById(auction.id).subscribe();
+  isAuthenticated() {
+    return this.auth.isAuthenticated();
   }
 
-  saveAuction(auction) {
-    this.auctionService.saveAuction(auction).subscribe();
+  startNewAuction() {
+    this.isAuthenticated() ? this.router.navigateByUrl("/auction/start") : this.router.navigateByUrl("/login");
   }
 
-  finishAuction(auction)  {
-    this.auctionService.finishAuction(auction.id).subscribe((res) => {
-      console.log(res);
-    })
-  }
+
 
 }

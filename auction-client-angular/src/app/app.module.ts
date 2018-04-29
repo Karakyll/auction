@@ -38,7 +38,8 @@ const appRoutes: Routes = [
   {path:'user', component:UserComponent, canActivate:[RouterGuardService]},
   {path:'login', component:LoginComponent},
   {path:'signup', component:SignupComponent},
-  {path:'auctions/:id', component:AuctionDetailsComponent}
+  {path:'auctions/:id', component:AuctionDetailsComponent},
+  {path:'auction/start', component:StartAuctionComponent, canActivate:[RouterGuardService]}
 ];
 
 @NgModule({

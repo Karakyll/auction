@@ -4,7 +4,7 @@ import { Bet } from "../../models/bet";
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Auction } from "../../models/auction";
 import { AuctionService } from "../../services/auction/auction.service";
-import { DateService } from "../../services/date/date.service";
+import { DateService } from "../../services/date/date.service";;
 
 @Component({
   selector: 'app-bet',
@@ -44,9 +44,9 @@ export class BetComponent implements OnInit {
         this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {
           this.bets = bets;
           if (this.bets.length == 0 ){
-            this.newBet = auction.product.price * 1.1;
+            this.newBet = +(auction.product.price * 1.1).toFixed(2);
           } else {
-            this.newBet = this.bets[this.bets.length - 1].price * 1.1;
+            this.newBet = +(this.bets[this.bets.length - 1].price * 1.1).toFixed(2);
           }
         })
       }
