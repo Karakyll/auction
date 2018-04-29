@@ -2,8 +2,8 @@
   <div class="row">
     <div [collapse]="!isOpen" id="sidebar">
       <div class="list-group" *ngFor="let category of categories">
-        <div>
-          <button class="btn btn-link list-group-item" (click)="changeCategory(category.name)">
+        <div class="categories">
+          <button class="btn btn-link list-group-item dropdown-item" (click)="changeCategory(category.name)">
             <span class="nav-link">{{category.name}}</span>
           </button>
         </div>

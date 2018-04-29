@@ -13,3 +13,6 @@
   padding: 20px;
   margin: 0px;
 }
+.card:hover {
+  border: #495460;
+}

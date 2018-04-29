@@ -16,17 +16,17 @@
 <div  class="card-deck">
   <div *ngFor="let auction of auctions">
       <div class="col col-sm">
-        <div class="card" routerLink="/auctions/{{auction.id}}">
-          <div class="card-header">
-            <h4 class="card-title">{{auction.product.name}}</h4>
+          <div class="card" routerLink="/auctions/{{auction.id}}">
+            <div class="card-header">
+              <h4 class="card-title">{{auction.product.name}}</h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text">{{auction.product.description}}</p>
+            </div>
+            <div class="card-footer">
+              <p class="card-text"><b>Price:</b> {{auction.product.price}} $</p>
+            </div>
           </div>
-          <div class="card-body">
-            <p class="card-text">{{auction.product.description}}</p>
-          </div>
-          <div class="card-footer">
-            <p class="card-text"><b>Price:</b> {{auction.product.price}} $</p>
-          </div>
-        </div>
       </div>
   </div>
 </div>
