@@ -14,6 +14,8 @@ export class SignupComponent implements OnInit {
 
   public userExist:boolean;
 
+  public success:boolean = false;
+
   constructor(private userService:UserService, private router:Router) { }
 
   ngOnInit() {
@@ -24,13 +26,17 @@ export class SignupComponent implements OnInit {
     this.userExist = false;
     this.userService.saveUser(new User(this.signData.username, this.signData.password, null, null)).subscribe(
       res => {
-        this.router.navigate(['/']);
+        this.success = true;
       },
       err => {
         console.log("error. User already exist");
         this.userExist = true;
       }
     )
+  }
+
+  mainPage() {
+    this.router.navigate(["/"]);
   }
 
 }

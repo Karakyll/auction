@@ -9,3 +9,7 @@
 .col-sm {
   min-width: 320px;
 }
+.jumbotron-fluid {
+  padding: 20px;
+  margin: 0px;
+}

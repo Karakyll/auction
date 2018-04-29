@@ -31,27 +31,29 @@ export class LoginService {
   constructor(private http:HttpClient, private router:Router) {
   }
 
-  obtainAccessToken(loginData) {
+  loginUser (loginData) {
+    this.requestAccessToken(loginData).subscribe(
+      data => {
+        this.saveToken(data);
+        this.getUserRoles(loginData.username).subscribe(res => {
+          this.saveUserData(new User(loginData.username,null, true, res))
+        });
+        return true;
+      },
+      err => {
+        return false;
+      }
+    );
+  }
+
+  requestAccessToken(loginData) {
     const params = new HttpParams()
       .set('client_id', 'auctionClient')
       .append('client_secret', 'secret')
       .append('grant_type', 'password')
       .append('username', loginData.username)
       .append('password', loginData.password);
-    this.http.post('http://localhost:8081/oauth/token', params, {headers:this.HEADERS})
-      .subscribe(
-        data => {
-          this.saveToken(data);
-          this.getUserRoles(loginData.username).subscribe(res => {
-            this.saveUserData(new User(loginData.username,null, true, res))
-          });
-          console.log(this.getUserData());
-          this.logout();
-        },
-        err => {
-          alert('Invalid Credentials');
-        }
-      );
+    return this.http.post('http://localhost:8081/oauth/token', params, {headers:this.HEADERS})
   }
 
   saveToken(token) {

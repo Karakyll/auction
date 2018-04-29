@@ -13,6 +13,8 @@ export class AuctionComponent implements OnInit {
 
   auctions:Auction[];
 
+  showFin:boolean = false;
+
   constructor(private auctionService:AuctionService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -49,6 +51,20 @@ export class AuctionComponent implements OnInit {
         this.auctions = res;
       });
     })
+  }
+
+  showFinished() {
+    if (!this.showFin) {
+      this.auctionService.getFinishedAuctions().subscribe(res => {
+        this.auctions = res;
+        this.showFin = !this.showFin;
+      })
+    } else {
+      this.auctionService.getOngoingAuctions().subscribe(res => {
+        this.auctions = res;
+        this.showFin = !this.showFin;
+      })
+    }
 
   }
 

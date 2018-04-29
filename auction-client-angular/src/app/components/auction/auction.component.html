@@ -1,3 +1,18 @@
+<div class="jumbotron jumbotron-fluid">
+<div class="row">
+  <div class="col col-sm">
+    <button *ngIf="!showFin" class="btn btn-link" (click)="showFinished()">Show finished auctions</button>
+    <button *ngIf="showFin" class="btn btn-link" (click)="showFinished()">Show ongoing auctions</button>
+  </div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col">
+    <button class="btn btn-primary">
+      Start new auction
+    </button>
+  </div>
+</div>
+</div>
 <div  class="card-deck">
   <div *ngFor="let auction of auctions">
       <div class="col col-sm">

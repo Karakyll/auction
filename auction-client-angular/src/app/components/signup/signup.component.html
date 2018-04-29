@@ -1,4 +1,4 @@
-<div class="col-sm-6">
+<div *ngIf="!success" class="col-sm-6">
   <h1>Sign up</h1>
   <form (ngSubmit)="onSubmit()" #signForm="ngForm">
     <div class="col-sm-12 form-group">
@@ -49,4 +49,13 @@
               [disabled]="!signForm.form.valid || signData.confirm!==signData.password">Sign up</button>
     </div>
   </form>
+</div>
+<div *ngIf="success" class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h3>Registration completed successfully</h3>
+    <button class="btn btn-link" (click)="mainPage()">
+      <h5>Back to main page</h5>
+    </button>
+
+  </div>
 </div>
