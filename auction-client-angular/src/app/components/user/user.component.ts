@@ -18,4 +18,21 @@ export class UserComponent implements OnInit {
     this.user =  this.auth.getUserData();
   }
 
+  isManager() {
+    return this.user.roles.find(r => r.role == "ROLE_MANAGER");
+  }
+
+  isAdmin() {
+    console.log(this.user.roles);
+    return this.user.roles.find(r => r.role == "ROLE_ADMIN");
+  }
+
+  changeName() {
+
+  }
+
+  changePassword() {
+
+  }
+
 }

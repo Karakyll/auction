@@ -17,7 +17,7 @@
           <tr>
             <td>
               <div *ngIf="bets"><b>Current bet: </b> {{bets[bets.length - 1].price}} $</div>
-              <button type="button" class="btn btn-sm btn-link" (click)="clickHistory(auction)">bets history</button>
+              <button *ngIf="isAuthenticated()" type="button" class="btn btn-sm btn-link" (click)="clickHistory(auction)">bets history</button>
             </td>
             <td>
               <button type="button" class="btn btn-primary" (click)="clickNewBet(auction)">Place a bet</button>

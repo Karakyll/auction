@@ -1,0 +1,22 @@
+h6 {
+  margin: 3px;
+}
+.btn-link {
+  padding-top: 3px;
+}
+.danger {
+  color: red;
+}
+.ongoing {
+  color: #00c600;
+}
+.finished {color: #596572}
+.mng {
+  color: brown;
+}
+.jumbotron {
+  padding: 20px;
+}
+.adm {
+  color: #8221ca;
+}

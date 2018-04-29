@@ -37,7 +37,7 @@ export class LoginService {
     this.saveUserData(new User(data.username,
       null,
       true,
-      [new Role(1,"ADMIN"), new Role(2, "USER")]));
+      [new Role(1,"ROLE_ADMIN"), new Role(2, "ROLE_USER")]));
     this.saveToken(new Token("access1", "BEARER", 2000, ["read", "write"]));
     this.loggedChange.emit(true);
   }

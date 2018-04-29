@@ -1,8 +1,12 @@
 <div class="jumbotron jumbotron-fluid">
 <div class="row">
   <div class="col col-sm">
-    <button *ngIf="!showFin" class="btn btn-link tumb" (click)="showFinished()">Show finished auctions</button>
-    <button *ngIf="showFin" class="btn btn-link tumb" (click)="showFinished()">Show ongoing auctions</button>
+    <div class="btn-group" btnRadioGroup>
+      <button class="btn btn-success" btnRadio="ongoing"
+              role="button" (click)="showOngoing()">ongoing</button>
+      <button class="btn btn-success" btnRadio="finished"
+              role="button" (click)="showFinished()">finished</button>
+    </div>
   </div>
   <div class="col"></div>
   <div class="col"></div>

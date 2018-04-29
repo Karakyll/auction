@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
-import {CollapseModule, BsModalRef, ModalModule} from "ngx-bootstrap";
+import {CollapseModule, BsModalRef, ModalModule, ButtonsModule} from "ngx-bootstrap";
 
 import { AppComponent } from './app.component';
 import { AuctionComponent } from "./components/auction/auction.component";
@@ -34,7 +34,7 @@ const appRoutes: Routes = [
   {path:'', component:AboutComponent},
   {path:'auctions', component:AuctionComponent},
   {path:'products', component:ProductComponent},
-  {path:'bets', component:BetComponent},
+  {path:'bets', component:BetComponent, canActivate:[RouterGuardService]},
   {path:'user', component:UserComponent, canActivate:[RouterGuardService]},
   {path:'login', component:LoginComponent},
   {path:'signup', component:SignupComponent},
@@ -64,7 +64,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     Angular2FontawesomeModule,
     CollapseModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ButtonsModule.forRoot()
   ],
   providers: [
     AuctionService,

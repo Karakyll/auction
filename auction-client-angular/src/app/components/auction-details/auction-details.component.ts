@@ -4,6 +4,7 @@ import {BetService} from "../../services/bet/bet.service";
 import {AuctionService} from "../../services/auction/auction.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Bet} from "../../models/bet";
+import {LoginService} from "../../services/login/login.service";
 
 @Component({
   selector: 'app-auction-details',
@@ -16,6 +17,7 @@ export class AuctionDetailsComponent implements OnInit {
   bets:Bet[];
 
   constructor(
+    private auth:LoginService,
     private betService:BetService,
     private auctionService:AuctionService,
     private route:ActivatedRoute,
@@ -42,12 +44,16 @@ export class AuctionDetailsComponent implements OnInit {
     })
   }
 
+  isAuthenticated() {
+    return this.auth.isAuthenticated();
+  }
+
   clickHistory (auction) {
     this.betService.toggleBets(auction);
   }
 
   clickNewBet(auction) {
-    this.betService.toggleNeBet(auction);
+    this.isAuthenticated() ? this.betService.toggleNeBet(auction) : this.router.navigateByUrl("/login");
   }
 
 }

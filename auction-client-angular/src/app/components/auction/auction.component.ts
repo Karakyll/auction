@@ -15,6 +15,7 @@ export class AuctionComponent implements OnInit {
 
   showFin:boolean = false;
 
+
   constructor(private auctionService:AuctionService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -57,15 +58,18 @@ export class AuctionComponent implements OnInit {
     if (!this.showFin) {
       this.auctionService.getFinishedAuctions().subscribe(res => {
         this.auctions = res;
-        this.showFin = !this.showFin;
-      })
-    } else {
-      this.auctionService.getOngoingAuctions().subscribe(res => {
-        this.auctions = res;
-        this.showFin = !this.showFin;
+        this.showFin = true;
       })
     }
+  }
 
+  showOngoing() {
+    if (this.showFin) {
+      this.auctionService.getOngoingAuctions().subscribe(res => {
+        this.auctions = res;
+        this.showFin = false;
+      });
+    }
   }
 
   deleteAuction(auction) {
