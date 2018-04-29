@@ -19,6 +19,7 @@ import java.util.Locale;
  * Rest controller. Implement bet api to manage bets.
  * Map all /bets requests
  */
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/bets")
 public class BetController {

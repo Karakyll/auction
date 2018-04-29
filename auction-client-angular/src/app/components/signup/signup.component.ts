@@ -24,8 +24,6 @@ export class SignupComponent implements OnInit {
     this.userExist = false;
     this.userService.saveUser(new User(this.signData.username, this.signData.password, null, null)).subscribe(
       res => {
-        console.log("succes! user added");
-        console.log(res);
         this.router.navigate(['/']);
       },
       err => {

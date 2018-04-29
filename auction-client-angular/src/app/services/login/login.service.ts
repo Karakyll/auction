@@ -10,12 +10,11 @@ import { Role } from "../../models/role";
 export class LoginService {
 
   private API_BASE_HREF = 'http://localhost:8081/api/';
-  private HTTP_OPTIONS = {
-    headers: new HttpHeaders({
+  private HEADERS = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
       'Accept': 'application/json'
-    })
-  };
+    });
+
   private defaultToken: Token = {
     access_token: null,
     token_type: null,
@@ -39,7 +38,7 @@ export class LoginService {
       .append('grant_type', 'password')
       .append('username', loginData.username)
       .append('password', loginData.password);
-    this.http.post('http://localhost:8081/oauth/token', params, this.HTTP_OPTIONS)
+    this.http.post('http://localhost:8081/oauth/token', params, {headers:this.HEADERS})
       .subscribe(
         data => {
           this.saveToken(data);
@@ -92,8 +91,10 @@ export class LoginService {
   }
 
   getUserRoles(username:string):Observable<Role[]> {
-    let options = this.HTTP_OPTIONS;
-    options['params'] = new HttpParams().append('username', username);
+    let options = {
+      headers: this.HEADERS,
+      params: new HttpParams().append('username', username)
+    };
     return this.http.get<Role[]>(this.API_BASE_HREF + "roles/", options);
   }
 

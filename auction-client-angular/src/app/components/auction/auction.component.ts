@@ -16,13 +16,21 @@ export class AuctionComponent implements OnInit {
   constructor(private auctionService:AuctionService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    let param = this.route.snapshot.paramMap.get('search');
-    if (!param) {
+    let search = this.route.snapshot.paramMap.get('search');
+    let category = this.route.snapshot.paramMap.get('category');
+    let refresh = this.route.snapshot.paramMap.get('refresh');
+    if (refresh) {
       this.auctionService.getOngoingAuctions().subscribe(res => {
         this.auctions = res;
       });
-    } else {
-      this.auctionService.getAuctionsProductContains(param).subscribe(res => {
+    }
+    if (search) {
+      this.auctionService.getAuctionsProductContains(search).subscribe(res => {
+        this.auctions = res;
+      });
+    }
+    if (category) {
+      this.auctionService.getAuctionsByCategory(category).subscribe(res => {
         this.auctions = res;
       });
     }
@@ -30,11 +38,16 @@ export class AuctionComponent implements OnInit {
       this.auctionService.getAuctionsProductContains(searchTag).subscribe(res => {
         this.auctions = res;
       })
-    })
-    this.auctionService.categoryChanged.subscribe(categiry => {
-      this.auctionService.getAuctionsByCategory(categiry).subscribe(res => {
+    });
+    this.auctionService.categoryChanged.subscribe(category => {
+      this.auctionService.getAuctionsByCategory(category).subscribe(res => {
         this.auctions = res;
       })
+    });
+    this.auctionService.linkClicked.subscribe(res => {
+      this.auctionService.getOngoingAuctions().subscribe(res => {
+        this.auctions = res;
+      });
     })
 
   }

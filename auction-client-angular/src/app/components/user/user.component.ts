@@ -16,24 +16,25 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.userService.getAllUsers().subscribe(res => {
       this.users = res;
-    })
+    });
   }
 
   deleteUser(user) {
-    this.userService.deleteUser(user.userName).subscribe();
-  }
-
-  saveUser(user) {
-    console.log("call save");
-    console.log(user)
+    this.userService.deleteUser(user.userName).subscribe(res => {
+      this.users.splice(this.users.findIndex(u => u == user), 1);
+    });
   }
 
   enableUser(user) {
-    this.userService.enableUser(user.userName).subscribe();
+    this.userService.enableUser(user.userName).subscribe(res => {
+      this.users.find( u => u == user).enabled = true;
+    });
   }
 
   disableUser(user) {
-    this.userService.disableUser(user.userName).subscribe();
+    this.userService.disableUser(user.userName).subscribe(res => {
+      this.users.find(u => u == user).enabled = false;
+    });
   }
 
 }

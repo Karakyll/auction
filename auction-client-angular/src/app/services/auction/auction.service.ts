@@ -12,6 +12,7 @@ export class AuctionService {
 
   @Output() searchChanged: EventEmitter<string> = new EventEmitter();
   @Output() categoryChanged: EventEmitter<string> = new EventEmitter();
+  @Output() linkClicked: EventEmitter<any> = new EventEmitter();
 
   searchTagChange(searchTag:string) {
     this.searchChanged.emit(searchTag);
@@ -19,6 +20,10 @@ export class AuctionService {
 
   categoryChange(category:string) {
     this.categoryChanged.emit(category);
+  }
+
+  refreshAuctionPage() {
+    this.linkClicked.emit();
   }
 
   getAllAuctions():Observable<Auction[]> {

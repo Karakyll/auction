@@ -17,6 +17,7 @@ import java.util.Locale;
  * Rest controller. Implement admin api to manage users.
  * Map all /admin requests
  */
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/admin")
 public class AdminController {

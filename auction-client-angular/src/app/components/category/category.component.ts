@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { CategoryService } from "../../services/category/category.service";
 import { Category } from "../../models/category";
 import {AuctionService} from "../../services/auction/auction.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-category',
@@ -16,11 +17,14 @@ export class CategoryComponent implements OnInit {
 
   inputCategory:string;
 
-  constructor(private categoryService:CategoryService, private auctionService:AuctionService) { }
+  constructor(private categoryService:CategoryService, private auctionService:AuctionService, private router:Router) { }
 
   ngOnInit() {
     this.categoryService.getAllCategories().subscribe((res) => {
       this.categories = res;
+      while (this.categories.length < 10) {
+        this.categories.push(new Category(null));
+      }
     });
     this.categoryService.change.subscribe(isOpen => {
       this.isOpen = isOpen;
@@ -28,7 +32,10 @@ export class CategoryComponent implements OnInit {
   }
 
   changeCategory(category) {
-    this.auctionService.categoryChange(category);
+    if (category) {
+      this.auctionService.categoryChange(category);
+      this.router.navigate(["/auctions", {category: category}]);
+    }
   }
 
   saveCategory() {

@@ -2,7 +2,7 @@
   <div class="row">
     <div [collapse]="!isOpen" id="sidebar">
       <div class="list-group" *ngFor="let category of categories">
-        <div class="hover-square">
+        <div>
           <a (click)="changeCategory(category.name)" class="list-group-item"><span class="nav-link">{{category.name}}</span></a>
         </div>
       </div>
