@@ -3,7 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angul
 import { LoginService } from "../login/login.service";
 
 @Injectable()
-export class RouterGuardService implements CanActivate {
+export class LoggedInGuard implements CanActivate {
 
   constructor(private auth:LoginService) { }
 
