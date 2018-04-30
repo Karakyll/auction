@@ -35,6 +35,10 @@
             </td>
             <td>
               <button type="button" class="btn btn-primary" (click)="clickNewBet(auction)">Place a bet</button>
+              <button *ngIf="checkOwner() && !finished"
+                      type="button"
+                      class="btn btn-danger"
+                      (click)="stopAuction()">Stop auction</button>
             </td>
           </tr>
         </table>
@@ -44,5 +48,16 @@
     </div>
   </div>
   <div class="col col-sm-2"></div>
+</div>
+<div bsModal #confirmModal="bs-modal" class="modal ">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <p>Do you want to confirm?</p>
+        <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+        <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+      </div>
+    </div>
+  </div>
 </div>
 <app-bet></app-bet>

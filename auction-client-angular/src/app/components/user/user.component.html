@@ -16,10 +16,7 @@
       <div class="col col-sm-3"><h6>My auctions:</h6></div>
       <div class="col">
         <div class="row">
-          <div class="btn btn-sm btn-link ongoing" (click)="changePassword()">Show my ongoing auctions</div>
-        </div>
-        <div class="row">
-          <div class="btn btn-sm btn-link finished" (click)="changeName()">Show my finished auctions</div>
+          <div class="btn btn-sm btn-link ongoing" (click)="showAuctions()">Show my auctions</div>
         </div>
       </div>
     </div>
@@ -28,10 +25,7 @@
       <div class="col col-sm-3"><h6>My bets:</h6></div>
       <div class="col">
         <div class="row">
-          <div class="btn btn-sm btn-link ongoing" (click)="changeName()">Show current bets</div>
-        </div>
-        <div class="row">
-          <div class="btn btn-sm btn-link finished" (click)="changePassword()">Show my bets history</div>
+          <div class="btn btn-sm btn-link ongoing" (click)="showBets()">Show my bets</div>
         </div>
       </div>
     </div>
@@ -39,9 +33,6 @@
     <div class="row">
       <div class="col col-sm-3"><h6>Edit profile:</h6></div>
       <div class="col">
-        <div class="row">
-          <div class="btn btn-sm btn-link" (click)="changeName()">Change name</div>
-        </div>
         <div class="row">
           <div class="btn btn-sm btn-link" (click)="changePassword()">Change password</div>
         </div>
@@ -73,9 +64,10 @@
       <div class="col col-sm-3"><h6>Administration:</h6></div>
       <div class="col">
         <div class="row">
-          <div class="btn btn-sm btn-link adm" (click)="changePassword()">Users administration</div>
+          <div class="btn btn-sm btn-link adm" (click)="userAdministration()">Users administration</div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<app-user-operations></app-user-operations>

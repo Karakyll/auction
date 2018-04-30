@@ -1,0 +1,73 @@
+<div bsModal #userAuctionsModal="bs-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="col col-sm-6">
+          <h4 id="dialog-bets" class="modal-title pull-left">Auctions of user: </h4>
+        </div>
+        <div class="col col-sm-3">
+          <h5 *ngIf="user" class="modal-title">{{user.userName}} </h5>
+        </div>
+        <div class="col col-sm-1">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="hideAuctionsModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+      </div>
+      <div class="modal-body" *ngIf="!auctions;else unset">
+        <h5 class="modal-content">No auctions yet.</h5>
+      </div>
+      <div class="modal-body" *ngFor="let auction of auctions" #unset>
+        <div class="btn" routerLink="/auctions/{{auction.id}}">
+          <div class="row">
+            <div class="col"><b class="text pull-left">Product:</b>{{auction.product.name}}</div>
+          </div>
+          <div class="row">
+            <div class="col"><b>Create time: </b>{{auction.createTime}}</div>
+            <div class="col"><b>End time: </b>{{auction.endTime}}</div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <b class="text pull-left">Status: </b>
+              <span *ngIf="auction.finished" class="finished">finished</span>
+              <span *ngIf="!auction.finished" class="ongoing">ongoing</span>
+            </div>
+            <div class="col"></div>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #userBetsModal="bs-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="col col-4">
+          <h3 class="modal-title pull-left">Bets by: </h3>
+        </div>
+        <div class="col ">
+          <h3 *ngIf="user" class="modal-title">{{user.userName}}</h3>
+        </div>
+        <div class="col col-sm-1">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="hideBetsModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body" *ngIf="!bets;else unset">
+        <h5 class="modal-content">No bets yet.</h5>
+      </div>
+      <div class="modal-body" *ngFor="let bet of bets" #unset>
+        <div class="btn" routerLink="/auctions/{{bet.auction_id}}">
+          <div class="row">
+            <div class="col col-sm-5"><b>Date: </b>{{bet.betTime}}</div>
+            <div class="col col-sm"><b>Price: </b>{{bet.price}} $</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

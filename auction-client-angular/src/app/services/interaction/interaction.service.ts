@@ -1,6 +1,7 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Auction} from "../../models/auction";
 import {Product} from "../../models/product";
+import {User} from "../../models/user";
 
 @Injectable()
 export class InteractionService {
@@ -21,6 +22,9 @@ export class InteractionService {
   @Output() _auctionTabClicked: EventEmitter<any> = new EventEmitter();
 
   @Output() _productSelected: EventEmitter<Product> = new EventEmitter();
+
+  @Output() _userAuctionsModalCalled: EventEmitter<User> = new EventEmitter();
+  @Output() _userBetsModalCalled: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -68,6 +72,14 @@ export class InteractionService {
 
   selectProduct(product:Product) {
     this._productSelected.emit(product);
+  }
+
+  callUserAuctionsModal(user:User) {
+    this._userAuctionsModalCalled.emit(user);
+  }
+
+  callUserBetsModal(user:User) {
+    this._userBetsModalCalled.emit(user);
   }
 
 }

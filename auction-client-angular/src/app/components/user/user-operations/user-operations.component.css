@@ -1,0 +1,9 @@
+.col-sm-3 {
+  margin-top: 4px;
+}
+.finished {
+  color: red;
+}
+.ongoing {
+  color: #00c600;
+}
