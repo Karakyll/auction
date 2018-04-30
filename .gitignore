@@ -5,3 +5,4 @@ out/
 auction-client-angular/dist/
 .idea/
 src/main/webapp
+auction.iml
