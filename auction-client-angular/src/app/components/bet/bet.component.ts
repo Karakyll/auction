@@ -28,31 +28,8 @@ export class BetComponent implements OnInit {
   constructor(private betService:BetService, private auctionService:AuctionService, private dateService:DateService) { }
 
   ngOnInit() {
-    this.betService.betsCall.subscribe(auction => {
-      this.auction = auction;
-      if (auction) {
-        this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {
-          this.bets = bets;
-        })
-      }
-      this.betsModal.config = this.config;
-      this.betsModal.toggle();
-    });
-    this.betService.newBetCall.subscribe(auction => {
-      this.auction = auction;
-      if (auction) {
-        this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {
-          this.bets = bets;
-          if (this.bets.length == 0 ){
-            this.newBet = +(auction.product.price * 1.1).toFixed(2);
-          } else {
-            this.newBet = +(this.bets[this.bets.length - 1].price * 1.1).toFixed(2);
-          }
-        })
-      }
-      this.newBetModal.config = this.config;
-      this.newBetModal.toggle();
-    });
+    this.subscribeBetsCall();
+    this.subscribeNewBetCall();
   }
 
   hideBetsModal () {
@@ -73,6 +50,37 @@ export class BetComponent implements OnInit {
       console.log("User or auction not found");
       console.log(error);
       })
+  }
+
+  subscribeBetsCall() {
+    this.betService.betsCall.subscribe(auction => {
+      this.auction = auction;
+      if (auction) {
+        this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {
+          this.bets = bets;
+        })
+      }
+      this.betsModal.config = this.config;
+      this.betsModal.toggle();
+    });
+  }
+
+  subscribeNewBetCall() {
+    this.betService.newBetCall.subscribe(auction => {
+      this.auction = auction;
+      if (auction) {
+        this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {
+          this.bets = bets;
+          if (this.bets.length == 0 ){
+            this.newBet = +(auction.product.price * 1.1).toFixed(2);
+          } else {
+            this.newBet = +(this.bets[this.bets.length - 1].price * 1.1).toFixed(2);
+          }
+        })
+      }
+      this.newBetModal.config = this.config;
+      this.newBetModal.toggle();
+    });
   }
 
 }

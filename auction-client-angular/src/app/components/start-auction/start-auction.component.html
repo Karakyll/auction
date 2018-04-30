@@ -1,3 +1,39 @@
-<p>
-  start-auction works!
-</p>
+<div class="jumbotron jumbotron-fluid">
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col">
+      <h3>Start new auction</h3>
+    </div>
+  </div>
+</div>
+<br>
+<div>
+  <div class="col">
+    <h5>Product</h5>
+    <button class="btn btn-link">Select exist </button> or <button class="btn btn-link">Create new</button>
+  </div>
+  <br>
+  <div class="col">
+    <h5>Auction duration:</h5>
+    <div class="btn-group">
+      <label class="btn btn-outline-info" [(ngModel)]="radioModel"
+             btnRadio=1 tabindex="0" role="button">1 day</label>
+      <label class="btn btn-outline-info" [(ngModel)]="radioModel"
+             btnRadio=3 tabindex="0" role="button">3 day</label>
+      <label class="btn btn-outline-info" [(ngModel)]="radioModel"
+             btnRadio=7 tabindex="0" role="button">7 day</label>
+    </div>
+  </div>
+  <br>
+  <div class="col">
+    <div class="row">
+      <div class="col col-sm-4">
+        <h5>Description:</h5>
+        <textarea class="form-control" rows="5" id="description" required></textarea>
+      </div>
+    </div>
+  </div>
+  <br>
+  <button class="btn btn-secondary"></button>
+</div>
+<app-product></app-product>

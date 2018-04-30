@@ -1,24 +1,3 @@
-<p>
-  product works!
-</p>
-<table>
-  <tr>
-    <td><b>Product ID</b></td>
-    <td><b>Name</b></td>
-    <td><b>Category</b></td>
-    <td><b>Price</b></td>
-    <td><b>Description</b></td>
-    <td><b>Delete product</b></td>
-    <td><b>Duplicate product</b></td>
-  </tr>
-  <tr *ngFor="let product of products">
-    <td>{{product.id}}</td>
-    <td>{{product.name}}</td>
-    <td>{{product.category_name}}</td>
-    <td>{{product.price}}</td>
-    <td>{{product.description}}</td>
-    <td><button (click)="deleteProduct(product); $event.stopPropagation();">X</button></td>
-    <td><button (click)="saveProduct(product); $event.stopPropagation();">♥</button></td>
-  </tr>
-</table>
+<div bsModal #newProductModal="bs-modal" class="modal fade">
 
+</div>

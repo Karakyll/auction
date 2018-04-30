@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { ProductService } from "../../services/product/product.service";
 import { Product } from "../../models/product";
+import {ModalDirective} from "ngx-bootstrap/modal";
 
 @Component({
   selector: 'app-product',
@@ -8,6 +9,13 @@ import { Product } from "../../models/product";
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+
+  @ViewChild('newProductModal') newProductModal: ModalDirective;
+
+  config = {
+    keyboard: true,
+    backdrop: false
+  };
 
   products:Product[];
 
