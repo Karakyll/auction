@@ -26,7 +26,7 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.subscribeListCategory();
-    this.interact.categoryTabToggled.subscribe(res => {
+    this.interact._categoryTabToggled.subscribe(res => {
       this.isOpen = !this.isOpen;
     })
   }

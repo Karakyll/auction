@@ -14,6 +14,7 @@ import {InteractionService} from "../../services/interaction/interaction.service
 export class ProductComponent implements OnInit {
 
   @ViewChild('newProductModal') newProductModal: ModalDirective;
+  @ViewChild('selectProductModal') selectProductModal: ModalDirective;
 
   config = {
     keyboard: false,
@@ -40,11 +41,28 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.subscribeCreateProductCall();
+    this.subscribeEditNewProductCall();
+    this.subscribeSelectProductCall();
+  }
+
+  subscribeSelectProductCall() {
+    this.interact._selectExistProductCalled.subscribe(res => {
+      this.getProductList();
+      this.selectProductModal.config = this.config;
+      this.selectProductModal.toggle();
+    })
   }
 
   subscribeCreateProductCall() {
-    this.interact.createProductCalled.subscribe(res => {
+    this.interact._createNewProductCalled.subscribe(res => {
       this.getCategoryList();
+      this.newProductModal.config = this.config;
+      this.newProductModal.toggle();
+    })
+  }
+
+  subscribeEditNewProductCall() {
+    this.interact._editNewProductCalled.subscribe(res => {
       this.newProductModal.config = this.config;
       this.newProductModal.toggle();
     })
@@ -66,10 +84,18 @@ export class ProductComponent implements OnInit {
     this.newProductModal.hide();
   }
 
+  hideProductsModal() {
+    this.selectProductModal.hide()
+  }
+
   onSubmitNewProduct() {
-    console.log(this.newProduct);
-    console.log("TODO");
+    this.interact.selectProduct(this.newProduct);
     this.newProductModal.hide();
+  }
+
+  selectProduct(product) {
+    this.interact.selectProduct(product);
+    this.selectProductModal.hide();
   }
 
 }

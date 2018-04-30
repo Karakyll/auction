@@ -35,6 +35,10 @@ export class AuctionDetailsComponent implements OnInit {
     return this.auth.isAuthenticated();
   }
 
+  showCategory(category) {
+    this.router.navigate(["/auctions", {category: category}]);
+  }
+
   clickHistory (auction) {
     this.interact.toggleBetsHistoryModal(auction);
   }
@@ -44,7 +48,7 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   subscribeRefreshBets() {
-    this.interact.betsRefresh.subscribe(res => {
+    this.interact._betsRefresh.subscribe(res => {
       this.betService.getBetsByAuctionId(this.auction.id).subscribe(res => {
         if (res.length !== 0) {
           this.bets = res;

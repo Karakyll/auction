@@ -10,20 +10,31 @@
 <div>
   <div class="col">
     <h5>Product</h5>
-    <button class="btn btn-link" (click)="selectExistProduct()">
-      Select exist
-    </button> or
-    <button class="btn btn-link" (click)="createNewProduct()">Create new</button>
+    <div *ngIf="!newAuction.product">
+      <button class="btn btn-link" (click)="selectExistProduct()">
+        Select exist
+      </button>
+      or
+      <button class="btn btn-link" (click)="createNewProduct()">Create new</button>
+    </div>
+    <div *ngIf="newAuction.product">
+      {{newAuction.product.name}}
+      <button class="btn btn-link" (click)="editNewProduct()">
+        Edit
+      </button>
+      or
+      <button class="btn btn-link" (click)="selectExistProduct()">Select exist</button>
+    </div>
   </div>
   <br>
   <div class="col">
     <h5>Auction duration:</h5>
     <div class="btn-group">
-      <label class="btn btn-outline-info" [(ngModel)]="radioModel"
+      <label class="btn btn-outline-info" [(ngModel)]="duration"
              btnRadio=1 tabindex="0" role="button">1 day</label>
-      <label class="btn btn-outline-info" [(ngModel)]="radioModel"
+      <label class="btn btn-outline-info" [(ngModel)]="duration"
              btnRadio=3 tabindex="0" role="button">3 day</label>
-      <label class="btn btn-outline-info" [(ngModel)]="radioModel"
+      <label class="btn btn-outline-info" [(ngModel)]="duration"
              btnRadio=7 tabindex="0" role="button">7 day</label>
     </div>
   </div>
@@ -31,12 +42,19 @@
   <div class="col">
     <div class="row">
       <div class="col col-sm-4">
-        <h5>Description:</h5>
-        <textarea class="form-control" rows="5" id="description" required></textarea>
+        <h5><label for="description">Description:</label></h5>
+        <textarea class="form-control" rows="5" id="description" [(ngModel)]="newAuction.description"
+                  required></textarea>
       </div>
     </div>
   </div>
   <br>
-  <button class="btn btn-secondary"></button>
+  <div class="col">
+    <button
+      [disabled]="!newAuction.description || !newAuction.product || !duration"
+      class="btn btn-secondary"
+      (click)="startAuction()">Start auction
+    </button>
+  </div>
 </div>
 <app-product></app-product>

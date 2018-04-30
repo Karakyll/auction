@@ -1,3 +1,7 @@
 .row {
   margin-top: 20px;
 }
+.col-4 {
+  padding: 0px;
+  padding-top: 5px;
+}

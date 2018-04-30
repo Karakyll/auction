@@ -1,37 +1,42 @@
 <div class="jumbotron jumbotron-fluid">
-<div class="row">
-  <div class="col col-sm">
-    <div class="btn-group" btnRadioGroup>
-      <button class="btn btn-success" btnRadio="ongoing"
-              role="button" (click)="showOngoing()">ongoing</button>
-      <button class="btn btn-success" btnRadio="finished"
-              role="button" (click)="showFinished()">finished</button>
+  <div class="row">
+    <div class="col col-sm">
+      <div class="btn-group" btnRadioGroup>
+        <button class="btn btn-success" btnRadio="ongoing"
+                role="button" (click)="showOngoing()">ongoing
+        </button>
+        <button class="btn btn-success" btnRadio="finished"
+                role="button" (click)="showFinished()">finished
+        </button>
+      </div>
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col">
+      <button class="btn btn-primary" (click)="startNewAuction()">
+        Start new auction
+      </button>
     </div>
   </div>
-  <div class="col"></div>
-  <div class="col"></div>
-  <div class="col">
-    <button class="btn btn-primary" (click)="startNewAuction()">
-      Start new auction
-    </button>
-  </div>
 </div>
-</div>
-<div  class="card-deck">
+<div class="card-deck">
   <div *ngFor="let auction of auctions">
-      <div class="col col-sm">
-          <div class="card" routerLink="/auctions/{{auction.id}}">
-            <div class="card-header">
-              <h4 class="card-title">{{auction.product.name}}</h4>
-            </div>
-            <div class="card-body">
-              <p class="card-text">{{auction.product.description}}</p>
-            </div>
-            <div class="card-footer">
-              <p class="card-text"><b>Price:</b> {{auction.product.price}} $</p>
-            </div>
+    <div class="col col-sm">
+      <div class="card" routerLink="/auctions/{{auction.id}}">
+        <div class="btn">
+          <div class="card-header">
+            <h4 class="card-title">{{auction.product.name}}</h4>
           </div>
+          <div class="card-body">
+            <p class="card-text">{{auction.product.description}}</p>
+            <p class="card-text">End time: {{auction.endTime}}</p>
+          </div>
+          <div class="card-footer">
+            <p class="card-text"><b>Price:</b> {{auction.product.price}} $</p>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 </div>
 <div *ngIf="!auctions || auctions.length == 0">

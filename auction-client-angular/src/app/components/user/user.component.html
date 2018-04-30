@@ -7,7 +7,6 @@
     <div class="col"></div>
   </div>
 </div>
-
 <div class="row">
   <div class="col col-sm-3">
     <h5>Available operations:</h5>
@@ -16,42 +15,66 @@
     <div class="row">
       <div class="col col-sm-3"><h6>My auctions:</h6></div>
       <div class="col">
-        <div class="row"><div class="btn btn-sm btn-link ongoing" (click)="changePassword()">Show my ongoing auctions</div></div>
-        <div class="row"><div class="btn btn-sm btn-link finished" (click)="changeName()">Show my finished auctions</div></div>
+        <div class="row">
+          <div class="btn btn-sm btn-link ongoing" (click)="changePassword()">Show my ongoing auctions</div>
+        </div>
+        <div class="row">
+          <div class="btn btn-sm btn-link finished" (click)="changeName()">Show my finished auctions</div>
+        </div>
       </div>
     </div>
     <hr>
     <div class="row">
       <div class="col col-sm-3"><h6>My bets:</h6></div>
       <div class="col">
-        <div class="row"><div class="btn btn-sm btn-link ongoing" (click)="changeName()">Show current bets</div></div>
-        <div class="row"><div class="btn btn-sm btn-link finished" (click)="changePassword()">Show my bets history</div></div>
+        <div class="row">
+          <div class="btn btn-sm btn-link ongoing" (click)="changeName()">Show current bets</div>
+        </div>
+        <div class="row">
+          <div class="btn btn-sm btn-link finished" (click)="changePassword()">Show my bets history</div>
+        </div>
       </div>
     </div>
     <hr>
     <div class="row">
       <div class="col col-sm-3"><h6>Edit profile:</h6></div>
       <div class="col">
-        <div class="row"><div class="btn btn-sm btn-link" (click)="changeName()">Change name</div></div>
-        <div class="row"><div class="btn btn-sm btn-link" (click)="changePassword()">Change password</div></div>
-        <div class="row"><div class="btn btn-sm btn-link danger" (click)="changePassword()">Delete account</div></div>
+        <div class="row">
+          <div class="btn btn-sm btn-link" (click)="changeName()">Change name</div>
+        </div>
+        <div class="row">
+          <div class="btn btn-sm btn-link" (click)="changePassword()">Change password</div>
+        </div>
+        <div class="row">
+          <div class="btn btn-sm btn-link danger" (click)="changePassword()">Delete account</div>
+        </div>
       </div>
     </div>
     <hr *ngIf="isManager()">
     <div *ngIf="isManager()" class="row">
       <div class="col col-sm-3"><h6>Management:</h6></div>
       <div class="col">
-        <div class="row"><div class="btn btn-sm btn-link mng" (click)="changeName()">Auctions management</div></div>
-        <div class="row"><div class="btn btn-sm btn-link mng" (click)="changePassword()">Products management</div></div>
-        <div class="row"><div class="btn btn-sm btn-link mng" (click)="changePassword()">Bets management</div></div>
-        <div class="row"><div class="btn btn-sm btn-link mng" (click)="changePassword()">Categories management</div></div>
+        <div class="row">
+          <div class="btn btn-sm btn-link mng" (click)="changeName()">Auctions management</div>
+        </div>
+        <div class="row">
+          <div class="btn btn-sm btn-link mng" (click)="changePassword()">Products management</div>
+        </div>
+        <div class="row">
+          <div class="btn btn-sm btn-link mng" (click)="changePassword()">Bets management</div>
+        </div>
+        <div class="row">
+          <div class="btn btn-sm btn-link mng" (click)="changePassword()">Categories management</div>
+        </div>
       </div>
     </div>
     <hr *ngIf="isAdmin()">
     <div *ngIf="isAdmin()" class="row">
       <div class="col col-sm-3"><h6>Administration:</h6></div>
       <div class="col">
-        <div class="row"><div class="btn btn-sm btn-link adm" (click)="changePassword()">Users administration</div></div>
+        <div class="row">
+          <div class="btn btn-sm btn-link adm" (click)="changePassword()">Users administration</div>
+        </div>
       </div>
     </div>
   </div>

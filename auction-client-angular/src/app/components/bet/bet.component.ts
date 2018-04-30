@@ -61,7 +61,7 @@ export class BetComponent implements OnInit {
   }
 
   subscribeBetsCall() {
-    this.interact.betsModalCalled.subscribe(auction => {
+    this.interact._betsModalCalled.subscribe(auction => {
       this.auction = auction;
       if (auction) {
         this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {
@@ -74,7 +74,7 @@ export class BetComponent implements OnInit {
   }
 
   subscribeNewBetCall() {
-    this.interact.newBetModalCalled.subscribe(auction => {
+    this.interact._newBetModalCalled.subscribe(auction => {
       this.auction = auction;
       if (auction) {
         this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {

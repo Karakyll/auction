@@ -3,7 +3,18 @@
   <div class="col col-sm-8">
     <div class="jumbotron">
       <div class="container">
-        <h2 *ngIf="auction">{{auction.product.name}}</h2>
+        <div class="row">
+          <div class="col col-8">
+            <h2 *ngIf="auction">{{auction.product.name}}</h2>
+          </div>
+          <div class="col col-4">
+            <h5 *ngIf="auction">Category:
+              <a class="btn btn-link" (click)="showCategory(auction.product.category_name)">
+                {{auction.product.category_name}}
+              </a>
+            </h5>
+          </div>
+        </div>
         <table class="table">
           <tr>
             <td>
@@ -12,12 +23,15 @@
             </td>
             <td>
               <div *ngIf="auction"><b>Start price: </b>{{auction.product.price}} $</div>
+              <p *ngIf="auction"><b>Owner: </b>{{auction.owner_name}}</p>
             </td>
           </tr>
           <tr>
             <td>
               <div *ngIf="bets"><b>Current bet: </b> {{bets[bets.length - 1].price}} $</div>
-              <button *ngIf="isAuthenticated()" type="button" class="btn btn-sm btn-link" (click)="clickHistory(auction)">bets history</button>
+              <button *ngIf="isAuthenticated()" type="button" class="btn btn-sm btn-link"
+                      (click)="clickHistory(auction)">bets history
+              </button>
             </td>
             <td>
               <button type="button" class="btn btn-primary" (click)="clickNewBet(auction)">Place a bet</button>

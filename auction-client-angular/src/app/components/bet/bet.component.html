@@ -19,15 +19,14 @@
       </div>
       <div class="modal-body" *ngFor="let bet of bets" #unset>
         <div class="row">
-          <div class="col col-sm-5"><b>Date:</b> {{bet.betTime}}</div>
-          <div class="col col-sm"><b>User: </b> {{bet.user_name}}</div>
+          <div class="col col-sm-5"><b>Date: </b>{{bet.betTime}}</div>
+          <div class="col col-sm"><b>User: </b>{{bet.user_name}}</div>
           <div class="col col-sm"><b>Price: </b>{{bet.price}} $</div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <div bsModal #newBetModal="bs-modal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -54,11 +53,12 @@
                    [step]="auction ? +(auction.product.price * 0.1).toFixed(2) : 10"
                    #betInput="ngModel"
                    required>
-            <button  class="btn btn-primary"
+            <button class="btn btn-primary"
                     type="submit"
                     [disabled]="!newBetForm.form.valid
                     || newBet < auction.product.price
-                    || !bets || newBet < bets[bets.length - 1].price">Add</button>
+                    || !bets || newBet < bets[bets.length - 1].price">Add
+            </button>
           </div>
         </form>
       </div>

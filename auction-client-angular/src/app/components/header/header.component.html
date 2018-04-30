@@ -19,18 +19,21 @@
               data-toggle="dropdown">
         <span class="fa fa-globe"></span>
       </button>
-      <div class="dropdown-menu" >
-        <button class="btn dropdown-item" >en</button>
-        <button class="btn dropdown-item" >ru</button>
+      <div class="dropdown-menu">
+        <button class="btn dropdown-item">en</button>
+        <button class="btn dropdown-item">ru</button>
       </div>
     </div>
     <li class="nav-item">
-      <a *ngIf="!isLogged" class="btn btn-link nav-link" (click)="clickLogin()"><span class="fa fa-sign-in"></span> Login</a>
+      <a *ngIf="!isLogged" class="btn btn-link nav-link" (click)="clickLogin()"><span class="fa fa-sign-in"></span>
+        Login</a>
       <a *ngIf="isLogged" class="btn btn-link nav-link" (click)="clickUser()"><span class="fa fa-user"></span> User</a>
     </li>
     <li class="nav-item">
-      <a *ngIf="!isLogged" class="btn btn-link nav-link" routerLink="/signup"><span class="fa fa-user-plus"></span> Sign Up</a>
-      <a *ngIf="isLogged" class="btn btn-link nav-link" (click)="clickLogout()"><span class="fa fa-sign-out"></span> Logout</a>
+      <a *ngIf="!isLogged" class="btn btn-link nav-link" routerLink="/signup"><span class="fa fa-user-plus"></span> Sign
+        Up</a>
+      <a *ngIf="isLogged" class="btn btn-link nav-link" (click)="clickLogout()"><span class="fa fa-sign-out"></span>
+        Logout</a>
     </li>
   </ul>
 </div>

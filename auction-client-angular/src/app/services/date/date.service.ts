@@ -5,11 +5,15 @@ export class DateService {
 
   constructor() { }
 
-  getDateTime() {
-    return this.dateToString(new Date());
+  getDateTime(days?:number) {
+    let currentDate = new Date();
+    if (days) {
+      currentDate.setDate(currentDate.getDate() + days);
+    }
+    return this.currentDateToString(currentDate);
   }
 
-  private dateToString(date) {
+  private currentDateToString(date) {
     var dd = date.getDate();
     if (dd < 10) dd = "0" + dd;
 

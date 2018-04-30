@@ -76,7 +76,7 @@ export class AuctionComponent implements OnInit {
   }
 
   subscribeSearchChange() {
-    this.interact.searchTagChanged.subscribe(searchTag => {
+    this.interact._searchTagChanged.subscribe(searchTag => {
       this.auctionService.getAuctionsProductContains(searchTag).subscribe(res => {
         this.auctions = res;
       })
@@ -84,7 +84,7 @@ export class AuctionComponent implements OnInit {
   }
 
   subscribeCategoryChange() {
-    this.interact.categoryChanged.subscribe(category => {
+    this.interact._categoryChanged.subscribe(category => {
       this.auctionService.getAuctionsByCategory(category).subscribe(res => {
         this.auctions = res;
       })
@@ -92,7 +92,7 @@ export class AuctionComponent implements OnInit {
   }
 
   subscribeLinkClicked() {
-    this.interact.auctionTabClicked.subscribe(res => {
+    this.interact._auctionTabClicked.subscribe(res => {
       this.auctionService.getOngoingAuctions().subscribe(res => {
         this.auctions = res;
       });
