@@ -10,15 +10,6 @@ export class CategoryService {
 
   constructor(private http:HttpClient) { }
 
-  isOpen = false;
-
-  @Output() change: EventEmitter<boolean> = new EventEmitter();
-
-  toggle() {
-    this.isOpen = !this.isOpen;
-    this.change.emit(this.isOpen);
-  }
-
   getAllCategories():Observable<Category[]> {
     return this.http.get<Category[]>(uri);
   }

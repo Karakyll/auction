@@ -9,27 +9,7 @@ const uri = 'http://localhost:8081/api/bets';
 @Injectable()
 export class BetService {
 
-  auction:Auction;
-
   constructor(private http:HttpClient) { }
-
-  @Output() betsCall: EventEmitter<Auction> = new EventEmitter();
-  @Output() newBetCall: EventEmitter<Auction> = new EventEmitter();
-  @Output() betsRefresh: EventEmitter<any> = new EventEmitter();
-
-  toggleBets(auction) {
-    this.auction = auction;
-    this.betsCall.emit(this.auction);
-  }
-
-  toggleNeBet(auction) {
-    this.auction = auction;
-    this.newBetCall.emit(this.auction);
-  }
-
-  refreshBets() {
-    this.betsRefresh.emit();
-  }
 
   getAllBets():Observable<Bet[]> {
     return this.http.get<Bet[]>(uri);

@@ -28,6 +28,7 @@ import { UserService } from "./services/user/user.service";
 import { LoginService } from "./services/login/login.service";
 import { DateService } from "./services/date/date.service";
 import { RouterGuardService } from "./services/guard/router-guard.service";
+import { InteractionService } from "./services/interaction/interaction.service";
 
 
 const appRoutes: Routes = [
@@ -77,7 +78,8 @@ const appRoutes: Routes = [
     LoginService,
     BsModalRef,
     DateService,
-    RouterGuardService
+    RouterGuardService,
+    InteractionService
   ],
   bootstrap: [AppComponent]
 })

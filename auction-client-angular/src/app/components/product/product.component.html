@@ -1,3 +1,63 @@
 <div bsModal #newProductModal="bs-modal" class="modal fade">
-
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="col ">
+          <h3 id="dialog-new-product" class="modal-title pull-left">Create new product</h3>
+        </div>
+        <div class="col col-sm-1">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="hideNewProductModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmitNewProduct()" #newProductForm="ngForm">
+          <div class="col col-sm form-group">
+            <label for="name"><b>Name</b></label>
+            <input class="form-control form-control-sm"
+                   type="text"
+                   name="name"
+                   id="name"
+                   [(ngModel)]="newProduct.name"
+                   #productInput="ngModel"
+                   required>
+          </div>
+          <div class="col col-sm form-group">
+            <label for="category"><b>Category</b></label>
+            <select class="form-control" id="category" name="category" [(ngModel)]="newProduct.category_name">
+              <option disabled selected value> -- select a category --</option>
+              <option *ngFor="let category of categories">{{category.name}}</option>
+            </select>
+          </div>
+          <div class="col col-sm form-group">
+            <label for="price"><b>Price</b></label>
+            <input class="form-control form-control-sm"
+                   type="number"
+                   name="price"
+                   id="price"
+                   [(ngModel)]="newProduct.price"
+                   #priceInput="ngModel"
+                   required>
+          </div>
+          <div class="col col-sm form-group">
+            <label for="description"><b>Description</b></label>
+            <textarea class="form-control"
+                      rows="3"
+                      id="description"
+                      name="description"
+                      [(ngModel)]="newProduct.description"
+                      required>
+            </textarea>
+          </div>
+          <div class="col-sm">
+            <button class="btn btn-primary pull-right"
+                    type="submit"
+                    [disabled]="!newProductForm.form.valid || !newProduct.category_name">Create
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

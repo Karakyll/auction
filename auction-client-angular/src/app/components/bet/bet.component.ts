@@ -4,7 +4,10 @@ import { Bet } from "../../models/bet";
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Auction } from "../../models/auction";
 import { AuctionService } from "../../services/auction/auction.service";
-import { DateService } from "../../services/date/date.service";;
+import { DateService } from "../../services/date/date.service";
+import {InteractionService} from "../../services/interaction/interaction.service";
+
+;
 
 @Component({
   selector: 'app-bet',
@@ -25,7 +28,12 @@ export class BetComponent implements OnInit {
   auction:Auction;
   newBet:number;
 
-  constructor(private betService:BetService, private auctionService:AuctionService, private dateService:DateService) { }
+  constructor(
+    private interact:InteractionService,
+    private betService:BetService,
+    private auctionService:AuctionService,
+    private dateService:DateService
+  ) { }
 
   ngOnInit() {
     this.subscribeBetsCall();
@@ -43,7 +51,7 @@ export class BetComponent implements OnInit {
   onSubmitNewBet() {
     let bet = new Bet(null, this.auction.id, this.auction.owner_name, this.dateService.getDateTime(), this.newBet);
     this.betService.saveBet(bet).subscribe(res => {
-      this.betService.refreshBets();
+      this.interact.refreshBets();
       this.newBetModal.hide();
     },
       error => {
@@ -53,7 +61,7 @@ export class BetComponent implements OnInit {
   }
 
   subscribeBetsCall() {
-    this.betService.betsCall.subscribe(auction => {
+    this.interact.betsModalCalled.subscribe(auction => {
       this.auction = auction;
       if (auction) {
         this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {
@@ -66,7 +74,7 @@ export class BetComponent implements OnInit {
   }
 
   subscribeNewBetCall() {
-    this.betService.newBetCall.subscribe(auction => {
+    this.interact.newBetModalCalled.subscribe(auction => {
       this.auction = auction;
       if (auction) {
         this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {

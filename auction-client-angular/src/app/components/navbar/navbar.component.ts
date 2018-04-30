@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from "../../services/category/category.service";
 import {Router} from "@angular/router";
 import {AuctionService} from "../../services/auction/auction.service";
+import {InteractionService} from "../../services/interaction/interaction.service";
 
 @Component({
   selector: 'app-navbar',
@@ -10,18 +11,22 @@ import {AuctionService} from "../../services/auction/auction.service";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private auctionService:AuctionService, private categoryService:CategoryService, private router:Router) { }
+  constructor(
+    private auctionService:AuctionService,
+    private interact:InteractionService,
+    private router:Router
+  ) { }
 
   ngOnInit() {
   }
 
   clickCategories() {
-    this.categoryService.toggle();
+    this.interact.toggleCategoryTab();
   }
 
   openAuctions() {
     this.router.navigate(["/auctions", {refresh:"true"}]);
-    this.auctionService.refreshAuctionPage();
+    this.interact.refreshAuctionPage();
   }
 
 }

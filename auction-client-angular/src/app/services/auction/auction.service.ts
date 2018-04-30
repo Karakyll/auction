@@ -10,22 +10,6 @@ export class AuctionService {
 
   constructor(private http:HttpClient) { }
 
-  @Output() searchChanged: EventEmitter<string> = new EventEmitter();
-  @Output() categoryChanged: EventEmitter<string> = new EventEmitter();
-  @Output() linkClicked: EventEmitter<any> = new EventEmitter();
-
-  searchTagChange(searchTag:string) {
-    this.searchChanged.emit(searchTag);
-  }
-
-  categoryChange(category:string) {
-    this.categoryChanged.emit(category);
-  }
-
-  refreshAuctionPage() {
-    this.linkClicked.emit();
-  }
-
   getAllAuctions():Observable<Auction[]> {
     return this.http.get<Auction[]>(uri);
   }

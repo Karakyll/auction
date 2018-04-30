@@ -1,10 +1,11 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {Auction} from "../../models/auction";
-import {BetService} from "../../services/bet/bet.service";
 import {AuctionService} from "../../services/auction/auction.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Bet} from "../../models/bet";
 import {LoginService} from "../../services/login/login.service";
+import {InteractionService} from "../../services/interaction/interaction.service";
+import {BetService} from "../../services/bet/bet.service";
 
 @Component({
   selector: 'app-auction-details',
@@ -18,13 +19,41 @@ export class AuctionDetailsComponent implements OnInit {
 
   constructor(
     private auth:LoginService,
-    private betService:BetService,
+    private interact:InteractionService,
     private auctionService:AuctionService,
+    private betService:BetService,
     private route:ActivatedRoute,
     private router:Router
   ) { }
 
   ngOnInit() {
+    this.subscribeRoute();
+    this.subscribeRefreshBets();
+  }
+
+  isAuthenticated() {
+    return this.auth.isAuthenticated();
+  }
+
+  clickHistory (auction) {
+    this.interact.toggleBetsHistoryModal(auction);
+  }
+
+  clickNewBet(auction) {
+    this.isAuthenticated() ? this.interact.toggleNewBetModal(auction) : this.router.navigateByUrl("/login");
+  }
+
+  subscribeRefreshBets() {
+    this.interact.betsRefresh.subscribe(res => {
+      this.betService.getBetsByAuctionId(this.auction.id).subscribe(res => {
+        if (res.length !== 0) {
+          this.bets = res;
+        }
+      });
+    })
+  }
+
+  subscribeRoute() {
     this.route.params.subscribe(params => {
       this.auctionService.getAuctionById(+params['id']).subscribe(res => {
         this.auction = res;
@@ -35,25 +64,6 @@ export class AuctionDetailsComponent implements OnInit {
         }
       });
     });
-    this.betService.betsRefresh.subscribe(res => {
-      this.betService.getBetsByAuctionId(this.auction.id).subscribe(res => {
-        if (res.length !== 0) {
-          this.bets = res;
-        }
-      });
-    })
-  }
-
-  isAuthenticated() {
-    return this.auth.isAuthenticated();
-  }
-
-  clickHistory (auction) {
-    this.betService.toggleBets(auction);
-  }
-
-  clickNewBet(auction) {
-    this.isAuthenticated() ? this.betService.toggleNeBet(auction) : this.router.navigateByUrl("/login");
   }
 
 }

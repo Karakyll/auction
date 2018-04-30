@@ -2,6 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { ProductService } from "../../services/product/product.service";
 import { Product } from "../../models/product";
 import {ModalDirective} from "ngx-bootstrap/modal";
+import {Category} from "../../models/category";
+import {CategoryService} from "../../services/category/category.service";
+import {InteractionService} from "../../services/interaction/interaction.service";
 
 @Component({
   selector: 'app-product',
@@ -13,32 +16,60 @@ export class ProductComponent implements OnInit {
   @ViewChild('newProductModal') newProductModal: ModalDirective;
 
   config = {
-    keyboard: true,
-    backdrop: false
+    keyboard: false,
+    backdrop: false,
+    outsideClick: false
   };
 
+  categories:Category[];
   products:Product[];
 
-  constructor(private productService:ProductService) { }
+  newProduct:Product = {
+    id: null,
+    name: "",
+    category_name: "",
+    price: null,
+    description: ""
+  };
+
+  constructor(
+    private interact:InteractionService,
+    private productService:ProductService,
+    private categoryService:CategoryService
+  ) { }
 
   ngOnInit() {
+    this.subscribeCreateProductCall();
+  }
+
+  subscribeCreateProductCall() {
+    this.interact.createProductCalled.subscribe(res => {
+      this.getCategoryList();
+      this.newProductModal.config = this.config;
+      this.newProductModal.toggle();
+    })
+  }
+
+  getProductList() {
     this.productService.getAllProducts().subscribe((res) => {
       this.products = res;
     })
   }
 
-  deleteProduct(product) {
-    console.log("call delete");
-    this.productService.deleteProduct(product.id).subscribe((res) => {
-      console.log(res);
+  getCategoryList() {
+    this.categoryService.getAllCategories().subscribe(res => {
+      this.categories = res;
     })
   }
 
-  saveProduct(product) {
-    console.log("call save");
-    this.productService.saveProduct(product).subscribe((res) => {
-      console.log(res);
-    })
+  hideNewProductModal() {
+    this.newProductModal.hide();
+  }
+
+  onSubmitNewProduct() {
+    console.log(this.newProduct);
+    console.log("TODO");
+    this.newProductModal.hide();
   }
 
 }

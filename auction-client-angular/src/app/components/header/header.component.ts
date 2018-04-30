@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuctionService } from "../../services/auction/auction.service";
 import {Router} from "@angular/router";
 import {LoginService} from "../../services/login/login.service";
+import {InteractionService} from "../../services/interaction/interaction.service";
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private loginService:LoginService,
-    private auctionService:AuctionService,
+    private interact:InteractionService,
     private router: Router
   ) { }
 
@@ -28,7 +29,7 @@ export class HeaderComponent implements OnInit {
 
   search() {
     this.router.navigate(["/auctions", {search: this.searchTag}]);
-    this.auctionService.searchTagChange(this.searchTag);
+    this.interact.searchTagChange(this.searchTag);
     this.searchTag = "";
   }
 

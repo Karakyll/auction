@@ -23,7 +23,6 @@ export class UserComponent implements OnInit {
   }
 
   isAdmin() {
-    console.log(this.user.roles);
     return this.user.roles.find(r => r.role == "ROLE_ADMIN");
   }
 

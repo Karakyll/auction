@@ -3,6 +3,7 @@ import { AuctionService } from "../../services/auction/auction.service";
 import { Auction } from "../../models/auction";
 import { ActivatedRoute, Router } from "@angular/router";
 import {LoginService} from "../../services/login/login.service";
+import {InteractionService} from "../../services/interaction/interaction.service";
 
 
 @Component({
@@ -16,12 +17,12 @@ export class AuctionComponent implements OnInit {
 
   showFin:boolean = false;
 
-
   constructor(
     private auctionService:AuctionService,
     private router:Router,
     private route:ActivatedRoute,
-    private auth:LoginService
+    private auth:LoginService,
+    private interact:InteractionService
   ) { }
 
   ngOnInit() {
@@ -43,21 +44,9 @@ export class AuctionComponent implements OnInit {
         this.auctions = res;
       });
     }
-    this.auctionService.searchChanged.subscribe(searchTag => {
-      this.auctionService.getAuctionsProductContains(searchTag).subscribe(res => {
-        this.auctions = res;
-      })
-    });
-    this.auctionService.categoryChanged.subscribe(category => {
-      this.auctionService.getAuctionsByCategory(category).subscribe(res => {
-        this.auctions = res;
-      })
-    });
-    this.auctionService.linkClicked.subscribe(res => {
-      this.auctionService.getOngoingAuctions().subscribe(res => {
-        this.auctions = res;
-      });
-    })
+    this.subscribeSearchChange();
+    this.subscribeCategoryChange();
+    this.subscribeLinkClicked();
   }
 
   showFinished() {
@@ -86,6 +75,28 @@ export class AuctionComponent implements OnInit {
     this.isAuthenticated() ? this.router.navigateByUrl("/auction/start") : this.router.navigateByUrl("/login");
   }
 
+  subscribeSearchChange() {
+    this.interact.searchTagChanged.subscribe(searchTag => {
+      this.auctionService.getAuctionsProductContains(searchTag).subscribe(res => {
+        this.auctions = res;
+      })
+    });
+  }
 
+  subscribeCategoryChange() {
+    this.interact.categoryChanged.subscribe(category => {
+      this.auctionService.getAuctionsByCategory(category).subscribe(res => {
+        this.auctions = res;
+      })
+    });
+  }
+
+  subscribeLinkClicked() {
+    this.interact.auctionTabClicked.subscribe(res => {
+      this.auctionService.getOngoingAuctions().subscribe(res => {
+        this.auctions = res;
+      });
+    })
+  }
 
 }
