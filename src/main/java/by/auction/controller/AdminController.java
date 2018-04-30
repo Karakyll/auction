@@ -85,7 +85,7 @@ public class AdminController {
     /**
      * Map /admin/users POST requests.
      * Save user
-     * If user specified in body not found - response with UnprocessableEntity status
+     * If user specified in body is present yet - response with UnprocessableEntity status
      * @param user - requested body with user JSON
      * @return - link to created user with JSON in body.
      */
@@ -177,6 +177,37 @@ public class AdminController {
         }
         logger.info(messageSource.getMessage("controller.admin.users.error.user.not.found", new Object[]{username}, Locale.getDefault()));
         return ResponseEntity.notFound().build();
+    }
+
+    /**
+     * Map /admin/users PUT requests.
+     * Edit user
+     * If user specified in body not found - response with NotFound status
+     * @param user - requested body with user JSON
+     * @return - link to created user with JSON in body.
+     */
+    @RequestMapping(value = "/users", method = RequestMethod.PUT)
+    ResponseEntity editUser(@RequestBody User user) {
+        logger.info(messageSource.getMessage("controller.admin.users.put.edit.user", new Object[]{user}, Locale.getDefault()));
+        if (!userService.findByUserName(user.getUserName()).isPresent()) {
+            logger.info(messageSource.getMessage("controller.admin.users.put.edit.user.error", new Object[]{user}, Locale.getDefault()));
+            return ResponseEntity.notFound().build();
+        } else {
+            User result = new User();
+
+            result.setUserName(user.getUserName());
+            result.setPassword(user.getSet_password());
+            result.setEnabled(user.getEnabled());
+
+            result = userService.save(result);
+
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest().path("?username={username}")
+                    .buildAndExpand(result.getUserName()).toUri();
+
+            logger.info(messageSource.getMessage("controller.admin.users.put.edit.user.ok", new Object[]{result}, Locale.getDefault()));
+            return ResponseEntity.created(location).body(result);
+        }
     }
 
 }
