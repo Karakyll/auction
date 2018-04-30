@@ -15,14 +15,14 @@ export class HeaderComponent implements OnInit {
   public isLogged:boolean = false;
 
   constructor(
-    private loginService:LoginService,
+    private auth:LoginService,
     private interact:InteractionService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.isLogged = this.loginService.isAuthenticated();
-    this.loginService.loggedChange.subscribe(res => {
+    this.isLogged = this.auth.isAuthenticated();
+    this.auth.loggedChange.subscribe(res => {
       this.isLogged = res;
     })
   }
@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
   }
 
   clickLogout() {
-    this.loginService.logout();
+    this.auth.logout();
     this.router.navigateByUrl("/login");
   }
 

@@ -24,7 +24,9 @@ export class InteractionService {
   @Output() _productSelected: EventEmitter<Product> = new EventEmitter();
 
   @Output() _userAuctionsModalCalled: EventEmitter<User> = new EventEmitter();
-  @Output() _userBetsModalCalled: EventEmitter<any> = new EventEmitter();
+  @Output() _userBetsModalCalled: EventEmitter<User> = new EventEmitter();
+  @Output() _passwordChangeModalCalled: EventEmitter<User> = new EventEmitter();
+  @Output() _deleteAccountModalCalled: EventEmitter<User> = new EventEmitter();
 
   constructor() { }
 
@@ -80,6 +82,14 @@ export class InteractionService {
 
   callUserBetsModal(user:User) {
     this._userBetsModalCalled.emit(user);
+  }
+
+  callPasswordChangeModal(user:User) {
+    this._passwordChangeModalCalled.emit(user);
+  }
+
+  callDeleteAccountModal(user:User) {
+    this._deleteAccountModalCalled.emit(user);
   }
 
 }

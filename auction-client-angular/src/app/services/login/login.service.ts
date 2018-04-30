@@ -37,7 +37,7 @@ export class LoginService {
     this.saveUserData(new User(data.username,
       null,
       true,
-      [new Role(1,"ROLE_ADMIN"), new Role(2, "ROLE_USER")]));
+      [new Role(1,"ROLE_ADMIN"), new Role(2, "ROLE_USER"),  new Role(3, "ROLE_MANAGER")]));
     this.saveToken(new Token("access1", "BEARER", 2000, ["read", "write"]));
     this.loggedChange.emit(true);
   }
@@ -122,7 +122,7 @@ export class LoginService {
       if(r.role === role) {
         return true;
       }
-    })
+    });
     return false;
   }
 

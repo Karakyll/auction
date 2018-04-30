@@ -70,4 +70,66 @@
     </div>
   </div>
 </div>
-
+<div bsModal #changePasswordModal="bs-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="col">
+          <h3 id="dialog-new-bet" class="modal-title pull-left">Input new password</h3>
+        </div>
+        <div class="col col-sm-1">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="hidePasswordModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmitPasswordChange()" #newBetForm="ngForm">
+          <div class="col-sm-12 form-group">
+            <label for="password">Password</label>
+            <input class="form-control form-control-sm"
+                   type="password"
+                   name="password"
+                   id="password"
+                   [(ngModel)]="passwords.password"
+                   #passwordInput="ngModel"
+                   required>
+            <div [hidden]="passwordInput.valid || passwordInput.pristine"
+                 class="alert alert-danger">Password is required
+            </div>
+          </div>
+          <div class="col-sm-12 form-group">
+            <label for="confirm">Confirm password</label>
+            <input class="form-control form-control-sm"
+                   type="password"
+                   name="confirm"
+                   id="confirm"
+                   [(ngModel)]="passwords.confirm"
+                   #confirmInput="ngModel"
+                   required>
+            <div [hidden]="passwords.confirm==passwords.password || confirmInput.pristine"
+                 class="alert alert-danger">Different passwords
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <button class="btn btn-primary pull-right"
+                    type="submit"
+                    [disabled]="passwords.confirm!==passwords.password">Change
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #confirmDeleteModal="bs-modal" class="modal ">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <p>Do you want to confirm?</p>
+        <button type="button" class="btn btn-danger" (click)="confirm()" >Yes</button>
+        <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+      </div>
+    </div>
+  </div>
+</div>

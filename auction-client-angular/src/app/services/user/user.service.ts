@@ -13,14 +13,7 @@ export class UserService {
       'Accept': 'application/json'
     });
 
-  private users:User[];
-  @Output() usersChanged: EventEmitter<User[]> = new EventEmitter();
-
   constructor(private http:HttpClient, private api:LoginService){}
-
-  changeUsers() {
-    this.usersChanged.emit(this.users);
-  }
 
   uri() {
     return this.API_BASE_HREF + "admin/users";
@@ -89,6 +82,11 @@ export class UserService {
       params: new HttpParams().append('username', username).append('promote', "false")
     };
     return this.http.put<User>(this.uri(), null, options);
+  }
+
+  changePassword(user:User):Observable<User> {
+    let options = {headers: this.HEADERS};
+    return this.http.put<User>(this.uri(), user, options);
   }
 
 }

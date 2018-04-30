@@ -41,12 +41,12 @@ export class UserComponent implements OnInit {
     this.interact.callUserBetsModal(this.user);
   }
 
-  changeName() {
-
+  changePassword() {
+    this.interact.callPasswordChangeModal(this.user);
   }
 
-  changePassword() {
-
+  deleteAccount() {
+    this.interact.callDeleteAccountModal(this.user);
   }
 
   userAdministration() {

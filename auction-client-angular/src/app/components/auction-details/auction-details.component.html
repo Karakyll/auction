@@ -34,7 +34,7 @@
               </button>
             </td>
             <td>
-              <button type="button" class="btn btn-primary" (click)="clickNewBet(auction)">Place a bet</button>
+              <button *ngIf="!finished && !checkOwner()" type="button" class="btn btn-primary" (click)="clickNewBet(auction)">Place a bet</button>
               <button *ngIf="checkOwner() && !finished"
                       type="button"
                       class="btn btn-danger"
