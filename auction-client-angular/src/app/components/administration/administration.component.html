@@ -1,4 +1,60 @@
-<p>
-  administration works!
-</p>
-<app-user-administration></app-user-administration>
+<div class="container">
+  <br>
+  <h2>Users</h2>
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th>Username</th>
+      <th>Status</th>
+      <th>Manager</th>
+      <th class="table-info">Enable</th>
+      <th class="table-success">Promote</th>
+      <th class="table-warning">Demote</th>
+      <th class="table-danger">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{user.userName}}</td>
+      <td>
+        <span *ngIf="user.enabled" class="en">enabled</span>
+        <span *ngIf="!user.enabled" class="dis">disabled</span>
+      </td>
+      <td>
+        <span *ngIf="isManager(user)" class="fa fa-check en"></span>
+        <span *ngIf="!isManager(user)" class="fa fa-times dis"></span>
+      </td>
+      <td>
+        <span *ngIf="user.enabled && !isAdmin(user)"
+              class="btn en fa fa-toggle-on"
+              (click)="disableUser(user)"></span>
+        <span *ngIf="!user.enabled && !isAdmin(user)"
+              class="btn dis fa fa-toggle-off"
+              (click)="enableUser(user)"></span>
+      </td>
+      <td>
+        <span *ngIf="!isAdmin(user)"
+              class="btn fa fa-arrow-up"
+              (click)="promoteUser(user)"></span>
+      </td>
+      <td>
+        <span *ngIf="!isAdmin(user)"
+              class="btn fa fa-arrow-down"
+              (click)="demoteUser(user)"></span>
+      </td>
+      <td>
+        <span *ngIf="!isAdmin(user)"
+              class="btn fa fa-times-rectangle-o dis"
+              (click)="openModal(template); selectedUser=user"></span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to confirm?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+  </div>
+</ng-template>

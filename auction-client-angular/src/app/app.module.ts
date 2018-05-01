@@ -25,7 +25,6 @@ import { ManageAuctionsComponent } from './components/management/manage-auctions
 import { ManageProductsComponent } from './components/management/manage-products/manage-products.component';
 import { ManageBetsComponent } from './components/management/manage-bets/manage-bets.component';
 import { ManageCategoriesComponent } from './components/management/manage-categories/manage-categories.component';
-import { UserAdministrationComponent } from './components/administration/user-administration/user-administration.component';
 import { ManagementComponent } from './components/management/management.component';
 import { AdministrationComponent } from './components/administration/administration.component';
 
@@ -79,7 +78,6 @@ const appRoutes: Routes = [
     ManageProductsComponent,
     ManageBetsComponent,
     ManageCategoriesComponent,
-    UserAdministrationComponent,
     ManagementComponent,
     AdministrationComponent
   ],

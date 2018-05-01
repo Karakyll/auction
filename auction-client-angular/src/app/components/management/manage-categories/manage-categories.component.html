@@ -14,7 +14,7 @@
       <button [disabled]="!newCategory" class="btn btn-info" (click)="addNewCategory()">Add</button>
     </div>
   </div>
-  <table class="table">
+  <table class="table table-sm">
     <thead>
     <tr>
       <th>Category</th>
@@ -25,9 +25,7 @@
     <tr *ngFor="let category of categories">
       <td>{{category.name}}</td>
       <td>
-        <button class="btn btn-danger btn-xs"
-                (click)="openModal(template); selectedCategory=category; $event.stopPropagation();">X
-        </button>
+        <span class="btn fa fa-times-rectangle-o dis" (click)="openModal(template); selectedCategory=category; $event.stopPropagation();"></span>
       </td>
     </tr>
     </tbody>

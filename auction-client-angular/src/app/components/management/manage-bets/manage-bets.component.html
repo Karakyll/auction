@@ -1,7 +1,7 @@
 <div class="container">
   <br>
   <h2>Bets</h2>
-  <table class="table">
+  <table class="table table-sm">
     <thead>
     <tr>
       <th>Bet id</th>
@@ -20,9 +20,7 @@
       <td>{{bet.betTime}}</td>
       <td>{{bet.price}}</td>
       <td>
-        <button class="btn btn-danger btn-xs"
-                (click)="openModal(template); selectedBet=bet; $event.stopPropagation();">X
-        </button>
+        <span class="btn fa fa-times-rectangle-o dis" (click)="openModal(template); selectedBet=bet; $event.stopPropagation();"></span>
       </td>
     </tr>
     </tbody>
