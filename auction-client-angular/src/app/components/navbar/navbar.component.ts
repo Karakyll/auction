@@ -3,6 +3,7 @@ import { CategoryService } from "../../services/category/category.service";
 import {Router} from "@angular/router";
 import {AuctionService} from "../../services/auction/auction.service";
 import {InteractionService} from "../../services/interaction/interaction.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private auctionService:AuctionService,
     private interact:InteractionService,
-    private router:Router
+    private router:Router,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {

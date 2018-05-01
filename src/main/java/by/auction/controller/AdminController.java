@@ -91,9 +91,9 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     ResponseEntity saveUser(@RequestBody User user) {
-        logger.info(messageSource.getMessage("controller.admin.users.post.save.user", new Object[]{user}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.admin.users.post.save.user", new Object[]{user.getUserName()}, Locale.getDefault()));
         if (userService.findByUserName(user.getUserName()).isPresent()) {
-            logger.info(messageSource.getMessage("controller.admin.users.post.save.user.error", new Object[]{user}, Locale.getDefault()));
+            logger.info(messageSource.getMessage("controller.admin.users.post.save.user.error", new Object[]{user.getUserName()}, Locale.getDefault()));
             return ResponseEntity.unprocessableEntity().build();
         } else {
             User result = new User();
@@ -108,7 +108,7 @@ public class AdminController {
                     .fromCurrentRequest().path("?username={username}")
                     .buildAndExpand(result.getUserName()).toUri();
 
-            logger.info(messageSource.getMessage("controller.admin.users.post.save.user.ok", new Object[]{result}, Locale.getDefault()));
+            logger.info(messageSource.getMessage("controller.admin.users.post.save.user.ok", new Object[]{result.getUserName()}, Locale.getDefault()));
             return ResponseEntity.created(location).body(result);
         }
     }
@@ -188,9 +188,9 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     ResponseEntity editUser(@RequestBody User user) {
-        logger.info(messageSource.getMessage("controller.admin.users.put.edit.user", new Object[]{user}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.admin.users.put.edit.user", new Object[]{user.getUserName()}, Locale.getDefault()));
         if (!userService.findByUserName(user.getUserName()).isPresent()) {
-            logger.info(messageSource.getMessage("controller.admin.users.put.edit.user.error", new Object[]{user}, Locale.getDefault()));
+            logger.info(messageSource.getMessage("controller.admin.users.put.edit.user.error", new Object[]{user.getUserName()}, Locale.getDefault()));
             return ResponseEntity.notFound().build();
         } else {
             User result = new User();
@@ -205,7 +205,7 @@ public class AdminController {
                     .fromCurrentRequest().path("?username={username}")
                     .buildAndExpand(result.getUserName()).toUri();
 
-            logger.info(messageSource.getMessage("controller.admin.users.put.edit.user.ok", new Object[]{result}, Locale.getDefault()));
+            logger.info(messageSource.getMessage("controller.admin.users.put.edit.user.ok", new Object[]{result.getUserName()}, Locale.getDefault()));
             return ResponseEntity.created(location).body(result);
         }
     }

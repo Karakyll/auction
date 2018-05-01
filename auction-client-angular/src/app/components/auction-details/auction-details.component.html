@@ -8,7 +8,7 @@
             <h2 *ngIf="auction">{{auction.product.name}}</h2>
           </div>
           <div class="col col-4">
-            <h5 *ngIf="auction">Category:
+            <h5 *ngIf="auction">{{ 'auctionDet.category' | translate }}
               <a class="btn btn-link" (click)="showCategory(auction.product.category_name)">
                 {{auction.product.category_name}}
               </a>
@@ -22,27 +22,27 @@
               <p *ngIf="auction">{{auction.description}}</p>
             </td>
             <td>
-              <div *ngIf="auction"><b>Start price: </b>{{auction.product.price}} $</div>
-              <div *ngIf="auction"><b>Owner: </b>{{auction.owner_name}}</div>
+              <div *ngIf="auction"><b>{{ 'auctionDet.startPrice' | translate }}</b>{{auction.product.price}} $</div>
+              <div *ngIf="auction"><b>{{ 'auctionDet.owner' | translate }}</b>{{auction.owner_name}}</div>
             </td>
           </tr>
           <tr>
             <td>
-              <div *ngIf="bets"><b>Current bet: </b> {{bets[bets.length - 1].price}} $</div>
+              <div *ngIf="bets"><b>{{ 'auctionDet.currentBet' | translate }}</b> {{bets[bets.length - 1].price}} $</div>
               <button *ngIf="isAuthenticated()"
                       type="button"
                       class="btn btn-sm btn-link"
-                      (click)="clickHistory(auction)">bets history
+                      (click)="clickHistory(auction)">{{ 'auctionDet.betsHistory' | translate }}
               </button>
             </td>
             <td>
               <button *ngIf="!finished && !checkOwner() && !isAdmin() && !isManager()"
                       type="button" class="btn btn-primary"
-                      (click)="clickNewBet(auction)">Place a bet</button>
+                      (click)="clickNewBet(auction)">{{ 'auctionDet.placeBet' | translate }}</button>
               <button *ngIf="checkOwner() && !finished && !isAdmin() && !isManager()"
                       type="button"
                       class="btn btn-danger"
-                      (click)="stopAuction()">Stop auction</button>
+                      (click)="stopAuction()">{{ 'auctionDet.stopAuction' | translate }}</button>
             </td>
           </tr>
         </table>
@@ -57,9 +57,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <p>Do you want to confirm?</p>
-        <button type="button" class="btn btn-default" (click)="confirmStopAuction()" >Yes</button>
-        <button type="button" class="btn btn-primary" (click)="declineStopAuction()" >No</button>
+        <p>{{ 'auctionDet.confirm.message' | translate }}</p>
+        <button type="button" class="btn btn-default" (click)="confirmStopAuction()" >{{ 'auctionDet.confirm.yes' | translate }}</button>
+        <button type="button" class="btn btn-primary" (click)="declineStopAuction()" >{{ 'auctionDet.confirm.no' | translate }}</button>
       </div>
     </div>
   </div>

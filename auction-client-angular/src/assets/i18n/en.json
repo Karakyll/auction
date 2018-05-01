@@ -1,0 +1,318 @@
+{
+  "header": {
+    "mainPage": "Main page",
+    "search": {
+      "placeHolder": "Search",
+      "button": "Search"
+    },
+    "login": " Login",
+    "signUp": " Sign up",
+    "user": " User",
+    "logout": " Logout"
+  },
+  "navbar": {
+    "categories": "Categories",
+    "auctions": "Auctions"
+  },
+  "about": {
+    "h1": "Auction web site v.0.12",
+    "p": "Work in progress.."
+  },
+  "signup": {
+    "header": "Sign up",
+    "username": {
+      "label": "Username",
+      "valid": "Username is required",
+      "failed": "User already exist"
+    },
+    "password": {
+      "label": "Password",
+      "valid": "Password is required"
+    },
+    "confirm": {
+      "label": "Confirm password",
+      "valid": "Different passwords"
+    },
+    "button": "Sign up",
+    "success": {
+      "h3": "Registration completed successfully.",
+      "h5": "Your account need to be enabled.",
+      "button": "Back to main page"
+    }
+  },
+  "login": {
+    "header": "Login",
+    "username": {
+      "label": "Username",
+      "failed": "Wrong login data"
+    },
+    "password": {
+      "label": "Password"
+    },
+    "button": "Login"
+  },
+  "administration": {
+    "header": "Users",
+    "table": {
+      "header": {
+        "username": "Username",
+        "status": "Status",
+        "manager": "Manager",
+        "enable": "Enable",
+        "promote": "Promote",
+        "demote": "Demote",
+        "delete": "Delete"
+      },
+      "body": {
+        "enabled": "enabled",
+        "disabled": "disabled"
+      }
+    },
+    "confirm": {
+      "message": "Do you want to confirm?",
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
+  "auction": {
+    "header": {
+      "ongoing": "ongoing",
+      "finished": "finished",
+      "startNew": "Start new auction"
+    },
+    "emptyMessage": "No match found for your request"
+  },
+  "auctionDet": {
+    "category": "Category:",
+    "startPrice": "Start price: ",
+    "owner": "Owner: ",
+    "currentBet": "Current bet: ",
+    "betsHistory": "bets history",
+    "placeBet": "Place a bet",
+    "stopAuction": "Stop auction",
+    "confirm": {
+      "message": "Do you want to confirm?",
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
+  "bet": {
+    "header": "Bets for: ",
+    "noBets": "No bets yet.",
+    "body": {
+      "date": "Date: ",
+      "user": "User: ",
+      "price": "Price "
+    },
+    "newBet": {
+      "header": "Place new bet",
+      "form": {
+        "label": "New bet: ",
+        "Button": "Place"
+      }
+    }
+  },
+  "management": {
+    "heading": {
+      "categories": "Categories",
+      "products": "Products",
+      "auctions": "Auctions",
+      "bets": "Bets"
+    },
+    "categories": {
+      "header": "Categories",
+      "form": {
+        "label": "Add new category",
+        "failed": "Category already exist",
+        "button": "Add"
+      },
+      "table": {
+        "header": {
+          "category": "Category",
+          "delete": "Delete"
+        }
+      },
+      "confirm": {
+        "message": "Do you want to confirm?",
+        "yes": "Yes",
+        "no": "No"
+      }
+    },
+    "auctions": {
+      "header": "Auctions",
+      "table": {
+        "header": {
+          "auctionId": "Auction id",
+          "owner": "Owner",
+          "productId": "Product id",
+          "productName": "Product name",
+          "createTime": "Create time",
+          "status": "Status",
+          "delete": "Delete"
+        },
+        "status": {
+          "ongoing": "Ongoing",
+          "finished": "Finished"
+        }
+      },
+      "confirm": {
+        "message": "Do you want to confirm?",
+        "yes": "Yes",
+        "no": "No"
+      }
+    },
+    "bets": {
+      "header": "Bets",
+      "table": {
+        "header": {
+          "betId": "Bet id",
+          "auctionId": "Auction id",
+          "username": "Username",
+          "betTime": "Bet time",
+          "price": "Price",
+          "delete": "Delete"
+        }
+      },
+      "confirm": {
+        "message": "Do you want to confirm?",
+        "yes": "Yes",
+        "no": "No"
+      }
+    },
+    "products": {
+      "header": "Products",
+      "table": {
+        "header": {
+          "productId": "Product id",
+          "name": "Name",
+          "category": "Category",
+          "price": "Price",
+          "description": "Description",
+          "delete": "Delete"
+        }
+      },
+      "confirm": {
+        "message": "Do you want to confirm?",
+        "yes": "Yes",
+        "no": "No"
+      }
+    }
+  },
+  "product": {
+    "header": "Create new product",
+    "form": {
+      "name": {
+        "label": "Name"
+      },
+      "category": {
+        "label": "Category",
+        "default": " -- select a category --"
+      },
+      "price": {
+        "label": "Price",
+        "valid": "Input correct price"
+      },
+      "description": {
+        "label": "Description"
+      },
+      "button": "Save"
+    },
+    "selectModal": {
+      "header": "Select product",
+      "empty": "No products yet.",
+      "body": {
+        "name": "Name: ",
+        "category": "Category: ",
+        "price": "Price: "
+      }
+    }
+  },
+  "startAuction": {
+    "header": "Start new auction",
+    "form": {
+      "product": {
+        "header": "Product",
+        "exist": "Select exist",
+        "or": "or",
+        "create": "Create new",
+        "edit": "Edit"
+      },
+      "duration": {
+        "label": "Auction duration:",
+        "1d": "1 day",
+        "3d": "3 days",
+        "7d": "7 days"
+      },
+      "description": "Description:",
+      "button": "Start auction"
+    }
+  },
+  "user": {
+    "header": "Welcome, ",
+    "operations": {
+      "header": "Available operations:",
+      "auctions": {
+        "header": "My auctions:",
+        "showAuctions": "Show my auctions"
+      },
+      "bets": {
+        "header": "My bets:",
+        "showBets": "Show my bets"
+      },
+      "profile": {
+        "header": "Edit profile:",
+        "changePassword": "Change password",
+        "deleteAccount": "Delete account"
+      },
+      "management": {
+        "header": "Management:",
+        "managementPage": "Go to management page"
+      },
+      "administration": {
+        "header": "Administration:",
+        "administrationPage": "Users administration"
+      }
+    }
+  },
+  "userOperations": {
+    "auctions": {
+      "header": "Auctions of user: ",
+      "empty": "No auctions yet.",
+      "body": {
+        "product": "Product:",
+        "createTime": "Create time: ",
+        "endTIme": "End time: ",
+        "status": "Status: ",
+        "ongoing": "ongoing",
+        "finished": "finished"
+      }
+    },
+    "bets": {
+      "header": "Bets by: ",
+      "empty": "No bets yet.",
+      "body": {
+        "date": "Date: ",
+        "price": "Price: "
+      }
+    },
+    "changePassword": {
+      "header": "Input new password",
+      "form": {
+        "password": {
+          "label": "New password",
+          "valid": "Password is required"
+        },
+        "confirm": {
+          "label": "Confirm new password",
+          "valid": "Different passwords"
+        },
+        "button": "Change"
+      }
+    },
+    "deleteConfirm": {
+      "message": "Do you want to confirm?",
+      "yes": "Yes",
+      "no": "No"
+    }
+  }
+}

@@ -160,10 +160,12 @@ public class AuctionController {
      */
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity saveAuction(@RequestBody Auction auction) {
-        logger.info(messageSource.getMessage("controller.auction.post.save.auction", new Object[]{auction}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.auction.post.save.auction",
+                new Object[]{auction.getProduct().getName()}, Locale.getDefault()));
         if(!userService.findByUserName(auction.getOwner_name()).isPresent()
                 || !categoryService.findByName(auction.getProduct().getCategory_name()).isPresent()) {
-            logger.info(messageSource.getMessage("controller.auction.post.save.auction.error", new Object[]{auction}, Locale.getDefault()));
+            logger.info(messageSource.getMessage("controller.auction.post.save.auction.error",
+                    new Object[]{auction.getProduct().getName()}, Locale.getDefault()));
             return ResponseEntity.unprocessableEntity().build();
         }
 
@@ -174,7 +176,7 @@ public class AuctionController {
         newProduct.setPrice(auction.getProduct().getPrice());
         newProduct.setDescription(auction.getProduct().getDescription());
 
-        logger.info(messageSource.getMessage("controller.auction.post.save.product", new Object[]{newProduct}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.auction.post.save.product", new Object[]{newProduct.getName()}, Locale.getDefault()));
         newProduct = productService.save(newProduct);
 
         Auction result = new Auction();
@@ -192,7 +194,8 @@ public class AuctionController {
                 .fromCurrentRequest().path("/{auctionId}")
                 .buildAndExpand(result.getId()).toUri();
 
-        logger.info(messageSource.getMessage("controller.auction.post.save.ok", new Object[]{result}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.auction.post.save.ok",
+                new Object[]{result.getId(), result.getProduct().getName()}, Locale.getDefault()));
         return ResponseEntity.created(location).body(result);
     }
 

@@ -2,6 +2,7 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {User} from "../../models/user";
 import {UserService} from "../../services/user/user.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-administration',
@@ -16,7 +17,8 @@ export class AdministrationComponent implements OnInit {
 
   constructor(
     private userService:UserService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {

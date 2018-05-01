@@ -1,14 +1,14 @@
 <div class="navbar navbar-expand navbar-dark bg-dark">
   <div class="mr-lg-5">
-    <a class="navbar-brand" routerLink="/">Main page</a>
+    <a class="navbar-brand" routerLink="/">{{ 'header.mainPage' | translate }}</a>
   </div>
   <form class="form-inline" (submit)="search()">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <input class="form-control-sm" type="text" placeholder="Search" [(ngModel)]="searchTag" name="searchInput">
+        <input class="form-control-sm" type="text" placeholder="{{ 'header.search.placeHolder' | translate }}" [(ngModel)]="searchTag" name="searchInput">
       </li>
       <li class="nav-item">
-        <button class="btn btn-sm btn-info" type="submit">Search</button>
+        <button class="btn btn-sm btn-info" type="submit">{{ 'header.search.button' | translate }}</button>
       </li>
     </ul>
   </form>
@@ -20,20 +20,21 @@
         <span class="fa fa-globe"></span>
       </button>
       <div class="dropdown-menu">
-        <button class="btn dropdown-item">en</button>
-        <button class="btn dropdown-item">ru</button>
+        <button class="btn dropdown-item" (click)="changeLanguage('en')">en</button>
+        <button class="btn dropdown-item" (click)="changeLanguage('ru')">ru</button>
       </div>
     </div>
     <li class="nav-item">
-      <a *ngIf="!isLogged" class="btn btn-link nav-link" (click)="clickLogin()"><span class="fa fa-sign-in"></span>
-        Login</a>
-      <a *ngIf="isLogged" class="btn btn-link nav-link" (click)="clickUser()"><span class="fa fa-user"></span> User</a>
+      <a *ngIf="!isLogged" class="btn btn-link nav-link" (click)="clickLogin()">
+        <span class="fa fa-sign-in"></span>{{ 'header.login' | translate }}</a>
+      <a *ngIf="isLogged" class="btn btn-link nav-link" (click)="clickUser()">
+        <span class="fa fa-user"></span>{{ 'header.user' | translate }}</a>
     </li>
     <li class="nav-item">
-      <a *ngIf="!isLogged" class="btn btn-link nav-link" routerLink="/signup"><span class="fa fa-user-plus"></span> Sign
-        Up</a>
-      <a *ngIf="isLogged" class="btn btn-link nav-link" (click)="clickLogout()"><span class="fa fa-sign-out"></span>
-        Logout</a>
+      <a *ngIf="!isLogged" class="btn btn-link nav-link" routerLink="/signup">
+        <span class="fa fa-user-plus"></span>{{ 'header.signUp' | translate }}</a>
+      <a *ngIf="isLogged" class="btn btn-link nav-link" (click)="clickLogout()">
+        <span class="fa fa-sign-out"></span>{{ 'header.logout' | translate }}</a>
     </li>
   </ul>
 </div>

@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="col col-sm-6">
-          <h4 id="dialog-bets" class="modal-title pull-left">Auctions of user: </h4>
+          <h4 id="dialog-bets" class="modal-title pull-left">{{ 'userOperations.auctions.header' | translate }}</h4>
         </div>
         <div class="col col-sm-3">
           <h5 *ngIf="user" class="modal-title">{{user.userName}} </h5>
@@ -15,22 +15,24 @@
           </div>
       </div>
       <div class="modal-body" *ngIf="!auctions;else unset">
-        <h5 class="modal-content">No auctions yet.</h5>
+        <h5 class="modal-content">{{ 'userOperations.auctions.empty' | translate }}</h5>
       </div>
       <div class="modal-body" *ngFor="let auction of auctions" #unset>
         <div class="btn" routerLink="/auctions/{{auction.id}}">
           <div class="row">
-            <div class="col"><b class="text pull-left">Product:</b>{{auction.product.name}}</div>
+            <div class="col">
+              <b class="text pull-left">{{ 'userOperations.auctions.body.product' | translate }}</b>{{auction.product.name}}
+            </div>
           </div>
           <div class="row">
-            <div class="col"><b>Create time: </b>{{auction.createTime}}</div>
-            <div class="col"><b>End time: </b>{{auction.endTime}}</div>
+            <div class="col"><b>{{ 'userOperations.auctions.body.createTime' | translate }}</b>{{auction.createTime}}</div>
+            <div class="col"><b>{{ 'userOperations.auctions.body.endTime' | translate }}</b>{{auction.endTime}}</div>
           </div>
           <div class="row">
             <div class="col">
-              <b class="text pull-left">Status: </b>
-              <span *ngIf="auction.finished" class="finished">finished</span>
-              <span *ngIf="!auction.finished" class="ongoing">ongoing</span>
+              <b class="text pull-left">{{ 'userOperations.auctions.body.status' | translate }}</b>
+              <span *ngIf="auction.finished" class="finished">{{ 'userOperations.auctions.body.finished' | translate }}</span>
+              <span *ngIf="!auction.finished" class="ongoing">{{ 'userOperations.auctions.body.ongoing' | translate }}</span>
             </div>
             <div class="col"></div>
           </div>
@@ -45,7 +47,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="col col-4">
-          <h3 class="modal-title pull-left">Bets by: </h3>
+          <h3 class="modal-title pull-left">{{ 'userOperations.bets.header' | translate }}</h3>
         </div>
         <div class="col ">
           <h3 *ngIf="user" class="modal-title">{{user.userName}}</h3>
@@ -57,13 +59,13 @@
         </div>
       </div>
       <div class="modal-body" *ngIf="!bets;else unset">
-        <h5 class="modal-content">No bets yet.</h5>
+        <h5 class="modal-content">{{ 'userOperations.bets.empty' | translate }}</h5>
       </div>
       <div class="modal-body" *ngFor="let bet of bets" #unset>
         <div class="btn" routerLink="/auctions/{{bet.auction_id}}">
           <div class="row">
-            <div class="col col-sm-5"><b>Date: </b>{{bet.betTime}}</div>
-            <div class="col col-sm"><b>Price: </b>{{bet.price}} $</div>
+            <div class="col col-sm-5"><b>{{ 'userOperations.bets.body.date' | translate }}</b>{{bet.betTime}}</div>
+            <div class="col col-sm"><b>{{ 'userOperations.bets.body.price' | translate }}</b>{{bet.price}} $</div>
           </div>
         </div>
       </div>
@@ -75,7 +77,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="col">
-          <h3 id="dialog-new-bet" class="modal-title pull-left">Input new password</h3>
+          <h3 id="dialog-new-bet" class="modal-title pull-left">{{ 'userOperations.changePassword.header' | translate }}</h3>
         </div>
         <div class="col col-sm-1">
           <button type="button" class="close pull-right" aria-label="Close" (click)="hidePasswordModal()">
@@ -86,7 +88,7 @@
       <div class="modal-body">
         <form (ngSubmit)="onSubmitPasswordChange()" #newBetForm="ngForm">
           <div class="col-sm-12 form-group">
-            <label for="password">Password</label>
+            <label for="password">{{ 'userOperations.changePassword.form.password.label' | translate }}</label>
             <input class="form-control form-control-sm"
                    type="password"
                    name="password"
@@ -95,11 +97,11 @@
                    #passwordInput="ngModel"
                    required>
             <div [hidden]="passwordInput.valid || passwordInput.pristine"
-                 class="alert alert-danger">Password is required
+                 class="alert alert-danger">{{ 'userOperations.changePassword.form.password.valid' | translate }}
             </div>
           </div>
           <div class="col-sm-12 form-group">
-            <label for="confirm">Confirm password</label>
+            <label for="confirm">{{ 'userOperations.changePassword.form.confirm.label' | translate }}</label>
             <input class="form-control form-control-sm"
                    type="password"
                    name="confirm"
@@ -108,13 +110,13 @@
                    #confirmInput="ngModel"
                    required>
             <div [hidden]="passwords.confirm==passwords.password || confirmInput.pristine"
-                 class="alert alert-danger">Different passwords
+                 class="alert alert-danger">{{ 'userOperations.changePassword.form.confirm.valid' | translate }}
             </div>
           </div>
           <div class="col-sm-12">
             <button class="btn btn-primary pull-right"
                     type="submit"
-                    [disabled]="passwords.confirm!==passwords.password">Change
+                    [disabled]="passwords.confirm!==passwords.password">{{ 'userOperations.changePassword.form.button' | translate }}
             </button>
           </div>
         </form>
@@ -126,9 +128,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <p>Do you want to confirm?</p>
-        <button type="button" class="btn btn-danger" (click)="confirmDeleteUser()" >Yes</button>
-        <button type="button" class="btn btn-primary" (click)="declineDeleteUser()" >No</button>
+        <p>{{ 'userOperations.deleteConfirm.message' | translate }}</p>
+        <button type="button"
+                class="btn btn-danger"
+                (click)="confirmDeleteUser()" >{{ 'userOperations.deleteConfirm.yes' | translate }}</button>
+        <button type="button"
+                class="btn btn-primary"
+                (click)="declineDeleteUser()" >{{ 'userOperations.deleteConfirm.no' | translate }}</button>
       </div>
     </div>
   </div>

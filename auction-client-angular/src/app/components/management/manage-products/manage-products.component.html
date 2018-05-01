@@ -1,15 +1,15 @@
 <div class="container">
   <br>
-  <h2>Products</h2>
+  <h2>{{ 'management.products.header' | translate }}</h2>
   <table class="table table-sm">
     <thead>
     <tr>
-      <th>Product id</th>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Price</th>
-      <th>Description</th>
-      <th class="danger">Delete</th>
+      <th>{{ 'management.products.table.header.productId' | translate }}</th>
+      <th>{{ 'management.products.table.header.name' | translate }}</th>
+      <th>{{ 'management.products.table.header.category' | translate }}</th>
+      <th>{{ 'management.products.table.header.price' | translate }}</th>
+      <th>{{ 'management.products.table.header.description' | translate }}</th>
+      <th class="table-danger">{{ 'management.products.table.header.delete' | translate }}</th>
     </tr>
     </thead>
     <tbody>
@@ -21,7 +21,7 @@
       <td>{{product.description}}</td>
       <td>
         <span class="btn fa fa-times-rectangle-o dis"
-              (click)="openModal(template); selectedProduct=product; $event.stopPropagation();"></span>
+              (click)="openModal(template); selectedProduct=product"></span>
       </td>
     </tr>
     </tbody>
@@ -29,8 +29,12 @@
 </div>
 <ng-template #template>
   <div class="modal-body text-center">
-    <p>Do you want to confirm?</p>
-    <button type="button" class="btn btn-default" (click)="confirmDeleteProduct()">Yes</button>
-    <button type="button" class="btn btn-primary" (click)="declineDeleteProduct()">No</button>
+    <p>{{ 'management.products.confirm.message' | translate }}</p>
+    <button type="button"
+            class="btn btn-default"
+            (click)="confirmDeleteProduct()">{{ 'management.products.confirm.yes' | translate }}</button>
+    <button type="button"
+            class="btn btn-primary"
+            (click)="declineDeleteProduct()">{{ 'management.products.confirm.no' | translate }}</button>
   </div>
 </ng-template>

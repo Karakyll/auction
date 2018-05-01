@@ -1,8 +1,9 @@
+<br>
 <div class="col-sm-6">
-  <h1>Login</h1>
+  <h1>{{ 'login.header' | translate }}</h1>
   <form (ngSubmit)="login()" #loginForm="ngForm">
     <div class="col-sm-12 form-group">
-      <label for="username">Username</label>
+      <label for="username">{{ 'login.username.label' | translate }}</label>
       <input class="form-control form-control-sm"
              type="text"
              name="username"
@@ -10,11 +11,11 @@
              #usernameInput="ngModel"
              [(ngModel)]="loginData.username" required>
       <div [hidden]="!isFailed || usernameInput.pristine"
-           class="alert alert-danger">Wrong login data
+           class="alert alert-danger">{{ 'login.username.failed' | translate }}
       </div>
     </div>
     <div class="col-sm-12 form-group">
-      <label for="password">Password</label>
+      <label for="password">{{ 'login.password.label' | translate }}</label>
       <input class="form-control form-control-sm"
              type="password"
              name="password"
@@ -22,7 +23,9 @@
              [(ngModel)]="loginData.password" required/>
     </div>
     <div class="col-sm-12">
-      <button class="btn btn-primary pull-right" type="submit" [disabled]="!loginForm.form.valid && buttonLocked">Login</button>
+      <button class="btn btn-primary pull-right"
+              type="submit"
+              [disabled]="!loginForm.form.valid && buttonLocked">{{ 'login.button' | translate }}</button>
     </div>
   </form>
 </div>

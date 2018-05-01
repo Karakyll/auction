@@ -113,7 +113,8 @@ public class AuctionServiceImpl implements AuctionService {
      */
     @Override
     public Auction save(Auction auction) {
-        logger.info(messageSource.getMessage("service.auction.save", new Object[]{auction}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("service.auction.save",
+                new Object[]{auction.getId(), auction.getProduct().getName()}, Locale.getDefault()));
         return auctionRepository.save(auction);
     }
 

@@ -3,14 +3,13 @@ import {User} from "../../../models/user";
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {Auction} from "../../../models/auction";
-import {Product} from "../../../models/product";
 import {AuctionService} from "../../../services/auction/auction.service";
-import {UserComponent} from "../user.component";
 import {Bet} from "../../../models/bet";
 import {BetService} from "../../../services/bet/bet.service";
 import {UserService} from "../../../services/user/user.service";
 import {LoginService} from "../../../services/login/login.service";
 import {Router} from "@angular/router";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-user-operations',
@@ -41,7 +40,8 @@ export class UserOperationsComponent implements OnInit {
     private betService:BetService,
     private userService:UserService,
     private auth:LoginService,
-    private router:Router
+    private router:Router,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -52,7 +52,7 @@ export class UserOperationsComponent implements OnInit {
   }
 
   subscribeUserAuctionsModalCalled() {
-    this.interact._userAuctionsModalCalled.subscribe(user => {;
+    this.interact._userAuctionsModalCalled.subscribe(user => {
       this.user = user;
       this.getAuctionsList(user.userName);
       this.userAuctionsModal.config = this.config;
@@ -110,13 +110,19 @@ export class UserOperationsComponent implements OnInit {
   }
 
   onSubmitPasswordChange() {
-   this.userService.changePassword(new User(this.user.userName, this.passwords[0], true, this.user.roles)).subscribe(res => {
-     console.log(res);
+   this.userService.changePassword(
+     new User(
+       this.user.userName,
+       this.passwords.password,
+       true,
+       this.user.roles
+     )).subscribe(() => {
+     this.changePasswordModal.hide();
    })
   }
 
   confirmDeleteUser() {
-    this.userService.deleteUser(this.user.userName).subscribe(res => {
+    this.userService.deleteUser(this.user.userName).subscribe(() => {
     });
     this.auth.logout();
     this.router.navigateByUrl("/");

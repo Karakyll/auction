@@ -2,60 +2,66 @@
   <div class="row">
     <div class="col"></div>
     <div class="col">
-      <h3>Welcome, {{user.userName}}</h3>
+      <h3>{{ 'user.header' | translate }}{{user.userName}}</h3>
     </div>
     <div class="col"></div>
   </div>
 </div>
 <div class="row">
   <div class="col col-sm-3">
-    <h5>Available operations:</h5>
+    <h5>{{ 'user.operations.header' | translate }}{{user.userName}}</h5>
   </div>
   <div class="col">
     <div class="row">
-      <div class="col col-sm-3"><h6>My auctions:</h6></div>
+      <div class="col col-sm-3"><h6>{{ 'user.operations.auctions.header' | translate }}</h6></div>
       <div class="col">
         <div class="row">
-          <div class="btn btn-sm btn-link ongoing" (click)="showAuctions()">Show my auctions</div>
+          <div class="btn btn-sm btn-link ongoing"
+               (click)="showAuctions()">{{ 'user.operations.auctions.showAuctions' | translate }}</div>
         </div>
       </div>
     </div>
     <hr>
     <div class="row">
-      <div class="col col-sm-3"><h6>My bets:</h6></div>
+      <div class="col col-sm-3"><h6>{{ 'user.operations.bets.header' | translate }}</h6></div>
       <div class="col">
         <div class="row">
-          <div class="btn btn-sm btn-link ongoing" (click)="showBets()">Show my bets</div>
+          <div class="btn btn-sm btn-link ongoing"
+               (click)="showBets()">{{ 'user.operations.bets.showBets' | translate }}</div>
         </div>
       </div>
     </div>
     <hr>
     <div class="row">
-      <div class="col col-sm-3"><h6>Edit profile:</h6></div>
+      <div class="col col-sm-3"><h6>{{ 'user.operations.profile.header' | translate }}</h6></div>
       <div class="col">
         <div class="row">
-          <div class="btn btn-sm btn-link" (click)="changePassword()">Change password</div>
+          <div class="btn btn-sm btn-link"
+               (click)="changePassword()">{{ 'user.operations.profile.changePassword' | translate }}</div>
         </div>
         <div *ngIf="!isAdmin()" class="row">
-          <div class="btn btn-sm btn-link danger" (click)="deleteAccount()">Delete account</div>
+          <div class="btn btn-sm btn-link danger"
+               (click)="deleteAccount()">{{ 'user.operations.profile.deleteAccount' | translate }}</div>
         </div>
       </div>
     </div>
     <hr *ngIf="isManager()">
     <div *ngIf="isManager()" class="row">
-      <div class="col col-sm-3"><h6>Management:</h6></div>
+      <div class="col col-sm-3"><h6>{{ 'user.operations.management.header' | translate }}</h6></div>
       <div class="col">
         <div class="row">
-          <div class="btn btn-sm btn-link mng" routerLink="/management">Go to management page</div>
+          <div class="btn btn-sm btn-link mng"
+               routerLink="/management">{{ 'user.operations.management.managementPage' | translate }}</div>
         </div>
       </div>
     </div>
     <hr *ngIf="isAdmin()">
     <div *ngIf="isAdmin()" class="row">
-      <div class="col col-sm-3"><h6>Administration:</h6></div>
+      <div class="col col-sm-3"><h6>{{ 'user.operations.administration.header' | translate }}</h6></div>
       <div class="col">
         <div class="row">
-          <div class="btn btn-sm btn-link adm" routerLink="/administration">Users administration</div>
+          <div class="btn btn-sm btn-link adm"
+               routerLink="/administration">{{ 'user.operations.administration.administrationPage' | translate }}</div>
         </div>
       </div>
     </div>

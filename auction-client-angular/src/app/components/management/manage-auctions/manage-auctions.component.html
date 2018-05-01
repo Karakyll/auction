@@ -1,16 +1,16 @@
 <div class="container">
   <br>
-  <h2>Auctions</h2>
+  <h2>{{ 'management.auctions.header' | translate }}</h2>
   <table class="table table-sm">
     <thead>
     <tr>
-      <th>Auction id</th>
-      <th>Owner</th>
-      <th>Product id</th>
-      <th>Product name</th>
-      <th>Create time</th>
-      <th>Status</th>
-      <th class="danger">Delete</th>
+      <th>{{ 'management.auctions.table.header.auctionId' | translate }}</th>
+      <th>{{ 'management.auctions.table.header.owner' | translate }}</th>
+      <th>{{ 'management.auctions.table.header.productId' | translate }}</th>
+      <th>{{ 'management.auctions.table.header.productName' | translate }}</th>
+      <th>{{ 'management.auctions.table.header.createTime' | translate }}</th>
+      <th>{{ 'management.auctions.table.header.status' | translate }}</th>
+      <th class="table-danger">{{ 'management.auctions.table.header.delete' | translate }}</th>
     </tr>
     </thead>
     <tbody>
@@ -20,9 +20,14 @@
       <td>{{auction.product.id}}</td>
       <td>{{auction.product.name}}</td>
       <td>{{auction.createTime}}</td>
-      <td><span *ngIf="!auction.finished" class="en">Ongoing</span><span *ngIf="auction.finished" class="dis">Finished</span></td>
       <td>
-        <span class="btn fa fa-times-rectangle-o dis" (click)="openModal(template); selectedAuction=auction; $event.stopPropagation();"></span>
+        <span *ngIf="!auction.finished" class="en">{{ 'management.auctions.table.status.ongoing' | translate }}</span>
+        <span *ngIf="auction.finished" class="dis">{{ 'management.auctions.table.status.finished' | translate }}</span>
+      </td>
+      <td>
+        <span class="btn fa fa-times-rectangle-o dis"
+              (click)="openModal(template); selectedAuction=auction; $event.stopPropagation();">
+        </span>
       </td>
     </tr>
     </tbody>
@@ -30,8 +35,12 @@
 </div>
 <ng-template #template>
   <div class="modal-body text-center">
-    <p>Do you want to confirm?</p>
-    <button type="button" class="btn btn-default" (click)="confirmDeleteAuction()">Yes</button>
-    <button type="button" class="btn btn-primary" (click)="declineDeleteAuction()">No</button>
+    <p>{{ 'management.auctions.confirm.message' | translate }}</p>
+    <button type="button"
+            class="btn btn-default"
+            (click)="confirmDeleteAuction()">{{ 'management.auctions.confirm.yes' | translate }}</button>
+    <button type="button"
+            class="btn btn-primary"
+            (click)="declineDeleteAuction()">{{ 'management.auctions.confirm.no' | translate }}</button>
   </div>
 </ng-template>

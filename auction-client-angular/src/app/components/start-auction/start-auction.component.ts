@@ -6,6 +6,7 @@ import {DateService} from "../../services/date/date.service";
 import {LoginService} from "../../services/login/login.service";
 import {AuctionService} from "../../services/auction/auction.service";
 import {Router} from "@angular/router";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-start-auction',
@@ -23,7 +24,7 @@ export class StartAuctionComponent implements OnInit {
     owner_name: "",
     createTime: "",
     endTime: "",
-    description: "",
+    description: null,
     finished: null
   };
 
@@ -33,7 +34,8 @@ export class StartAuctionComponent implements OnInit {
     private auctionService:AuctionService,
     private dateService:DateService,
     private auth:LoginService,
-    private router:Router
+    private router:Router,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {

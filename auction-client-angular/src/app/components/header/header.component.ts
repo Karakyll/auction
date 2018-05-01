@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuctionService } from "../../services/auction/auction.service";
 import {Router} from "@angular/router";
 import {LoginService} from "../../services/login/login.service";
 import {InteractionService} from "../../services/interaction/interaction.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-header',
@@ -17,12 +17,13 @@ export class HeaderComponent implements OnInit {
   constructor(
     private auth:LoginService,
     private interact:InteractionService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit() {
     this.isLogged = this.auth.isAuthenticated();
-    this.auth.loggedChange.subscribe(res => {
+    this.auth._loggedChange.subscribe(res => {
       this.isLogged = res;
     })
   }
@@ -44,6 +45,10 @@ export class HeaderComponent implements OnInit {
 
   clickUser() {
     this.router.navigateByUrl("/user")
+  }
+
+  changeLanguage(lang) {
+    this.translate.use(lang);
   }
 
 }

@@ -3,6 +3,7 @@ import {Product} from "../../../models/product";
 import {ProductService} from "../../../services/product/product.service";
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {InteractionService} from "../../../services/interaction/interaction.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-products',
@@ -18,7 +19,8 @@ export class ManageProductsComponent implements OnInit {
   constructor(
     private interact:InteractionService,
     private productService:ProductService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {

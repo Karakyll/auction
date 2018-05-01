@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public Product save(Product product) {
-        logger.info(messageSource.getMessage("service.product.save", new Object[]{product}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("service.product.save", new Object[]{product.getName()}, Locale.getDefault()));
         return productRepository.save(product);
     }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from "../../services/login/login.service";
 import {Router} from "@angular/router";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private auth:LoginService,
-    private router:Router
+    private router:Router,
+    private translate: TranslateService
   ){}
 
   ngOnInit(){
@@ -23,14 +25,25 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.buttonLocked = true;
-    if (this.auth.loginUser(this.loginData)) {
-      console.log("in login comp. now redirect!");
-      this.router.navigate(["/"]);
+    this.auth.loginUser(this.loginData)
+    this.subscribeLoggedChange();
+    this.subscribeOnLoginError();
+  }
+
+  subscribeLoggedChange() {
+    this.auth._loggedChange.subscribe(res => {
+      this.router.navigateByUrl("/");
+      this.buttonLocked = res;
+      this.isFailed = false;
+    })
+
+  }
+
+  subscribeOnLoginError() {
+    this.auth._loginError.subscribe(res => {
       this.buttonLocked = false;
-    } else {
       this.isFailed = true;
-      this.buttonLocked = false;
-    }
+    })
   }
 
 }

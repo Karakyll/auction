@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user/user.service";
 import {User} from "../../models/user";
 import {Router} from "@angular/router";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +16,11 @@ export class SignupComponent implements OnInit {
   public success:boolean = false;
   buttonLocked:boolean = false;
 
-  constructor(private userService:UserService, private router:Router) { }
+  constructor(
+    private userService:UserService,
+    private router:Router,
+    private translate: TranslateService
+  ) { }
 
   ngOnInit() {
     this.userExist = false;

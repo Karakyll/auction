@@ -3,6 +3,7 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {Auction} from "../../../models/auction";
 import {AuctionService} from "../../../services/auction/auction.service";
 import {InteractionService} from "../../../services/interaction/interaction.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-auctions',
@@ -18,7 +19,8 @@ export class ManageAuctionsComponent implements OnInit {
   constructor(
     private interact:InteractionService,
     private auctionService:AuctionService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {

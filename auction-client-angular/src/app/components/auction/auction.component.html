@@ -3,10 +3,10 @@
     <div class="col col-sm">
       <div class="btn-group" btnRadioGroup>
         <button class="btn btn-success" btnRadio="ongoing"
-                role="button" (click)="showOngoing()">ongoing
+                role="button" (click)="showOngoing()">{{ 'auction.header.ongoing' | translate }}
         </button>
         <button class="btn btn-success" btnRadio="finished"
-                role="button" (click)="showFinished()">finished
+                role="button" (click)="showFinished()">{{ 'auction.header.finished' | translate }}
         </button>
       </div>
     </div>
@@ -14,7 +14,7 @@
     <div class="col"></div>
     <div class="col">
       <button class="btn btn-primary" (click)="startNewAuction()">
-        Start new auction
+        {{ 'auction.header.startNew' | translate }}
       </button>
     </div>
   </div>
@@ -40,5 +40,5 @@
   </div>
 </div>
 <div *ngIf="!auctions || auctions.length == 0">
-  <h2>No match found for your request</h2>
+  <h2>{{ 'auction.emptyMessage' | translate }}</h2>
 </div>

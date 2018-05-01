@@ -1,4 +1,5 @@
 import {Component, OnInit } from '@angular/core';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-management',
@@ -8,6 +9,7 @@ import {Component, OnInit } from '@angular/core';
 export class ManagementComponent implements OnInit {
 
   constructor(
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {

@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { CollapseModule, BsModalRef, ModalModule, ButtonsModule} from "ngx-bootstrap";
 import { TabsModule } from 'ngx-bootstrap';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
 import { AuctionComponent } from "./components/auction/auction.component";
@@ -39,6 +40,7 @@ import { LoggedInGuard } from "./services/guard/logged-in-guard.service";
 import { InteractionService } from "./services/interaction/interaction.service";
 import { AdminGuard } from "./services/guard/admin-guard.service";
 import {ManagerGuard} from "./services/guard/manager-guard.service";
+import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 
 const appRoutes: Routes = [
   {path:'', component:AboutComponent},
@@ -90,7 +92,13 @@ const appRoutes: Routes = [
     CollapseModule.forRoot(),
     ModalModule.forRoot(),
     ButtonsModule.forRoot(),
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }})
   ],
   providers: [
     AuctionService,
@@ -104,8 +112,13 @@ const appRoutes: Routes = [
     LoggedInGuard,
     InteractionService,
     AdminGuard,
-    ManagerGuard
+    ManagerGuard,
+    TranslateService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

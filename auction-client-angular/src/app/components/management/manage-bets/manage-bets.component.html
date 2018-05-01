@@ -1,15 +1,15 @@
 <div class="container">
   <br>
-  <h2>Bets</h2>
+  <h2>{{ 'management.bets.header' | translate }}</h2>
   <table class="table table-sm">
     <thead>
     <tr>
-      <th>Bet id</th>
-      <th>Auction id</th>
-      <th>Username</th>
-      <th>Bet time</th>
-      <th>Price</th>
-      <th class="danger">Delete</th>
+      <th>{{ 'management.bets.table.header.betId' | translate }}</th>
+      <th>{{ 'management.bets.table.header.auctionId' | translate }}</th>
+      <th>{{ 'management.bets.table.header.username' | translate }}</th>
+      <th>{{ 'management.bets.table.header.betTime' | translate }}</th>
+      <th>{{ 'management.bets.table.header.price' | translate }}</th>
+      <th class="table-danger">{{ 'management.bets.table.header.delete' | translate }}</th>
     </tr>
     </thead>
     <tbody>
@@ -20,7 +20,7 @@
       <td>{{bet.betTime}}</td>
       <td>{{bet.price}}</td>
       <td>
-        <span class="btn fa fa-times-rectangle-o dis" (click)="openModal(template); selectedBet=bet; $event.stopPropagation();"></span>
+        <span class="btn fa fa-times-rectangle-o dis" (click)="openModal(template); selectedBet=bet"></span>
       </td>
     </tr>
     </tbody>
@@ -28,8 +28,12 @@
 </div>
 <ng-template #template>
   <div class="modal-body text-center">
-    <p>Do you want to confirm?</p>
-    <button type="button" class="btn btn-default" (click)="confirmDeleteBet()">Yes</button>
-    <button type="button" class="btn btn-primary" (click)="declineDeleteBet()">No</button>
+    <p>{{ 'management.bets.confirm.message' | translate }}</p>
+    <button type="button"
+            class="btn btn-default"
+            (click)="confirmDeleteBet()">{{ 'management.bets.confirm.yes' | translate }}</button>
+    <button type="button"
+            class="btn btn-primary"
+            (click)="declineDeleteBet()">{{ 'management.bets.confirm.no' | translate }}</button>
   </div>
 </ng-template>

@@ -3,6 +3,7 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {Bet} from "../../../models/bet";
 import {BetService} from "../../../services/bet/bet.service";
 import {InteractionService} from "../../../services/interaction/interaction.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-bets',
@@ -18,7 +19,8 @@ export class ManageBetsComponent implements OnInit {
   constructor(
     private interact:InteractionService,
     private betService:BetService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {

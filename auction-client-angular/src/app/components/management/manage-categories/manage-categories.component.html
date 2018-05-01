@@ -1,31 +1,33 @@
 <div class="container">
   <br>
-  <h2>Categories</h2>
+  <h2>{{ 'management.categories.header' | translate }}</h2>
   <hr>
   <div class="form-group row">
-    <label for="newCategory"><b>Add new category</b></label>
+    <label for="newCategory"><b>{{ 'management.categories.form.label' | translate }}</b></label>
     <div class="col">
       <input type="text" [(ngModel)]="newCategory" class="form-control input-sm" id="newCategory" #newInput="ngModel">
       <div [hidden]="!failed || newInput.pristine"
-           class="alert alert-danger">Category already exist
+           class="alert alert-danger">{{ 'management.categories.form.failed' | translate }}
       </div>
     </div>
     <div class="col">
-      <button [disabled]="!newCategory && buttonLocked" class="btn btn-info" (click)="addNewCategory()">Add</button>
+      <button [disabled]="!newCategory && buttonLocked"
+              class="btn btn-info"
+              (click)="addNewCategory()">{{ 'management.categories.form.button' | translate }}</button>
     </div>
   </div>
   <table class="table table-sm">
     <thead>
     <tr>
-      <th>Category</th>
-      <th class="danger">Delete</th>
+      <th>{{ 'management.categories.table.header.category' | translate }}</th>
+      <th class="table-danger">{{ 'management.categories.table.header.delete' | translate }}</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let category of categories">
       <td>{{category.name}}</td>
       <td>
-        <span class="btn fa fa-times-rectangle-o dis" (click)="openModal(template); selectedCategory=category; $event.stopPropagation();"></span>
+        <span class="btn fa fa-times-rectangle-o dis" (click)="openModal(template); selectedCategory=category"></span>
       </td>
     </tr>
     </tbody>
@@ -33,8 +35,12 @@
 </div>
 <ng-template #template>
   <div class="modal-body text-center">
-    <p>Do you want to confirm?</p>
-    <button type="button" class="btn btn-default" (click)="confirmDeleteCategory()">Yes</button>
-    <button type="button" class="btn btn-primary" (click)="declineDeleteCategory()">No</button>
+    <p>{{ 'management.categories.confirm.message' | translate }}</p>
+    <button type="button"
+            class="btn btn-default"
+            (click)="confirmDeleteCategory()">{{ 'management.categories.confirm.yes' | translate }}</button>
+    <button type="button"
+            class="btn btn-primary"
+            (click)="declineDeleteCategory()">{{ 'management.categories.confirm.no' | translate }}</button>
   </div>
 </ng-template>

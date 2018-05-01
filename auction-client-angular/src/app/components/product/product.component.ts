@@ -5,6 +5,7 @@ import {ModalDirective} from "ngx-bootstrap/modal";
 import {Category} from "../../models/category";
 import {CategoryService} from "../../services/category/category.service";
 import {InteractionService} from "../../services/interaction/interaction.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-product',
@@ -36,7 +37,8 @@ export class ProductComponent implements OnInit {
   constructor(
     private interact:InteractionService,
     private productService:ProductService,
-    private categoryService:CategoryService
+    private categoryService:CategoryService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -46,7 +48,7 @@ export class ProductComponent implements OnInit {
   }
 
   subscribeSelectProductCall() {
-    this.interact._selectExistProductCalled.subscribe(res => {
+    this.interact._selectExistProductCalled.subscribe(() => {
       this.getProductList();
       this.selectProductModal.config = this.config;
       this.selectProductModal.toggle();
@@ -54,7 +56,7 @@ export class ProductComponent implements OnInit {
   }
 
   subscribeCreateProductCall() {
-    this.interact._createNewProductCalled.subscribe(res => {
+    this.interact._createNewProductCalled.subscribe(() => {
       this.getCategoryList();
       this.newProductModal.config = this.config;
       this.newProductModal.toggle();
@@ -62,7 +64,7 @@ export class ProductComponent implements OnInit {
   }
 
   subscribeEditNewProductCall() {
-    this.interact._editNewProductCalled.subscribe(res => {
+    this.interact._editNewProductCalled.subscribe(() => {
       this.newProductModal.config = this.config;
       this.newProductModal.toggle();
     })

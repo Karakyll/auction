@@ -7,6 +7,7 @@ import {LoginService} from "../../services/login/login.service";
 import {InteractionService} from "../../services/interaction/interaction.service";
 import {BetService} from "../../services/bet/bet.service";
 import {ModalDirective} from "ngx-bootstrap/modal";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-auction-details',
@@ -32,7 +33,8 @@ export class AuctionDetailsComponent implements OnInit {
     private auctionService:AuctionService,
     private betService:BetService,
     private route:ActivatedRoute,
-    private router:Router
+    private router:Router,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {

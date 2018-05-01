@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="col col-4">
-          <h3 id="dialog-bets" class="modal-title pull-left">Bets for: </h3>
+          <h3 id="dialog-bets" class="modal-title pull-left">{{ 'bet.header' | translate }}</h3>
         </div>
         <div class="col ">
           <h3 *ngIf="auction" class="modal-title">{{auction.product.name}}</h3>
@@ -15,13 +15,13 @@
         </div>
       </div>
       <div class="modal-body" *ngIf="!bets;else unset">
-        <h5 class="modal-content">No bets yet.</h5>
+        <h5 class="modal-content">{{ 'bet.header' | translate }}</h5>
       </div>
       <div class="modal-body" *ngFor="let bet of bets" #unset>
         <div class="row">
-          <div class="col col-sm-5"><b>Date: </b>{{bet.betTime}}</div>
-          <div class="col col-sm"><b>User: </b>{{bet.user_name}}</div>
-          <div class="col col-sm"><b>Price: </b>{{bet.price}} $</div>
+          <div class="col col-sm-5"><b>{{ 'bet.body.date' | translate }}</b>{{bet.betTime}}</div>
+          <div class="col col-sm"><b>{{ 'bet.body.user' | translate }}</b>{{bet.user_name}}</div>
+          <div class="col col-sm"><b>{{ 'bet.body.price' | translate }}</b>{{bet.price}} $</div>
         </div>
       </div>
     </div>
@@ -32,7 +32,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="col">
-          <h3 id="dialog-new-bet" class="modal-title pull-left">Place new bet</h3>
+          <h3 id="dialog-new-bet" class="modal-title pull-left">{{ 'bet.newBet.header' | translate }}</h3>
         </div>
         <div class="col">
           <button type="button" class="close pull-right" aria-label="Close" (click)="hideNewBetModal()">
@@ -43,7 +43,7 @@
       <div *ngIf="bets || auction" class="modal-body">
         <form (ngSubmit)="onSubmitNewBet()" #newBetForm="ngForm">
           <div class="col col-sm form-group">
-            <label for="newBet">New bet: </label>
+            <label for="newBet">{{ 'bet.newBet.form.label' | translate }}</label>
             <input class="form-control form-control-sm"
                    type="number"
                    name="newBet"
@@ -58,7 +58,7 @@
                     [disabled]="!newBetForm.form.valid
                     && newBet < auction.product.price
                     && bets ? newBet < bets[bets.length - 1].price : false
-                    && buttonLocked">Add
+                    && buttonLocked">{{ 'bet.newBet.form.button' | translate }}
             </button>
           </div>
         </form>

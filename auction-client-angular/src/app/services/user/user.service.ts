@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 import { User } from "../../models/user";
@@ -9,7 +9,7 @@ export class UserService {
 
   private API_BASE_HREF = 'http://localhost:8081/api/';
   private HEADERS = new HttpHeaders({
-      'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+      'Content-type': 'application/json',
       'Accept': 'application/json'
     });
 
@@ -41,7 +41,8 @@ export class UserService {
   }
 
   saveUser(user:User):Observable<User> {
-    return this.http.post<User>(this.uri(), user);
+    let options = {headers: this.HEADERS};
+    return this.http.post<User>(this.uri(), user, options);
   }
 
   deleteUser(username:string) {

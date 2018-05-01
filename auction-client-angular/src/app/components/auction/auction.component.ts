@@ -4,6 +4,7 @@ import { Auction } from "../../models/auction";
 import { ActivatedRoute, Router } from "@angular/router";
 import {LoginService} from "../../services/login/login.service";
 import {InteractionService} from "../../services/interaction/interaction.service";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -22,7 +23,8 @@ export class AuctionComponent implements OnInit {
     private router:Router,
     private route:ActivatedRoute,
     private auth:LoginService,
-    private interact:InteractionService
+    private interact:InteractionService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {

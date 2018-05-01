@@ -57,7 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public Category save(Category category) {
-        logger.info(messageSource.getMessage("service.category.save", new Object[]{category}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("service.category.save", new Object[]{category.getName()}, Locale.getDefault()));
         return categoryRepository.save(category);
     }
 

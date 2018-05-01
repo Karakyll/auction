@@ -1,8 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { CategoryService } from "../../services/category/category.service";
 import { Category } from "../../models/category";
-import {AuctionService} from "../../services/auction/auction.service";
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 import {InteractionService} from "../../services/interaction/interaction.service";
 
 @Component({
@@ -25,7 +24,7 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {
     this.subscribeListCategory();
     this.subscribeCategoryListChanged();
-    this.interact._categoryTabToggled.subscribe(res => {
+    this.interact._categoryTabToggled.subscribe(() => {
       this.isOpen = !this.isOpen;
     })
   }
@@ -48,7 +47,7 @@ export class CategoryComponent implements OnInit {
   }
 
   subscribeCategoryListChanged() {
-    this.interact._categoryListChanged.subscribe(res => {
+    this.interact._categoryListChanged.subscribe(() => {
       this.subscribeListCategory();
     })
   }

@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="col ">
-          <h3 id="dialog-new-product" class="modal-title pull-left">Create new product</h3>
+          <h3 id="dialog-new-product" class="modal-title pull-left">{{ 'product.header' | translate }}</h3>
         </div>
         <div class="col col-sm-1">
           <button type="button" class="close pull-right" aria-label="Close" (click)="hideNewProductModal()">
@@ -14,7 +14,7 @@
       <div class="modal-body">
         <form (ngSubmit)="onSubmitNewProduct()" #newProductForm="ngForm">
           <div class="col col-sm form-group">
-            <label for="name"><b>Name</b></label>
+            <label for="name"><b>{{ 'product.form.name.label' | translate }}</b></label>
             <input class="form-control form-control-sm"
                    type="text"
                    name="name"
@@ -24,14 +24,14 @@
                    required>
           </div>
           <div class="col col-sm form-group">
-            <label for="category"><b>Category</b></label>
+            <label for="category"><b>{{ 'product.form.category.label' | translate }}</b></label>
             <select class="form-control" id="category" name="category" [(ngModel)]="newProduct.category_name">
-              <option disabled selected value> -- select a category --</option>
+              <option disabled selected value>{{ 'product.form.category.default' | translate }}</option>
               <option *ngFor="let category of categories">{{category.name}}</option>
             </select>
           </div>
           <div class="col col-sm form-group">
-            <label for="price"><b>Price</b></label>
+            <label for="price"><b>{{ 'product.form.price.label' | translate }}</b></label>
             <input class="form-control form-control-sm"
                    type="number"
                    name="price"
@@ -40,11 +40,11 @@
                    #priceInput="ngModel"
                    required>
             <div [hidden]="priceInput.valid || priceInput.pristine"
-                 class="alert alert-danger">Password is required
+                 class="alert alert-danger">{{ 'product.form.price.valid' | translate }}
             </div>
           </div>
           <div class="col col-sm form-group">
-            <label for="description"><b>Description</b></label>
+            <label for="description"><b>{{ 'product.form.description.label' | translate }}</b></label>
             <textarea class="form-control"
                       rows="3"
                       id="description"
@@ -56,7 +56,7 @@
           <div class="col-sm">
             <button class="btn btn-primary pull-right"
                     type="submit"
-                    [disabled]="!newProductForm.form.valid && !newProduct.category_name">Create
+                    [disabled]="!newProductForm.form.valid && !newProduct.category_name">{{ 'product.form.button' | translate }}
             </button>
           </div>
         </form>
@@ -69,7 +69,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="col col-6">
-          <h3 id="dialog-products" class="modal-title pull-left">Select product</h3>
+          <h3 id="dialog-products" class="modal-title pull-left">{{ 'product.selectModal.header' | translate }}</h3>
         </div>
         <div class="col col-sm-1">
           <button type="button" class="close pull-right" aria-label="Close" (click)="hideProductsModal()">
@@ -78,17 +78,17 @@
         </div>
       </div>
       <div class="modal-body" *ngIf="!products;else unset">
-        <h5 class="modal-content">No products yet.</h5>
+        <h5 class="modal-content">{{ 'product.selectModal.empty' | translate }}</h5>
       </div>
       <div class="modal-body" *ngFor="let product of products" #unset>
         <div class="btn" (click)="selectProduct(product)">
           <div class="row">
-            <div class="col"><b>Name: </b>{{product.name}}</div>
+            <div class="col"><b>{{ 'product.selectModal.body.name' | translate }}</b>{{product.name}}</div>
             <div class="col"></div>
           </div>
           <div class="row">
-            <div class="col"><b>Category: </b>{{product.category_name}}</div>
-            <div class="col"><b>Price: </b>{{product.price}} $</div>
+            <div class="col"><b>{{ 'product.selectModal.body.category' | translate }}</b>{{product.category_name}}</div>
+            <div class="col"><b>{{ 'product.selectModal.body.price' | translate }}</b>{{product.price}} $</div>
           </div>
         </div>
         <hr>

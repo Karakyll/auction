@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public User save(User user) {
-        logger.info(messageSource.getMessage("service.user.save", new Object[]{user}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("service.user.save", new Object[]{user.getUserName()}, Locale.getDefault()));
         return userRepository.save(user);
     }
 

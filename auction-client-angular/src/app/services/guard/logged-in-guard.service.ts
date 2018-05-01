@@ -8,8 +8,6 @@ export class LoggedInGuard implements CanActivate {
   constructor(private auth:LoginService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean {
-    console.log("in guard");
-    console.log(this.auth.isAuthenticated());
     return this.auth.isAuthenticated();
   }
 

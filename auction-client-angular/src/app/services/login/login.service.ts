@@ -28,7 +28,8 @@ export class LoginService {
     roles: null
   };
 
-  @Output() loggedChange: EventEmitter<boolean> = new EventEmitter();
+  @Output() _loggedChange: EventEmitter<boolean> = new EventEmitter();
+  @Output() _loginError: EventEmitter<any> = new EventEmitter();
 
   constructor(private http:HttpClient, private router:Router) {
   }
@@ -39,29 +40,28 @@ export class LoginService {
       true,
       [new Role(1,"ROLE_ADMIN"), new Role(2, "ROLE_USER"),  new Role(3, "ROLE_MANAGER")]));
     this.saveToken(new Token("access1", "BEARER", 2000, ["read", "write"]));
-    this.loggedChange.emit(true);
+    this._loggedChange.emit(true);
   }
 
   isAuthenticated() {
     return this.getUserData().userName !== null && !this.isExpired();
   }
 
-  loginUser(loginData):boolean {
-    let rez = false;
+  loginUser(loginData) {
     this.requestAccessToken(loginData).subscribe(
       data => {
         this.saveToken(data);
         this.getUserRoles(loginData.username).subscribe(res => {
+          console.log("user 2323 roles");
+          console.log(res);
           this.saveUserData(new User(loginData.username,null, true, res))
         });
-        this.loggedChange.emit(true);
-        rez = true;
+        this._loggedChange.emit(true);
       },
       err => {
+        this._loginError.emit();
         console.log("err login");
-        rez = false;
       });
-    return rez;
   }
 
   requestAccessToken(loginData) {
@@ -108,12 +108,15 @@ export class LoginService {
   logout() {
     this.saveToken(this.defaultToken);
     this.saveUserData(this.defaultUser);
-    this.loggedChange.emit(false);
+    this._loggedChange.emit(false);
   }
 
   getUserRoles(username:string):Observable<Role[]> {
     let options = {
-      headers: this.HEADERS,
+      headers: new HttpHeaders({
+          'Content-type': 'application/application/json',
+          'Accept': 'application/json'
+        }),
       params: new HttpParams().append('username', username)
     };
     return this.http.get<Role[]>(this.API_BASE_HREF + "roles/", options);

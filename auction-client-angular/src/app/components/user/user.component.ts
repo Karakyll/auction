@@ -4,6 +4,7 @@ import {User} from "../../models/user";
 import {LoginService} from "../../services/login/login.service";
 import {Router} from "@angular/router";
 import {InteractionService} from "../../services/interaction/interaction.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-user',
@@ -18,7 +19,8 @@ export class UserComponent implements OnInit {
     private interact:InteractionService,
     private userService:UserService,
     private auth:LoginService,
-    private router:Router
+    private router:Router,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {

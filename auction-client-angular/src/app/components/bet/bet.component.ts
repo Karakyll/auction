@@ -7,6 +7,7 @@ import { AuctionService } from "../../services/auction/auction.service";
 import { DateService } from "../../services/date/date.service";
 import {InteractionService} from "../../services/interaction/interaction.service";
 import {LoginService} from "../../services/login/login.service";
+import {TranslateService} from "@ngx-translate/core";
 
 ;
 
@@ -36,7 +37,8 @@ export class BetComponent implements OnInit {
     private betService:BetService,
     private auctionService:AuctionService,
     private dateService:DateService,
-    private auth:LoginService
+    private auth:LoginService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -55,7 +57,7 @@ export class BetComponent implements OnInit {
   onSubmitNewBet() {
     this.buttonLocked = true;
     let bet = new Bet(null, this.auction.id, this.auth.getUserData().userName, this.dateService.getDateTime(), this.newBet);
-    this.betService.saveBet(bet).subscribe(res => {
+    this.betService.saveBet(bet).subscribe(() => {
       this.interact.refreshBets();
       this.newBetModal.hide();
         this.buttonLocked = false;
