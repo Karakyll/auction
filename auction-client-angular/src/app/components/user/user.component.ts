@@ -49,7 +49,4 @@ export class UserComponent implements OnInit {
     this.interact.callDeleteAccountModal(this.user);
   }
 
-  userAdministration() {
-  }
-
 }

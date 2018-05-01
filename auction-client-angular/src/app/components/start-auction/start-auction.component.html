@@ -51,7 +51,9 @@
   <br>
   <div class="col">
     <button
-      [disabled]="!newAuction.description || !newAuction.product || !duration"
+      [disabled]="newAuction.description ? newAuction.description.length == 0 : false
+      && !newAuction.product
+      && !duration && buttonLocked"
       class="btn btn-secondary"
       (click)="startAuction()">Start auction
     </button>

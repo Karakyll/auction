@@ -46,7 +46,7 @@
     <div class="col-sm-12">
       <button class="btn btn-primary pull-right"
               type="submit"
-              [disabled]="!signForm.form.valid || signData.confirm!==signData.password">Sign up
+              [disabled]="!signForm.form.valid && signData.confirm!==signData.password && buttonLocked">Sign up
       </button>
     </div>
   </form>

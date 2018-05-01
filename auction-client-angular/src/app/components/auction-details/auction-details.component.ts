@@ -24,7 +24,7 @@ export class AuctionDetailsComponent implements OnInit {
 
   auction:Auction;
   bets:Bet[];
-  finished:boolean = true;
+  finished:boolean = false;
 
   constructor(
     private auth:LoginService,
@@ -53,7 +53,7 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   clickHistory (auction) {
-    this.interact.toggleBetsHistoryModal(auction);
+    this.isAuthenticated() ? this.interact.toggleBetsHistoryModal(auction) : this.router.navigateByUrl("/login");
   }
 
   clickNewBet(auction) {
@@ -65,7 +65,7 @@ export class AuctionDetailsComponent implements OnInit {
     this.confirmModal.toggle();
   }
 
-  confirm() {
+  confirmStopAuction() {
     this.auctionService.finishAuction(this.auction.id).subscribe(res => {
       this.auction = res;
       this.finished = res.finished;
@@ -73,16 +73,16 @@ export class AuctionDetailsComponent implements OnInit {
     this.confirmModal.hide();
   }
 
-  decline() {
+  declineStopAuction() {
     this.confirmModal.hide();
   }
 
   isManager() {
-    return this.auth.getUserData().roles.find(r => r.role == "ROLE_MANAGER");
+    return this.isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role == "ROLE_MANAGER") : false;
   }
 
   isAdmin() {
-    return this.auth.getUserData().roles.find(r => r.role == "ROLE_ADMIN");
+    return this. isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role == "ROLE_ADMIN") : false;
   }
 
   subscribeRefreshBets() {

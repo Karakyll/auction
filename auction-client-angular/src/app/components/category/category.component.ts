@@ -16,8 +16,6 @@ export class CategoryComponent implements OnInit {
 
   categories:Category[];
 
-  inputCategory:string;
-
   constructor(
     private categoryService:CategoryService,
     private interact:InteractionService,
@@ -26,6 +24,7 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.subscribeListCategory();
+    this.subscribeCategoryListChanged();
     this.interact._categoryTabToggled.subscribe(res => {
       this.isOpen = !this.isOpen;
     })
@@ -46,6 +45,12 @@ export class CategoryComponent implements OnInit {
         this.categories.push(new Category(null));
       }
     });
+  }
+
+  subscribeCategoryListChanged() {
+    this.interact._categoryListChanged.subscribe(res => {
+      this.subscribeListCategory();
+    })
   }
 
 }

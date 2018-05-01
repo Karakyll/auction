@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
 
   public loginData = {username: "", password: ""};
   isFailed:boolean = false;
+  buttonLocked:boolean = false;
 
   constructor(
     private auth:LoginService,
@@ -21,13 +22,15 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    /*if (this.auth.loginUser(this.loginData)) {
+    this.buttonLocked = true;
+    if (this.auth.loginUser(this.loginData)) {
+      console.log("in login comp. now redirect!");
       this.router.navigate(["/"]);
+      this.buttonLocked = false;
     } else {
       this.isFailed = true;
-    }*/
-    this.auth.test(this.loginData);
-    this.router.navigate(["/"]);
+      this.buttonLocked = false;
+    }
   }
 
 }

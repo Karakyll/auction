@@ -4,6 +4,8 @@ import {ProductService} from "../../services/product/product.service";
 import {InteractionService} from "../../services/interaction/interaction.service";
 import {DateService} from "../../services/date/date.service";
 import {LoginService} from "../../services/login/login.service";
+import {AuctionService} from "../../services/auction/auction.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-start-auction',
@@ -13,6 +15,7 @@ import {LoginService} from "../../services/login/login.service";
 export class StartAuctionComponent implements OnInit {
 
   duration:number;
+  buttonLocked:boolean = false;
 
   newAuction:Auction = {
     id: null,
@@ -27,8 +30,10 @@ export class StartAuctionComponent implements OnInit {
   constructor(
     private interact:InteractionService,
     private productService:ProductService,
+    private auctionService:AuctionService,
     private dateService:DateService,
-    private auth:LoginService
+    private auth:LoginService,
+    private router:Router
   ) { }
 
   ngOnInit() {
@@ -36,11 +41,15 @@ export class StartAuctionComponent implements OnInit {
   }
 
   startAuction() {
+    this.buttonLocked = true;
     this.newAuction.owner_name = this.auth.getUserData().userName;
     this.newAuction.createTime = this.dateService.getDateTime();
     this.newAuction.endTime = this.dateService.getDateTime(+this.duration);
     this.newAuction.finished = false;
-    console.log(this.newAuction);
+    this.auctionService.saveAuction(this.newAuction).subscribe(res => {
+      this.router.navigateByUrl("/auctions/" + res.id);
+      this.buttonLocked = false;
+    });
   }
 
   selectExistProduct() {

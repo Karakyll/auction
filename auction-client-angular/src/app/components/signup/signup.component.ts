@@ -11,10 +11,9 @@ import {Router} from "@angular/router";
 export class SignupComponent implements OnInit {
 
   public signData = {username: "", password: "", confirm: ""};
-
   public userExist:boolean;
-
   public success:boolean = false;
+  buttonLocked:boolean = false;
 
   constructor(private userService:UserService, private router:Router) { }
 
@@ -23,14 +22,17 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
+    this.buttonLocked = true;
     this.userExist = false;
     this.userService.saveUser(new User(this.signData.username, this.signData.password, null, null)).subscribe(
       res => {
         this.success = true;
+        this.buttonLocked = false;
       },
       err => {
         console.log("error. User already exist");
         this.userExist = true;
+        this.buttonLocked = false;
       }
     )
   }

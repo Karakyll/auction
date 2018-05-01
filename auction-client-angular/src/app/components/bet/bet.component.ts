@@ -6,6 +6,7 @@ import { Auction } from "../../models/auction";
 import { AuctionService } from "../../services/auction/auction.service";
 import { DateService } from "../../services/date/date.service";
 import {InteractionService} from "../../services/interaction/interaction.service";
+import {LoginService} from "../../services/login/login.service";
 
 ;
 
@@ -24,6 +25,8 @@ export class BetComponent implements OnInit {
     backdrop: false
   };
 
+  buttonLocked:boolean = false;
+
   bets:Bet[];
   auction:Auction;
   newBet:number;
@@ -32,7 +35,8 @@ export class BetComponent implements OnInit {
     private interact:InteractionService,
     private betService:BetService,
     private auctionService:AuctionService,
-    private dateService:DateService
+    private dateService:DateService,
+    private auth:LoginService
   ) { }
 
   ngOnInit() {
@@ -49,14 +53,17 @@ export class BetComponent implements OnInit {
   }
 
   onSubmitNewBet() {
-    let bet = new Bet(null, this.auction.id, this.auction.owner_name, this.dateService.getDateTime(), this.newBet);
+    this.buttonLocked = true;
+    let bet = new Bet(null, this.auction.id, this.auth.getUserData().userName, this.dateService.getDateTime(), this.newBet);
     this.betService.saveBet(bet).subscribe(res => {
       this.interact.refreshBets();
       this.newBetModal.hide();
+        this.buttonLocked = false;
     },
       error => {
       console.log("User or auction not found");
       console.log(error);
+        this.buttonLocked = false;
       })
   }
 

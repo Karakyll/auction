@@ -43,10 +43,11 @@ export class LoginService {
   }
 
   isAuthenticated() {
-    return this.getUserData().userName !== null || !this.isExpired();
+    return this.getUserData().userName !== null && !this.isExpired();
   }
 
-  loginUser (loginData) {
+  loginUser(loginData):boolean {
+    let rez = false;
     this.requestAccessToken(loginData).subscribe(
       data => {
         this.saveToken(data);
@@ -54,12 +55,13 @@ export class LoginService {
           this.saveUserData(new User(loginData.username,null, true, res))
         });
         this.loggedChange.emit(true);
-        return true;
+        rez = true;
       },
       err => {
-        return false;
-      }
-    );
+        console.log("err login");
+        rez = false;
+      });
+    return rez;
   }
 
   requestAccessToken(loginData) {

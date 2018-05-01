@@ -2,6 +2,7 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {Auction} from "../../../models/auction";
 import {AuctionService} from "../../../services/auction/auction.service";
+import {InteractionService} from "../../../services/interaction/interaction.service";
 
 @Component({
   selector: 'app-manage-auctions',
@@ -15,12 +16,16 @@ export class ManageAuctionsComponent implements OnInit {
   selectedAuction:Auction;
 
   constructor(
+    private interact:InteractionService,
     private auctionService:AuctionService,
     private modalService: BsModalService
   ) { }
 
   ngOnInit() {
     this.getAuctions();
+    this.subscribeUserListChanging();
+    this.subscribeProductListChanging();
+    this.subscribeCategoryListChanging();
   }
 
   getAuctions() {
@@ -33,15 +38,34 @@ export class ManageAuctionsComponent implements OnInit {
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
-  confirm(): void {
+  confirmDeleteAuction(): void {
     this.auctionService.deleteAuctionById(this.selectedAuction.id).subscribe(res => {
+      this.interact.callAuctionChanging();
       this.auctions.splice(this.auctions.indexOf(this.selectedAuction),1);
       this.modalRef.hide();
     });
   }
 
-  decline(): void {
+  declineDeleteAuction(): void {
     this.modalRef.hide();
+  }
+
+  subscribeUserListChanging() {
+    this.interact._userListChanged.subscribe(res => {
+      this.getAuctions();
+    })
+  }
+
+  subscribeProductListChanging() {
+    this.interact._productListChanged.subscribe(res => {
+      this.getAuctions();
+    })
+  }
+
+  subscribeCategoryListChanging() {
+    this.interact._categoryListChanged.subscribe(res => {
+      this.getAuctions();
+    })
   }
 
 }

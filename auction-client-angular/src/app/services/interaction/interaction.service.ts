@@ -27,6 +27,12 @@ export class InteractionService {
   @Output() _passwordChangeModalCalled: EventEmitter<User> = new EventEmitter();
   @Output() _deleteAccountModalCalled: EventEmitter<User> = new EventEmitter();
 
+  @Output() _categoryListChanged: EventEmitter<any> = new EventEmitter();
+  @Output() _productListChanged: EventEmitter<any> = new EventEmitter();
+  @Output() _userListChanged: EventEmitter<any> = new EventEmitter();
+  @Output() _betListChanged: EventEmitter<any> = new EventEmitter();
+  @Output() _auctionListChanged: EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
   toggleSelectProductModal() {
@@ -89,4 +95,23 @@ export class InteractionService {
     this._deleteAccountModalCalled.emit(user);
   }
 
+  callCategoryChanging() {
+    this._categoryListChanged.emit();
+  }
+
+  callProductChanging() {
+    this._productListChanged.emit();
+  }
+
+  callUserChanging() {
+    this._userListChanged.emit();
+  }
+
+  callBetChanging() {
+    this._betListChanged.emit();
+  }
+
+  callAuctionChanging() {
+    this._auctionListChanged.emit();
+  }
 }

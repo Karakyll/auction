@@ -7,7 +7,11 @@
              type="text"
              name="username"
              id="username"
+             #usernameInput="ngModel"
              [(ngModel)]="loginData.username" required>
+      <div [hidden]="!isFailed || usernameInput.pristine"
+           class="alert alert-danger">Wrong login data
+      </div>
     </div>
     <div class="col-sm-12 form-group">
       <label for="password">Password</label>
@@ -18,7 +22,7 @@
              [(ngModel)]="loginData.password" required/>
     </div>
     <div class="col-sm-12">
-      <button class="btn btn-primary pull-right" type="submit" [disabled]="!loginForm.form.valid">Login</button>
+      <button class="btn btn-primary pull-right" type="submit" [disabled]="!loginForm.form.valid && buttonLocked">Login</button>
     </div>
   </form>
 </div>

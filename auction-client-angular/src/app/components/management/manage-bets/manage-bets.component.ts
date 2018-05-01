@@ -2,6 +2,7 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {Bet} from "../../../models/bet";
 import {BetService} from "../../../services/bet/bet.service";
+import {InteractionService} from "../../../services/interaction/interaction.service";
 
 @Component({
   selector: 'app-manage-bets',
@@ -15,12 +16,17 @@ export class ManageBetsComponent implements OnInit {
   selectedBet:Bet;
 
   constructor(
+    private interact:InteractionService,
     private betService:BetService,
     private modalService: BsModalService
   ) { }
 
   ngOnInit() {
     this.getBets();
+    this.subscribeUserListChanging();
+    this.subscribeProductListChanging();
+    this.subscribeCategoryListChanging();
+    this.subscribeAuctionListChanging();
   }
 
   getBets() {
@@ -33,15 +39,40 @@ export class ManageBetsComponent implements OnInit {
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
-  confirm(): void {
+  confirmDeleteBet(): void {
     this.betService.deleteBet(this.selectedBet.id).subscribe(res => {
+      this.interact.callBetChanging();
       this.bets.splice(this.bets.indexOf(this.selectedBet),1);
       this.modalRef.hide();
     });
   }
 
-  decline(): void {
+  declineDeleteBet(): void {
     this.modalRef.hide();
+  }
+
+  subscribeUserListChanging() {
+    this.interact._userListChanged.subscribe(res => {
+      this.getBets();
+    })
+  }
+
+  subscribeProductListChanging() {
+    this.interact._productListChanged.subscribe(res => {
+      this.getBets();
+    })
+  }
+
+  subscribeCategoryListChanging() {
+    this.interact._categoryListChanged.subscribe(res => {
+      this.getBets();
+    })
+  }
+
+  subscribeAuctionListChanging() {
+    this.interact._auctionListChanged.subscribe(res => {
+      this.getBets();
+    })
   }
 
 }

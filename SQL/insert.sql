@@ -1,11 +1,11 @@
 ------------------------------------ fill users table -----------------------------------
 
 INSERT INTO users (username, password, enabled)
-VALUES ('user', '$2a$04$S52xFTxBbLoFZ.bXRl0tB.Vcncx2FEki8JCEnNEI25wy0Zg2UoE8y', true),
-        ('testuser', '$2a$04$Lx/sqdDLnOhSd/XmWQs.vu/4hufx0BKJjWphERSh4DRPiqjVfWo5m', true),
-        ('testuser2', '$2a$04$Unw/gozf1Q27beXC7ACF5OX7G5uQdFhm.8JTyBTcjLLealHk0rm2C', true),
-        ('manager', '$2a$04$c6kI0YhJZzssTRKGJ4LJuuiq3rkYwE4Wal/B8vK/4o9FOFNKUjKLy', true),
-        ('admin','$2a$04$EtawSjS0nKziSZ38PoguJ.mCHXZ7/TF1ybiwVz8/VjbbvmH6Z.dZC', true);
+VALUES ('user', 'user', true),
+        ('testuser', 'testuser', true),
+        ('testuser2', 'testuser2', true),
+        ('manager', 'manager', true),
+        ('admin', 'admin', true);
 
 ------------------------------------ fill user_roles table -----------------------------------
 

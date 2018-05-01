@@ -2,6 +2,7 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import {Product} from "../../../models/product";
 import {ProductService} from "../../../services/product/product.service";
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
+import {InteractionService} from "../../../services/interaction/interaction.service";
 
 @Component({
   selector: 'app-manage-products',
@@ -15,12 +16,14 @@ export class ManageProductsComponent implements OnInit {
   selectedProduct:Product;
 
   constructor(
+    private interact:InteractionService,
     private productService:ProductService,
     private modalService: BsModalService
   ) { }
 
   ngOnInit() {
     this.getProducts();
+    this.subscribeCategoryListChanging();
   }
 
   getProducts() {
@@ -33,15 +36,22 @@ export class ManageProductsComponent implements OnInit {
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
-  confirm(): void {
+  confirmDeleteProduct(): void {
     this.productService.deleteProduct(this.selectedProduct.id).subscribe(res => {
+      this.interact.callProductChanging();
       this.products.splice(this.products.indexOf(this.selectedProduct),1);
       this.modalRef.hide();
     });
   }
 
-  decline(): void {
+  declineDeleteProduct(): void {
     this.modalRef.hide();
+  }
+
+  subscribeCategoryListChanging() {
+    this.interact._categoryListChanged.subscribe(res => {
+      this.getProducts();
+    })
   }
 
 }

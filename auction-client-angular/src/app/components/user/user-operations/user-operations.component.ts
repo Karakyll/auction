@@ -115,14 +115,14 @@ export class UserOperationsComponent implements OnInit {
    })
   }
 
-  confirm() {
+  confirmDeleteUser() {
     this.userService.deleteUser(this.user.userName).subscribe(res => {
     });
     this.auth.logout();
     this.router.navigateByUrl("/");
   }
 
-  decline() {
+  declineDeleteUser() {
     this.confirmDeleteModal.hide();
   }
 

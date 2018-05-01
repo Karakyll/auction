@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Category } from "../../../models/category";
 import { CategoryService } from "../../../services/category/category.service";
 import { BsModalRef, BsModalService } from "ngx-bootstrap";
+import {InteractionService} from "../../../services/interaction/interaction.service";
 
 @Component({
   selector: 'app-manage-categories',
@@ -15,8 +16,10 @@ export class ManageCategoriesComponent implements OnInit {
   modalRef:BsModalRef;
   selectedCategory:Category;
   failed:boolean = false;
+  buttonLocked:boolean = false;
 
   constructor(
+    private interact:InteractionService,
     private categoryService:CategoryService,
     private modalService: BsModalService
   ) { }
@@ -32,13 +35,17 @@ export class ManageCategoriesComponent implements OnInit {
   }
 
   addNewCategory() {
+    this.buttonLocked = true;
     this.categoryService.saveCategory(new Category(this.newCategory)).subscribe(
       res => {
+        this.interact.callCategoryChanging();
         this.newCategory = "";
         this.categories.push(res);
+        this.buttonLocked = false;
       },
       err => {
         this.failed = true;
+        this.buttonLocked = false;
       }
     )
   }
@@ -47,14 +54,15 @@ export class ManageCategoriesComponent implements OnInit {
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
-  confirm(): void {
+  confirmDeleteCategory(): void {
     this.categoryService.deleteCategory(this.selectedCategory).subscribe(res => {
+      this.interact.callCategoryChanging();
       this.categories.splice(this.categories.indexOf(this.selectedCategory),1);
       this.modalRef.hide();
     });
   }
 
-  decline(): void {
+  declineDeleteCategory(): void {
     this.modalRef.hide();
   }
 
