@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { CollapseModule, BsModalRef, ModalModule, ButtonsModule} from "ngx-bootstrap";
+import { TabsModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AuctionComponent } from "./components/auction/auction.component";
@@ -90,7 +91,8 @@ const appRoutes: Routes = [
     Angular2FontawesomeModule,
     CollapseModule.forRoot(),
     ModalModule.forRoot(),
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    TabsModule.forRoot()
   ],
   providers: [
     AuctionService,

@@ -77,6 +77,14 @@ export class AuctionDetailsComponent implements OnInit {
     this.confirmModal.hide();
   }
 
+  isManager() {
+    return this.auth.getUserData().roles.find(r => r.role == "ROLE_MANAGER");
+  }
+
+  isAdmin() {
+    return this.auth.getUserData().roles.find(r => r.role == "ROLE_ADMIN");
+  }
+
   subscribeRefreshBets() {
     this.interact._betsRefresh.subscribe(res => {
       this.betService.getBetsByAuctionId(this.auction.id).subscribe(res => {

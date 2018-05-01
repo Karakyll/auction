@@ -23,19 +23,23 @@
             </td>
             <td>
               <div *ngIf="auction"><b>Start price: </b>{{auction.product.price}} $</div>
-              <p *ngIf="auction"><b>Owner: </b>{{auction.owner_name}}</p>
+              <div *ngIf="auction"><b>Owner: </b>{{auction.owner_name}}</div>
             </td>
           </tr>
           <tr>
             <td>
               <div *ngIf="bets"><b>Current bet: </b> {{bets[bets.length - 1].price}} $</div>
-              <button *ngIf="isAuthenticated()" type="button" class="btn btn-sm btn-link"
+              <button *ngIf="isAuthenticated()"
+                      type="button"
+                      class="btn btn-sm btn-link"
                       (click)="clickHistory(auction)">bets history
               </button>
             </td>
             <td>
-              <button *ngIf="!finished && !checkOwner()" type="button" class="btn btn-primary" (click)="clickNewBet(auction)">Place a bet</button>
-              <button *ngIf="checkOwner() && !finished"
+              <button *ngIf="!finished && !checkOwner() && !isAdmin() &&!isManager()"
+                      type="button" class="btn btn-primary"
+                      (click)="clickNewBet(auction)">Place a bet</button>
+              <button *ngIf="checkOwner() && !finished && !isAdmin() &&!isManager()"
                       type="button"
                       class="btn btn-danger"
                       (click)="stopAuction()">Stop auction</button>

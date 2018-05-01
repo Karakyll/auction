@@ -12,7 +12,6 @@ export class InteractionService {
 
   @Output() _categoryTabToggled: EventEmitter<any> = new EventEmitter();
 
-  auction:Auction;
   @Output() _betsModalCalled: EventEmitter<Auction> = new EventEmitter();
   @Output() _newBetModalCalled: EventEmitter<Auction> = new EventEmitter();
   @Output() _betsRefresh: EventEmitter<any> = new EventEmitter();
@@ -47,13 +46,11 @@ export class InteractionService {
   }
 
   toggleBetsHistoryModal(auction) {
-    this.auction = auction;
-    this._betsModalCalled.emit(this.auction);
+    this._betsModalCalled.emit(auction);
   }
 
   toggleNewBetModal(auction) {
-    this.auction = auction;
-    this._newBetModalCalled.emit(this.auction);
+    this._newBetModalCalled.emit(auction);
   }
 
   refreshBets() {

@@ -1,3 +1,37 @@
-<p>
-  manage-bets works!
-</p>
+<div class="container">
+  <br>
+  <h2>Bets</h2>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Bet id</th>
+      <th>Auction id</th>
+      <th>Username</th>
+      <th>Bet time</th>
+      <th>Price</th>
+      <th class="danger">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let bet of bets">
+      <td>{{bet.id}}</td>
+      <td><span class="btn btn-link" routerLink="/auctions/{{bet.auction_id}}">{{bet.auction_id}}</span></td>
+      <td>{{bet.user_name}}</td>
+      <td>{{bet.betTime}}</td>
+      <td>{{bet.price}}</td>
+      <td>
+        <button class="btn btn-danger btn-xs"
+                (click)="openModal(template); selectedBet=bet; $event.stopPropagation();">X
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to confirm?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+  </div>
+</ng-template>

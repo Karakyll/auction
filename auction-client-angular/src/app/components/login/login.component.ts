@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   isFailed:boolean = false;
 
   constructor(
-    private loginService:LoginService,
+    private auth:LoginService,
     private router:Router
   ){}
 
@@ -21,17 +21,13 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    /*if (this.loginService.loginUser(this.loginData)) {
+    /*if (this.auth.loginUser(this.loginData)) {
       this.router.navigate(["/"]);
     } else {
       this.isFailed = true;
     }*/
-    this.loginService.test(this.loginData);
+    this.auth.test(this.loginData);
     this.router.navigate(["/"]);
-  }
-
-  logout() {
-    this.loginService.logout();
   }
 
 }

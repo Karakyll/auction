@@ -1,3 +1,42 @@
-<p>
-  manage-categories works!
-</p>
+<div class="container">
+  <br>
+  <h2>Categories</h2>
+  <hr>
+  <div class="form-group row">
+    <label for="newCategory"><b>Add new category</b></label>
+    <div class="col">
+      <input type="text" [(ngModel)]="newCategory" class="form-control input-sm" id="newCategory" #newInput="ngModel">
+      <div [hidden]="!failed || newInput.pristine"
+           class="alert alert-danger">Category already exist
+      </div>
+    </div>
+    <div class="col">
+      <button [disabled]="!newCategory" class="btn btn-info" (click)="addNewCategory()">Add</button>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Category</th>
+      <th class="danger">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let category of categories">
+      <td>{{category.name}}</td>
+      <td>
+        <button class="btn btn-danger btn-xs"
+                (click)="openModal(template); selectedCategory=category; $event.stopPropagation();">X
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to confirm?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+  </div>
+</ng-template>

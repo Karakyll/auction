@@ -1,3 +1,37 @@
-<p>
-  manage-products works!
-</p>
+<div class="container">
+  <br>
+  <h2>Products</h2>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Product id</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th class="danger">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{product.id}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.category_name}}</td>
+      <td>{{product.price}}</td>
+      <td>{{product.description}}</td>
+      <td>
+        <button class="btn btn-danger btn-xs"
+                (click)="openModal(template); selectedProduct=product; $event.stopPropagation();">X
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to confirm?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+  </div>
+</ng-template>
