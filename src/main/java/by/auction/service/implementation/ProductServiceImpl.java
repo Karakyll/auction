@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public List<Product> findAll() {
-        logger.info(messageSource.getMessage("service.product.find.all", null, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.product.find.all", null, Locale.getDefault()));
         return productRepository.findAll();
     }
 
@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public Optional<Product> findById(Long id) {
-        logger.info(messageSource.getMessage("service.product.find.by.id", new Object[]{id}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.product.find.by.id", new Object[]{id}, Locale.getDefault()));
         return productRepository.findById(id);
     }
 
@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public Product save(Product product) {
-        logger.info(messageSource.getMessage("service.product.save", new Object[]{product.getName()}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.product.save", new Object[]{product.getName()}, Locale.getDefault()));
         return productRepository.save(product);
     }
 
@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public void deleteById(Long id) {
-        logger.info(messageSource.getMessage("service.product.delete.by.id", new Object[]{id}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.product.delete.by.id", new Object[]{id}, Locale.getDefault()));
         productRepository.deleteById(id);
     }
 }

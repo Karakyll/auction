@@ -53,7 +53,7 @@ public class AuctionController {
      */
     @RequestMapping(method = RequestMethod.GET)
     ResponseEntity getAllAuctions() {
-        logger.info(messageSource.getMessage("controller.auction.get", null, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get", null, Locale.getDefault()));
         return ResponseEntity.ok(auctionService.findAll());
     }
 
@@ -66,12 +66,12 @@ public class AuctionController {
      */
     @RequestMapping(value = "/{auctionId:[\\d]+}", method = RequestMethod.GET)
     ResponseEntity getAuctionById(@PathVariable Long auctionId) {
-        logger.info(messageSource.getMessage("controller.auction.get.id", new Object[]{auctionId}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get.id", new Object[]{auctionId}, Locale.getDefault()));
         if (auctionService.findById(auctionId).isPresent()) {
-            logger.info(messageSource.getMessage("controller.auction.get.id.ok", new Object[]{auctionId}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.auction.get.id.ok", new Object[]{auctionId}, Locale.getDefault()));
             return ResponseEntity.ok(auctionService.findById(auctionId).get());
         } else {
-            logger.info(messageSource.getMessage("controller.auction.error.auction.not.found", new Object[]{auctionId}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.auction.error.auction.not.found", new Object[]{auctionId}, Locale.getDefault()));
             return ResponseEntity.notFound().build();
         }
     }
@@ -84,7 +84,7 @@ public class AuctionController {
      */
     @RequestMapping(params = "finished", method = RequestMethod.GET)
     ResponseEntity getAllOngoingAuctions(@RequestParam("finished") boolean finished) {
-        logger.info(messageSource.getMessage("controller.auction.get.finished", new Object[]{finished}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get.finished", new Object[]{finished}, Locale.getDefault()));
         return ResponseEntity.ok(auctionService.findFinished(finished));
     }
 
@@ -97,12 +97,12 @@ public class AuctionController {
      */
     @RequestMapping(params = "category", method = RequestMethod.GET)
     ResponseEntity getAuctionsByCategory(@RequestParam("category") String category) {
-        logger.info(messageSource.getMessage("controller.auction.get.category", new Object[]{category}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get.category", new Object[]{category}, Locale.getDefault()));
         if (categoryService.findByName(category).isPresent()) {
-            logger.info(messageSource.getMessage("controller.auction.get.category.ok", new Object[]{category}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.auction.get.category.ok", new Object[]{category}, Locale.getDefault()));
             return ResponseEntity.ok(auctionService.findByCategoryName(category));
         } else {
-            logger.info(messageSource.getMessage("controller.auction.get.category.error", new Object[]{category}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.auction.get.category.error", new Object[]{category}, Locale.getDefault()));
             return ResponseEntity.notFound().build();
         }
     }
@@ -116,7 +116,7 @@ public class AuctionController {
      */
     @RequestMapping(params = "search", method = RequestMethod.GET)
     ResponseEntity getAuctionsWithProductsContain(@RequestParam("search") String search) {
-        logger.info(messageSource.getMessage("controller.auction.get.search", new Object[]{search}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get.search", new Object[]{search}, Locale.getDefault()));
         return ResponseEntity.ok(auctionService.findByProductNameContains(search));
     }
 
@@ -129,12 +129,12 @@ public class AuctionController {
      */
     @RequestMapping(params = "user", method = RequestMethod.GET)
     ResponseEntity getAuctionsByUserName(@RequestParam("user") String userName) {
-        logger.info(messageSource.getMessage("controller.auction.get.by.username", new Object[]{userName}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get.by.username", new Object[]{userName}, Locale.getDefault()));
         if (userService.findByUserName(userName).isPresent()) {
-            logger.info(messageSource.getMessage("controller.auction.get.by.username.ok", new Object[]{userName}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.auction.get.by.username.ok", new Object[]{userName}, Locale.getDefault()));
             return ResponseEntity.ok(auctionService.findByUserName(userName));
         } else {
-            logger.info(messageSource.getMessage("controller.auction.get.by.username.error", new Object[]{userName}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.auction.get.by.username.error", new Object[]{userName}, Locale.getDefault()));
             return ResponseEntity.notFound().build();
         }
     }
@@ -147,7 +147,7 @@ public class AuctionController {
      */
     @RequestMapping(params = "endBefore", method = RequestMethod.GET)
     ResponseEntity getAuctionsByEndTime(@RequestParam("endBefore") @DateTimeFormat(pattern="dd.MM.yyyyhh:mm") Date date) {
-        logger.info(messageSource.getMessage("controller.auction.get.by.date", new Object[]{date}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get.by.date", new Object[]{date}, Locale.getDefault()));
         return ResponseEntity.ok(auctionService.findByEndTimeLessThan(date));
     }
 
@@ -160,11 +160,11 @@ public class AuctionController {
      */
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity saveAuction(@RequestBody Auction auction) {
-        logger.info(messageSource.getMessage("controller.auction.post.save.auction",
+        logger.debug(messageSource.getMessage("controller.auction.post.save.auction",
                 new Object[]{auction.getProduct().getName()}, Locale.getDefault()));
         if(!userService.findByUserName(auction.getOwner_name()).isPresent()
                 || !categoryService.findByName(auction.getProduct().getCategory_name()).isPresent()) {
-            logger.info(messageSource.getMessage("controller.auction.post.save.auction.error",
+            logger.debug(messageSource.getMessage("controller.auction.post.save.auction.error",
                     new Object[]{auction.getProduct().getName()}, Locale.getDefault()));
             return ResponseEntity.unprocessableEntity().build();
         }
@@ -176,7 +176,7 @@ public class AuctionController {
         newProduct.setPrice(auction.getProduct().getPrice());
         newProduct.setDescription(auction.getProduct().getDescription());
 
-        logger.info(messageSource.getMessage("controller.auction.post.save.product", new Object[]{newProduct.getName()}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.post.save.product", new Object[]{newProduct.getName()}, Locale.getDefault()));
         newProduct = productService.save(newProduct);
 
         Auction result = new Auction();
@@ -194,7 +194,7 @@ public class AuctionController {
                 .fromCurrentRequest().path("/{auctionId}")
                 .buildAndExpand(result.getId()).toUri();
 
-        logger.info(messageSource.getMessage("controller.auction.post.save.ok",
+        logger.debug(messageSource.getMessage("controller.auction.post.save.ok",
                 new Object[]{result.getId(), result.getProduct().getName()}, Locale.getDefault()));
         return ResponseEntity.created(location).body(result);
     }
@@ -208,13 +208,13 @@ public class AuctionController {
      */
     @RequestMapping(value = "/{auctionId:[\\d]+}", method = RequestMethod.DELETE)
     ResponseEntity deleteAuction(@PathVariable Long auctionId) {
-        logger.info(messageSource.getMessage("controller.auction.delete.auction", new Object[]{auctionId}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.delete.auction", new Object[]{auctionId}, Locale.getDefault()));
         if (auctionService.findById(auctionId).isPresent()) {
             auctionService.deleteById(auctionId);
-            logger.info(messageSource.getMessage("controller.auction.delete.auction.ok", new Object[]{auctionId}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.auction.delete.auction.ok", new Object[]{auctionId}, Locale.getDefault()));
             return ResponseEntity.ok().build();
         } else {
-            logger.info(messageSource.getMessage("controller.auction.error.auction.not.found", new Object[]{auctionId}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.auction.error.auction.not.found", new Object[]{auctionId}, Locale.getDefault()));
             return ResponseEntity.notFound().build();
         }
     }
@@ -229,18 +229,18 @@ public class AuctionController {
      */
     @RequestMapping(value = "/{auctionId:[\\d]+}", params = "finish", method = RequestMethod.PUT)
     ResponseEntity finishAuction(@PathVariable Long auctionId, @RequestParam Boolean finish) {
-        logger.info(messageSource.getMessage("controller.auction.put.finish.auction", new Object[]{finish, auctionId}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.put.finish.auction", new Object[]{finish, auctionId}, Locale.getDefault()));
         if (!auctionService.findById(auctionId).isPresent()) {
-            logger.info(messageSource.getMessage("controller.auction.error.auction.not.found", new Object[]{auctionId}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.auction.error.auction.not.found", new Object[]{auctionId}, Locale.getDefault()));
             return ResponseEntity.notFound().build();
         }
         if (finish) {
             Auction auction = auctionService.findById(auctionId).get();
             auction.setFinished(finish);
-            logger.info(messageSource.getMessage("controller.auction.put.finish.auction.save", new Object[]{auctionId}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.auction.put.finish.auction.save", new Object[]{auctionId}, Locale.getDefault()));
             auctionService.save(auction);
         }
-        logger.info(messageSource.getMessage("controller.auction.put.finish.auction.ok", new Object[]{finish, auctionId}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.put.finish.auction.ok", new Object[]{finish, auctionId}, Locale.getDefault()));
         return ResponseEntity.ok(auctionService.findById(auctionId).get());
     }
 

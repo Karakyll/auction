@@ -43,26 +43,26 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-        logger.info(messageSource.getMessage("service.user.details.load.user.with.username", new Object[]{userName}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.user.details.load.user.with.username", new Object[]{userName}, Locale.getDefault()));
         if (!userRepository.findByUserName(userName).isPresent()) {
-            logger.info(messageSource.getMessage("service.user.details.error.user.not.found", new Object[]{userName}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("service.user.details.error.user.not.found", new Object[]{userName}, Locale.getDefault()));
             throw new UsernameNotFoundException(userName);
         }
 
         User user = userRepository.findByUserName(userName).get();
 
         if (!user.getEnabled()) {
-            logger.info(messageSource.getMessage("service.user.details.error.user.not.enabled", new Object[]{userName}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("service.user.details.error.user.not.enabled", new Object[]{userName}, Locale.getDefault()));
             throw new UsernameNotFoundException("User disabled.");
         }
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
         for (Role role : user.getRoles()) {
-            logger.info(messageSource.getMessage("service.user.details.grant.user.with.role", new Object[]{userName, role.getRole()}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("service.user.details.grant.user.with.role", new Object[]{userName, role.getRole()}, Locale.getDefault()));
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole()));
         }
-        logger.info(messageSource.getMessage("service.user.details.loaded.user.with.username", new Object[]{userName}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.user.details.loaded.user.with.username", new Object[]{userName}, Locale.getDefault()));
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), grantedAuthorities);
     }
 

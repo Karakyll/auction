@@ -36,7 +36,7 @@ public class AuctionServiceImpl implements AuctionService {
      */
     @Override
     public List<Auction> findAll() {
-        logger.info(messageSource.getMessage("service.auction.find.all", null, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.auction.find.all", null, Locale.getDefault()));
         return auctionRepository.findAll();
     }
 
@@ -47,7 +47,7 @@ public class AuctionServiceImpl implements AuctionService {
      */
     @Override
     public Optional<Auction> findById(Long id) {
-        logger.info(messageSource.getMessage("service.auction.find.by.id", new Object[]{id}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.auction.find.by.id", new Object[]{id}, Locale.getDefault()));
         return auctionRepository.findById(id);
     }
 
@@ -58,7 +58,7 @@ public class AuctionServiceImpl implements AuctionService {
      */
     @Override
     public List<Auction> findFinished(Boolean finished) {
-        logger.info(messageSource.getMessage("service.auction.find.finished", new Object[]{finished}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.auction.find.finished", new Object[]{finished}, Locale.getDefault()));
         return auctionRepository.findAuctionsByFinished(finished);
     }
 
@@ -69,7 +69,7 @@ public class AuctionServiceImpl implements AuctionService {
      */
     @Override
     public List<Auction> findByCategoryName(String categoryName) {
-        logger.info(messageSource.getMessage("service.auction.find.by.category.name", new Object[]{categoryName}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.auction.find.by.category.name", new Object[]{categoryName}, Locale.getDefault()));
         return auctionRepository.findAuctionsByProductCategoryName(categoryName);
     }
 
@@ -80,7 +80,7 @@ public class AuctionServiceImpl implements AuctionService {
      */
     @Override
     public List<Auction> findByProductNameContains(String searchTag) {
-        logger.info(messageSource.getMessage("service.auction.find.by.product.name", new Object[]{searchTag}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.auction.find.by.product.name", new Object[]{searchTag}, Locale.getDefault()));
         return auctionRepository.findAuctionsByProductNameContains(searchTag);
     }
 
@@ -91,7 +91,7 @@ public class AuctionServiceImpl implements AuctionService {
      */
     @Override
     public List<Auction> findByUserName(String userName) {
-        logger.info(messageSource.getMessage("service.auction.find.by.user.name", new Object[]{userName}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.auction.find.by.user.name", new Object[]{userName}, Locale.getDefault()));
         return auctionRepository.findAuctionsByOwnerUserName(userName);
     }
 
@@ -102,7 +102,7 @@ public class AuctionServiceImpl implements AuctionService {
      */
     @Override
     public List<Auction> findByEndTimeLessThan(Date date) {
-        logger.info(messageSource.getMessage("service.auction.find.by.end.time", new Object[]{date}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.auction.find.by.end.time", new Object[]{date}, Locale.getDefault()));
         return auctionRepository.findAuctionsByEndTimeIsLessThan(date);
     }
 
@@ -113,7 +113,7 @@ public class AuctionServiceImpl implements AuctionService {
      */
     @Override
     public Auction save(Auction auction) {
-        logger.info(messageSource.getMessage("service.auction.save",
+        logger.debug(messageSource.getMessage("service.auction.save",
                 new Object[]{auction.getId(), auction.getProduct().getName()}, Locale.getDefault()));
         return auctionRepository.save(auction);
     }
@@ -124,7 +124,7 @@ public class AuctionServiceImpl implements AuctionService {
      */
     @Override
     public void deleteById(Long id) {
-        logger.info(messageSource.getMessage("service.auction.delete.by.id", new Object[]{id}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.auction.delete.by.id", new Object[]{id}, Locale.getDefault()));
         auctionRepository.deleteById(id);
     }
 }

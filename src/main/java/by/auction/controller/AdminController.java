@@ -36,7 +36,7 @@ public class AdminController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String helloAdmin() {
-        logger.info(messageSource.getMessage("controller.admin.hello", null, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.admin.hello", null, Locale.getDefault()));
         return messageSource.getMessage("hello.admin", null, Locale.getDefault());
     }
 
@@ -47,7 +47,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     ResponseEntity getAllUsers() {
-        logger.info(messageSource.getMessage("controller.admin.users.get", null, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.admin.users.get", null, Locale.getDefault()));
         return ResponseEntity.ok(userService.findAll());
     }
 
@@ -60,12 +60,12 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", params = "username", method = RequestMethod.GET)
     ResponseEntity getUserByUsername(@RequestParam("username") String username) {
-        logger.info(messageSource.getMessage("controller.admin.users.get.user.by.username", new Object[]{username}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.admin.users.get.user.by.username", new Object[]{username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
-            logger.info(messageSource.getMessage("controller.admin.users.get.user.by.username.ok", new Object[]{username}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.admin.users.get.user.by.username.ok", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.ok(userService.findByUserName(username).get());
         } else {
-            logger.info(messageSource.getMessage("controller.admin.users.error.user.not.found", new Object[]{username}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.admin.users.error.user.not.found", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.notFound().build();
         }
     }
@@ -78,7 +78,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", params = "enabled", method = RequestMethod.GET)
     ResponseEntity getAllEnabledUsers(@RequestParam("enabled") Boolean enabled) {
-        logger.info(messageSource.getMessage("controller.admin.users.get.user.by.enabled", new Object[]{enabled}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.admin.users.get.user.by.enabled", new Object[]{enabled}, Locale.getDefault()));
         return ResponseEntity.ok(userService.findByEnabled(enabled));
     }
 
@@ -91,9 +91,9 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     ResponseEntity saveUser(@RequestBody User user) {
-        logger.info(messageSource.getMessage("controller.admin.users.post.save.user", new Object[]{user.getUserName()}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.admin.users.post.save.user", new Object[]{user.getUserName()}, Locale.getDefault()));
         if (userService.findByUserName(user.getUserName()).isPresent()) {
-            logger.info(messageSource.getMessage("controller.admin.users.post.save.user.error", new Object[]{user.getUserName()}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.admin.users.post.save.user.error", new Object[]{user.getUserName()}, Locale.getDefault()));
             return ResponseEntity.unprocessableEntity().build();
         } else {
             User result = new User();
@@ -108,7 +108,7 @@ public class AdminController {
                     .fromCurrentRequest().path("?username={username}")
                     .buildAndExpand(result.getUserName()).toUri();
 
-            logger.info(messageSource.getMessage("controller.admin.users.post.save.user.ok", new Object[]{result.getUserName()}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.admin.users.post.save.user.ok", new Object[]{result.getUserName()}, Locale.getDefault()));
             return ResponseEntity.created(location).body(result);
         }
     }
@@ -122,13 +122,13 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", params = "delete", method = RequestMethod.DELETE)
     ResponseEntity deleteUser(@RequestParam("delete") String username) {
-        logger.info(messageSource.getMessage("controller.admin.users.delete.user", new Object[]{username}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.admin.users.delete.user", new Object[]{username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
             userService.deleteByUserName(username);
-            logger.info(messageSource.getMessage("controller.admin.users.delete.user.ok", new Object[]{username}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.admin.users.delete.user.ok", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.ok().build();
         } else {
-            logger.info(messageSource.getMessage("controller.admin.users.delete.user.error", new Object[]{username}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.admin.users.delete.user.error", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.notFound().build();
         }
     }
@@ -143,13 +143,13 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", params = {"enable", "username"}, method = RequestMethod.PUT)
     ResponseEntity enableUser(@RequestParam("enable") Boolean enable, @RequestParam("username") String username) {
-        logger.info(messageSource.getMessage("controller.admin.users.put.enable.user", new Object[]{enable, username}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.admin.users.put.enable.user", new Object[]{enable, username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
             userService.enable(enable, username);
-            logger.info(messageSource.getMessage("controller.admin.users.put.enable.user.ok", new Object[]{username, enable}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.admin.users.put.enable.user.ok", new Object[]{username, enable}, Locale.getDefault()));
             return ResponseEntity.ok(userService.findByUserName(username).get());
         } else {
-            logger.info(messageSource.getMessage("controller.admin.users.error.user.not.found", new Object[]{username}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.admin.users.error.user.not.found", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.notFound().build();
         }
     }
@@ -164,18 +164,18 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", params = {"promote", "username"}, method = RequestMethod.PUT)
     ResponseEntity promoteUser(@RequestParam("promote") Boolean promote, @RequestParam("username") String username) {
-        logger.info(messageSource.getMessage("controller.admin.users.put.promote.user", new Object[]{promote, username}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.admin.users.put.promote.user", new Object[]{promote, username}, Locale.getDefault()));
         if (promote && userService.findByUserName(username).isPresent()) {
             userService.promote(username);
-            logger.info(messageSource.getMessage("controller.admin.users.put.promote.user.ok", new Object[]{username}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.admin.users.put.promote.user.ok", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.ok(userService.findByUserName(username).get());
         }
         if (!promote && userService.findByUserName(username).isPresent()) {
             userService.demote(username);
-            logger.info(messageSource.getMessage("controller.admin.users.put.demote.user.ok", new Object[]{username}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.admin.users.put.demote.user.ok", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.ok(userService.findByUserName(username).get());
         }
-        logger.info(messageSource.getMessage("controller.admin.users.error.user.not.found", new Object[]{username}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.admin.users.error.user.not.found", new Object[]{username}, Locale.getDefault()));
         return ResponseEntity.notFound().build();
     }
 
@@ -188,9 +188,9 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     ResponseEntity editUser(@RequestBody User user) {
-        logger.info(messageSource.getMessage("controller.admin.users.put.edit.user", new Object[]{user.getUserName()}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.admin.users.put.edit.user", new Object[]{user.getUserName()}, Locale.getDefault()));
         if (!userService.findByUserName(user.getUserName()).isPresent()) {
-            logger.info(messageSource.getMessage("controller.admin.users.put.edit.user.error", new Object[]{user.getUserName()}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.admin.users.put.edit.user.error", new Object[]{user.getUserName()}, Locale.getDefault()));
             return ResponseEntity.notFound().build();
         } else {
             User result = new User();
@@ -205,7 +205,7 @@ public class AdminController {
                     .fromCurrentRequest().path("?username={username}")
                     .buildAndExpand(result.getUserName()).toUri();
 
-            logger.info(messageSource.getMessage("controller.admin.users.put.edit.user.ok", new Object[]{result.getUserName()}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.admin.users.put.edit.user.ok", new Object[]{result.getUserName()}, Locale.getDefault()));
             return ResponseEntity.created(location).body(result);
         }
     }
