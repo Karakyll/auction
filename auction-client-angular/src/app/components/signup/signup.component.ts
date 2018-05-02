@@ -4,6 +4,9 @@ import {User} from "../../models/user";
 import {Router} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
 
+/**
+ * Component view /signup page
+ */
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',

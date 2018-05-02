@@ -8,6 +8,9 @@ import {AuctionService} from "../../services/auction/auction.service";
 import {Router} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
 
+/**
+ * Component view /auction/start page
+ */
 @Component({
   selector: 'app-start-auction',
   templateUrl: './start-auction.component.html',

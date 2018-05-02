@@ -1,6 +1,9 @@
 import {Component, OnInit } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 
+/**
+ * Component view /management page
+ */
 @Component({
   selector: 'app-management',
   templateUrl: './management.component.html',

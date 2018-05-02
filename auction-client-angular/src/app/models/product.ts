@@ -1,3 +1,6 @@
+/**
+ * Model represent product entity
+ */
 export class Product {
   constructor (
     public id:number,

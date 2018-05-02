@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * Service to to formatting Date strings
+ */
 @Injectable()
 export class DateService {
 

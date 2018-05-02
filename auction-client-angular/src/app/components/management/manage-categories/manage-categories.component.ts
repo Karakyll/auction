@@ -5,6 +5,9 @@ import { BsModalRef, BsModalService } from "ngx-bootstrap";
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {TranslateService} from "@ngx-translate/core";
 
+/**
+ * Component view /management categories tab
+ */
 @Component({
   selector: 'app-manage-categories',
   templateUrl: './manage-categories.component.html',

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from "../../services/category/category.service";
 import {Router} from "@angular/router";
 import {AuctionService} from "../../services/auction/auction.service";
 import {InteractionService} from "../../services/interaction/interaction.service";
 import {TranslateService} from "@ngx-translate/core";
 
+/**
+ * Component view navbar
+ */
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',

@@ -6,7 +6,9 @@ import {LoginService} from "../../services/login/login.service";
 import {InteractionService} from "../../services/interaction/interaction.service";
 import {TranslateService} from "@ngx-translate/core";
 
-
+/**
+ * Component view /auctions page
+ */
 @Component({
   selector: 'app-auction',
   templateUrl: './auction.component.html',

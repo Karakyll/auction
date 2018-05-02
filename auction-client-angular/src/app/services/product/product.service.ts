@@ -5,6 +5,9 @@ import { Product } from "../../models/product";
 
 const uri= 'http://localhost:8081/api/products';
 
+/**
+ * Service to access products data
+ */
 @Injectable()
 export class ProductService {
 

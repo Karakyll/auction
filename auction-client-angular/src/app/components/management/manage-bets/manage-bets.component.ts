@@ -5,6 +5,9 @@ import {BetService} from "../../../services/bet/bet.service";
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {TranslateService} from "@ngx-translate/core";
 
+/**
+ * Component view /management bets tab
+ */
 @Component({
   selector: 'app-manage-bets',
   templateUrl: './manage-bets.component.html',
@@ -42,7 +45,7 @@ export class ManageBetsComponent implements OnInit {
   }
 
   confirmDeleteBet(): void {
-    this.betService.deleteBet(this.selectedBet.id).subscribe(res => {
+    this.betService.deleteBet(this.selectedBet.id).subscribe(() => {
       this.interact.callBetChanging();
       this.bets.splice(this.bets.indexOf(this.selectedBet),1);
       this.modalRef.hide();
@@ -54,25 +57,25 @@ export class ManageBetsComponent implements OnInit {
   }
 
   subscribeUserListChanging() {
-    this.interact._userListChanged.subscribe(res => {
+    this.interact._userListChanged.subscribe(() => {
       this.getBets();
     })
   }
 
   subscribeProductListChanging() {
-    this.interact._productListChanged.subscribe(res => {
+    this.interact._productListChanged.subscribe(() => {
       this.getBets();
     })
   }
 
   subscribeCategoryListChanging() {
-    this.interact._categoryListChanged.subscribe(res => {
+    this.interact._categoryListChanged.subscribe(() => {
       this.getBets();
     })
   }
 
   subscribeAuctionListChanging() {
-    this.interact._auctionListChanged.subscribe(res => {
+    this.interact._auctionListChanged.subscribe(() => {
       this.getBets();
     })
   }

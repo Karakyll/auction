@@ -1,5 +1,8 @@
 import { Product } from "./product";
 
+/**
+ * Model represent auction entity
+ */
 export class Auction {
   constructor (
     public id:number,

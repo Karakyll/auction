@@ -4,6 +4,9 @@ import {User} from "../../models/user";
 import {UserService} from "../../services/user/user.service";
 import {TranslateService} from "@ngx-translate/core";
 
+/**
+ * Component view /administration page
+ */
 @Component({
   selector: 'app-administration',
   templateUrl: './administration.component.html',

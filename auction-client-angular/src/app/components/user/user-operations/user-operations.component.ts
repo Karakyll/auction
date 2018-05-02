@@ -11,6 +11,9 @@ import {LoginService} from "../../../services/login/login.service";
 import {Router} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
 
+/**
+ * Component view /user operations modals
+ */
 @Component({
   selector: 'app-user-operations',
   templateUrl: './user-operations.component.html',

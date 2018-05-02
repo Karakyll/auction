@@ -1,3 +1,6 @@
+/**
+ * Model represent bet entity
+ */
 export class Bet {
   constructor(
     public id:number,

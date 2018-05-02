@@ -1,5 +1,8 @@
 import {Role} from "./role";
 
+/**
+ * Model represent user entity
+ */
 export class User {
   constructor(
     public userName:string,

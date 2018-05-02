@@ -1,11 +1,13 @@
-import {EventEmitter, Injectable, Output, TemplateRef} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 import {Bet} from "../../models/bet";
-import {Auction} from "../../models/auction";
 
 const uri = 'http://localhost:8081/api/bets';
 
+/**
+ * Service to access bets data
+ */
 @Injectable()
 export class BetService {
 

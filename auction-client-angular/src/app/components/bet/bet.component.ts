@@ -9,8 +9,9 @@ import {InteractionService} from "../../services/interaction/interaction.service
 import {LoginService} from "../../services/login/login.service";
 import {TranslateService} from "@ngx-translate/core";
 
-;
-
+/**
+ * Component view bets history and new bet modals
+ */
 @Component({
   selector: 'app-bet',
   templateUrl: './bet.component.html',

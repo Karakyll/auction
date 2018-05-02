@@ -3,6 +3,9 @@ import { LoginService } from "../../services/login/login.service";
 import {Router} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
 
+/**
+ * Component view /login page
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

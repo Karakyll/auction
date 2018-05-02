@@ -4,6 +4,9 @@ import { Observable } from "rxjs/Observable";
 import { User } from "../../models/user";
 import { LoginService } from "../login/login.service";
 
+/**
+ * Service to access users data
+ */
 @Injectable()
 export class UserService {
 

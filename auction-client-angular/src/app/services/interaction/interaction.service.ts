@@ -3,6 +3,9 @@ import {Auction} from "../../models/auction";
 import {Product} from "../../models/product";
 import {User} from "../../models/user";
 
+/**
+ * Service to allow interactions between components
+ */
 @Injectable()
 export class InteractionService {
 

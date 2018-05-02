@@ -6,6 +6,9 @@ import { User } from "../../models/user";
 import { Observable } from "rxjs/Observable";
 import { Role } from "../../models/role";
 
+/**
+ * Service to mange authorities
+ */
 @Injectable()
 export class LoginService {
 

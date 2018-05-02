@@ -9,6 +9,9 @@ import {BetService} from "../../services/bet/bet.service";
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {TranslateService} from "@ngx-translate/core";
 
+/**
+ * Component view /auctions/:id page
+ */
 @Component({
   selector: 'app-auction-details',
   templateUrl: './auction-details.component.html',

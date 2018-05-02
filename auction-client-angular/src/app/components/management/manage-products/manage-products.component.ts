@@ -5,6 +5,9 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {TranslateService} from "@ngx-translate/core";
 
+/**
+ * Component view /management products tab
+ */
 @Component({
   selector: 'app-manage-products',
   templateUrl: './manage-products.component.html',
@@ -39,7 +42,7 @@ export class ManageProductsComponent implements OnInit {
   }
 
   confirmDeleteProduct(): void {
-    this.productService.deleteProduct(this.selectedProduct.id).subscribe(res => {
+    this.productService.deleteProduct(this.selectedProduct.id).subscribe(() => {
       this.interact.callProductChanging();
       this.products.splice(this.products.indexOf(this.selectedProduct),1);
       this.modalRef.hide();
@@ -51,7 +54,7 @@ export class ManageProductsComponent implements OnInit {
   }
 
   subscribeCategoryListChanging() {
-    this.interact._categoryListChanged.subscribe(res => {
+    this.interact._categoryListChanged.subscribe(() => {
       this.getProducts();
     })
   }

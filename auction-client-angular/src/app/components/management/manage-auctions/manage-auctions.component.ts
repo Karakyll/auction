@@ -5,6 +5,9 @@ import {AuctionService} from "../../../services/auction/auction.service";
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {TranslateService} from "@ngx-translate/core";
 
+/**
+ * Component view /management auctions tab
+ */
 @Component({
   selector: 'app-manage-auctions',
   templateUrl: './manage-auctions.component.html',
@@ -41,7 +44,7 @@ export class ManageAuctionsComponent implements OnInit {
   }
 
   confirmDeleteAuction(): void {
-    this.auctionService.deleteAuctionById(this.selectedAuction.id).subscribe(res => {
+    this.auctionService.deleteAuctionById(this.selectedAuction.id).subscribe(() => {
       this.interact.callAuctionChanging();
       this.auctions.splice(this.auctions.indexOf(this.selectedAuction),1);
       this.modalRef.hide();
@@ -53,19 +56,19 @@ export class ManageAuctionsComponent implements OnInit {
   }
 
   subscribeUserListChanging() {
-    this.interact._userListChanged.subscribe(res => {
+    this.interact._userListChanged.subscribe(() => {
       this.getAuctions();
     })
   }
 
   subscribeProductListChanging() {
-    this.interact._productListChanged.subscribe(res => {
+    this.interact._productListChanged.subscribe(() => {
       this.getAuctions();
     })
   }
 
   subscribeCategoryListChanging() {
-    this.interact._categoryListChanged.subscribe(res => {
+    this.interact._categoryListChanged.subscribe(() => {
       this.getAuctions();
     })
   }

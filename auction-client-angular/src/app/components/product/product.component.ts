@@ -7,6 +7,9 @@ import {CategoryService} from "../../services/category/category.service";
 import {InteractionService} from "../../services/interaction/interaction.service";
 import {TranslateService} from "@ngx-translate/core";
 
+/**
+ * Component view new product modal
+ */
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -71,7 +74,7 @@ export class ProductComponent implements OnInit {
   }
 
   getProductList() {
-    this.productService.getAllProducts().subscribe((res) => {
+    this.productService.getAllProducts().subscribe(res => {
       this.products = res;
     })
   }

@@ -4,6 +4,9 @@ import { Category } from "../../models/category";
 import { Router } from "@angular/router";
 import {InteractionService} from "../../services/interaction/interaction.service";
 
+/**
+ * Component view categories sidebar
+ */
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
