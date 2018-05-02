@@ -100,6 +100,7 @@ public class AuctionServiceTest {
     @Test
     public void save() {
         Auction neAuction = new Auction();
+        neAuction = auctions.get(0);
         when(auctionRepositoryMock.save(neAuction)).thenReturn(auctions.get(0));
 
         Auction result = auctionService.save(neAuction);
