@@ -29,12 +29,12 @@ public class RoleController {
 
     @RequestMapping(params = "username", method = RequestMethod.GET)
     ResponseEntity getUserRoles(@RequestParam("username") String username) {
-        logger.info(messageSource.getMessage("controller.role.get.by.username", new Object[]{username}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.role.get.by.username", new Object[]{username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
-            logger.info(messageSource.getMessage("controller.role.get.by.username.ok", new Object[]{username}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.role.get.by.username.ok", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.ok(userService.findByUserName(username).get().getRoles());
         } else {
-            logger.info(messageSource.getMessage("controller.role.error.user.not.found", new Object[]{username}, Locale.getDefault()));
+            logger.debug(messageSource.getMessage("controller.role.error.user.not.found", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.notFound().build();
         }
     }

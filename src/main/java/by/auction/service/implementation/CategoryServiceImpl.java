@@ -35,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public List<Category> findAll() {
-        logger.info(messageSource.getMessage("service.category.find.all", null, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.category.find.all", null, Locale.getDefault()));
         return categoryRepository.findAll();
     }
 
@@ -46,7 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public Optional<Category> findByName(String name) {
-        logger.info(messageSource.getMessage("service.category.find.by.name", new Object[]{name}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.category.find.by.name", new Object[]{name}, Locale.getDefault()));
         return categoryRepository.findByName(name);
     }
 
@@ -57,7 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public Category save(Category category) {
-        logger.info(messageSource.getMessage("service.category.save", new Object[]{category.getName()}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.category.save", new Object[]{category.getName()}, Locale.getDefault()));
         return categoryRepository.save(category);
     }
 
@@ -67,7 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public void deleteByName(String name) {
-        logger.info(messageSource.getMessage("service.category.delete.by.name", new Object[]{name}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.category.delete.by.name", new Object[]{name}, Locale.getDefault()));
         categoryRepository.deleteById(name);
     }
 }

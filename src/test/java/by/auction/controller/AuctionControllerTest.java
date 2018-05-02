@@ -4,7 +4,6 @@ import by.auction.config.AppConfig;
 import by.auction.config.TestContext;
 import by.auction.config.TestControllerContext;
 import by.auction.entity.Auction;
-import by.auction.entity.Category;
 import by.auction.service.AuctionService;
 import by.auction.service.CategoryService;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +22,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
-//import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

@@ -35,7 +35,7 @@ public class BetServiceImpl implements BetService {
      */
     @Override
     public List<Bet> findAll() {
-        logger.info(messageSource.getMessage("service.bet.find.all", null, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.bet.find.all", null, Locale.getDefault()));
         return betRepository.findAll();
     }
 
@@ -46,7 +46,7 @@ public class BetServiceImpl implements BetService {
      */
     @Override
     public Optional<Bet> findById(Long id) {
-        logger.info(messageSource.getMessage("service.bet.find.by.id", new Object[]{id}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.bet.find.by.id", new Object[]{id}, Locale.getDefault()));
         return betRepository.findById(id);
     }
 
@@ -57,7 +57,7 @@ public class BetServiceImpl implements BetService {
      */
     @Override
     public List<Bet> findByAuctionId(Long id) {
-        logger.info(messageSource.getMessage("service.bet.find.by.auction.id", new Object[]{id}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.bet.find.by.auction.id", new Object[]{id}, Locale.getDefault()));
         return betRepository.findBetsByAuctionId(id);
     }
 
@@ -68,7 +68,7 @@ public class BetServiceImpl implements BetService {
      */
     @Override
     public List<Bet> findByUserName(String userName) {
-        logger.info(messageSource.getMessage("service.bet.find.by.user.name", new Object[]{userName}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.bet.find.by.user.name", new Object[]{userName}, Locale.getDefault()));
         return betRepository.findBetsByUserUserName(userName);
     }
 
@@ -79,7 +79,7 @@ public class BetServiceImpl implements BetService {
      */
     @Override
     public Bet save(Bet bet) {
-        logger.info(messageSource.getMessage("service.bet.save", new Object[]{bet}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.bet.save", new Object[]{bet}, Locale.getDefault()));
         return betRepository.save(bet);
     }
 
@@ -89,7 +89,7 @@ public class BetServiceImpl implements BetService {
      */
     @Override
     public void deleteById(Long id) {
-        logger.info(messageSource.getMessage("service.bet.delete.by.id", new Object[]{id}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("service.bet.delete.by.id", new Object[]{id}, Locale.getDefault()));
         betRepository.deleteById(id);
     }
 }
