@@ -45,8 +45,6 @@ import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate
 const appRoutes: Routes = [
   {path:'', component:AboutComponent},
   {path:'auctions', component:AuctionComponent},
-  {path:'products', component:ProductComponent, canActivate:[LoggedInGuard]},
-  {path:'bets', component:BetComponent, canActivate:[LoggedInGuard]},
   {path:'user', component:UserComponent, canActivate:[LoggedInGuard]},
   {path:'login', component:LoginComponent},
   {path:'signup', component:SignupComponent},

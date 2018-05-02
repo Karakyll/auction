@@ -15,7 +15,7 @@
     "auctions": "Auctions"
   },
   "about": {
-    "h1": "Auction web site v.0.12",
+    "h1": "Auction web site {{version}}",
     "p": "Work in progress.."
   },
   "signup": {
@@ -108,7 +108,7 @@
       "header": "Place new bet",
       "form": {
         "label": "New bet: ",
-        "Button": "Place"
+        "button": "Place"
       }
     }
   },
@@ -281,7 +281,7 @@
       "body": {
         "product": "Product:",
         "createTime": "Create time: ",
-        "endTIme": "End time: ",
+        "endTime": "End time: ",
         "status": "Status: ",
         "ongoing": "ongoing",
         "finished": "finished"

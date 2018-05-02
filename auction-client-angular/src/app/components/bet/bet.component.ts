@@ -100,4 +100,8 @@ export class BetComponent implements OnInit {
     });
   }
 
+  calcMinPrice() {
+
+  }
+
 }

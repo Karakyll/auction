@@ -52,15 +52,12 @@ export class LoginService {
       data => {
         this.saveToken(data);
         this.getUserRoles(loginData.username).subscribe(res => {
-          console.log("user 2323 roles");
-          console.log(res);
           this.saveUserData(new User(loginData.username,null, true, res))
         });
         this._loggedChange.emit(true);
       },
-      err => {
+      () => {
         this._loginError.emit();
-        console.log("err login");
       });
   }
 

@@ -46,6 +46,7 @@ export class ManageCategoriesComponent implements OnInit {
         this.buttonLocked = false;
       },
       () => {
+        console.log("err. category exist.")
         this.failed = true;
         this.buttonLocked = false;
       }

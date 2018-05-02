@@ -65,7 +65,11 @@
         <div class="btn" routerLink="/auctions/{{bet.auction_id}}">
           <div class="row">
             <div class="col col-sm-5"><b>{{ 'userOperations.bets.body.date' | translate }}</b>{{bet.betTime}}</div>
-            <div class="col col-sm"><b>{{ 'userOperations.bets.body.price' | translate }}</b>{{bet.price}} $</div>
+            <div class="col col-sm">
+              <a class="float-right">
+                <b>{{ 'userOperations.bets.body.price' | translate }}</b>{{bet.price}} $
+              </a>
+            </div>
           </div>
         </div>
       </div>

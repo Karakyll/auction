@@ -4,21 +4,21 @@
   <table class="table table-sm">
     <thead>
     <tr>
-      <th>{{ 'login.table.header.username' | translate }}</th>
-      <th>{{ 'login.table.header.status' | translate }}</th>
-      <th>{{ 'login.table.header.manager' | translate }}</th>
-      <th class="table-info">{{ 'login.table.header.enable' | translate }}</th>
-      <th class="table-success">{{ 'login.table.header.promote' | translate }}</th>
-      <th class="table-warning">{{ 'login.table.header.demote' | translate }}</th>
-      <th class="table-danger">{{ 'login.table.header.delete' | translate }}</th>
+      <th>{{ 'administration.table.header.username' | translate }}</th>
+      <th>{{ 'administration.table.header.status' | translate }}</th>
+      <th>{{ 'administration.table.header.manager' | translate }}</th>
+      <th class="table-info">{{ 'administration.table.header.enable' | translate }}</th>
+      <th class="table-success">{{ 'administration.table.header.promote' | translate }}</th>
+      <th class="table-warning">{{ 'administration.table.header.demote' | translate }}</th>
+      <th class="table-danger">{{ 'administration.table.header.delete' | translate }}</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let user of users">
       <td>{{user.userName}}</td>
       <td>
-        <span *ngIf="user.enabled" class="en">{{ 'login.table.body.enabled' | translate }}</span>
-        <span *ngIf="!user.enabled" class="dis">{{ 'login.table.body.disabled' | translate }}</span>
+        <span *ngIf="user.enabled" class="en">{{ 'administration.table.body.enabled' | translate }}</span>
+        <span *ngIf="!user.enabled" class="dis">{{ 'administration.table.body.disabled' | translate }}</span>
       </td>
       <td>
         <span *ngIf="isManager(user)" class="fa fa-check en"></span>
@@ -53,8 +53,8 @@
 </div>
 <ng-template #template>
   <div class="modal-body text-center">
-    <p>{{ 'login.confirm.message' | translate }}</p>
-    <button type="button" class="btn btn-default" (click)="confirm()">{{ 'login.confirm.yes' | translate }}</button>
-    <button type="button" class="btn btn-primary" (click)="decline()">{{ 'login.confirm.no' | translate }}</button>
+    <p>{{ 'administration.confirm.message' | translate }}</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">{{ 'administration.confirm.yes' | translate }}</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">{{ 'administration.confirm.no' | translate }}</button>
   </div>
 </ng-template>

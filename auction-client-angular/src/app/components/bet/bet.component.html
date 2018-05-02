@@ -40,7 +40,7 @@
           </button>
         </div>
       </div>
-      <div *ngIf="bets || auction" class="modal-body">
+      <div *ngIf="bets && auction" class="modal-body">
         <form (ngSubmit)="onSubmitNewBet()" #newBetForm="ngForm">
           <div class="col col-sm form-group">
             <label for="newBet">{{ 'bet.newBet.form.label' | translate }}</label>
@@ -49,16 +49,16 @@
                    name="newBet"
                    id="newBet"
                    [(ngModel)]="newBet"
-                   [min]="bets ? bets[bets.length - 1] : +auction.product.price.toFixed(2)"
-                   [step]="auction ? +(auction.product.price * 0.1).toFixed(2) : 10"
+                   [min]="undefined !== bets ? bets[bets.length - 1] : +auction.product.price.toFixed(2)"
+                   [step]="undefined !== auction ? +(auction.product.price * 0.1).toFixed(2) : 10"
                    #betInput="ngModel"
                    required>
             <button class="btn btn-primary"
                     type="submit"
                     [disabled]="!newBetForm.form.valid
-                    && newBet < auction.product.price
-                    && bets ? newBet < bets[bets.length - 1].price : false
-                    && buttonLocked">{{ 'bet.newBet.form.button' | translate }}
+                    || auction ? newBet < auction.product.price : true
+                    || bets ? newBet < bets[bets.length - 1].price : true
+                    || buttonLocked">{{ 'bet.newBet.form.button' | translate }}
             </button>
           </div>
         </form>
