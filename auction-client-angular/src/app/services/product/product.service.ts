@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Product } from '../../models/product';
 
-const uri= 'http://localhost:8081/api/products';
+const uri = 'http://localhost:8081/api/products';
 
 /**
  * Service to access products data
@@ -11,7 +11,9 @@ const uri= 'http://localhost:8081/api/products';
 @Injectable()
 export class ProductService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(uri);

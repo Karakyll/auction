@@ -12,5 +12,5 @@ export class Auction {
     public endTime: string,
     public description: string,
     public finished: boolean
-  ){};
+  ) {}
 }

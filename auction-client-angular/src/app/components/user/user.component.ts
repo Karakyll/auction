@@ -29,11 +29,11 @@ export class UserComponent implements OnInit {
   }
 
   isManager() {
-    return this.user.roles.find(r => r.role == 'ROLE_MANAGER');
+    return this.user.roles.find(r => r.role === 'ROLE_MANAGER');
   }
 
   isAdmin() {
-    return this.user.roles.find(r => r.role == 'ROLE_ADMIN');
+    return this.user.roles.find(r => r.role === 'ROLE_ADMIN');
   }
 
   showAuctions() {

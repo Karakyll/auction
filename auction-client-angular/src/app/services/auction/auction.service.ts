@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Auction } from '../../models/auction';
 
-const uri= 'http://localhost:8081/api/auctions';
+const uri = 'http://localhost:8081/api/auctions';
 
 /**
  * Service to access auctions data
@@ -41,19 +41,19 @@ export class AuctionService {
 
   getAuctionsProductContains(searchTag): Observable<Auction[]> {
     return this.http.get<Auction[]>(uri, {
-      params:new HttpParams().set('search', searchTag)
+      params: new HttpParams().set('search', searchTag)
     });
   }
 
   getAuctionsByUserName(username): Observable<Auction[]> {
     return this.http.get<Auction[]>(uri, {
-      params:new HttpParams().set('user', username)
+      params: new HttpParams().set('user', username)
     });
   }
 
   getAuctionsEndBefore(date): Observable<Auction[]> {
     return this.http.get<Auction[]>(uri, {
-      params:new HttpParams().set('endBefore', date)
+      params: new HttpParams().set('endBefore', date)
     });
   }
 
@@ -67,7 +67,7 @@ export class AuctionService {
 
   finishAuction(id: number): Observable<Auction> {
     return this.http.put<Auction>(uri + '/' + id, null, {
-      params:new HttpParams().set('finish', 'true')
+      params: new HttpParams().set('finish', 'true')
     });
   }
 

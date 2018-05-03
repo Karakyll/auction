@@ -34,14 +34,16 @@ export class LoginService {
   @Output() _loggedChange: EventEmitter<boolean> = new EventEmitter();
   @Output() _loginError: EventEmitter<any> = new EventEmitter();
 
-  constructor(private http:HttpClient, private router:Router) {
-  }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) { }
 
   test(data) {
     this.saveUserData(new User(data.username,
       null,
       true,
-      [new Role(1,'ROLE_ADMIN'), new Role(2, 'ROLE_USER'),  new Role(3, 'ROLE_MANAGER')]));
+      [new Role(1, 'ROLE_ADMIN'), new Role(2, 'ROLE_USER'),  new Role(3, 'ROLE_MANAGER')]));
     this.saveToken(new Token('access1', 'BEARER', 2000, ['read', 'write']));
     this._loggedChange.emit(true);
   }
@@ -55,7 +57,7 @@ export class LoginService {
       data => {
         this.saveToken(data);
         this.getUserRoles(loginData.username).subscribe(res => {
-          this.saveUserData(new User(loginData.username,null, true, res))
+          this.saveUserData(new User(loginData.username, null, true, res));
         });
         this._loggedChange.emit(true);
       },
@@ -71,11 +73,11 @@ export class LoginService {
       .append('grant_type', 'password')
       .append('username', loginData.username)
       .append('password', loginData.password);
-    return this.http.post('http://localhost:8081/oauth/token', params, {headers:this.HEADERS})
+    return this.http.post('http://localhost:8081/oauth/token', params, {headers: this.HEADERS});
   }
 
   saveToken(token) {
-    let expireDate = new Date().getTime() + (1000 * token.expires_in);
+    const expireDate = new Date().getTime() + (1000 * token.expires_in);
     localStorage.setItem('token', JSON.stringify(token));
     localStorage.setItem('expires_at', JSON.stringify(expireDate));
   }
@@ -101,7 +103,7 @@ export class LoginService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  getUserData():User {
+  getUserData(): User {
     return JSON.parse(localStorage.getItem('user'));
   }
 
@@ -112,7 +114,7 @@ export class LoginService {
   }
 
   getUserRoles(username: string): Observable<Role[]> {
-    let options = {
+    const options = {
       headers: new HttpHeaders({
           'Content-type': 'application/application/json',
           'Accept': 'application/json'
@@ -124,7 +126,7 @@ export class LoginService {
 
   hasRole(role: string): boolean {
     this.getUserData().roles.forEach(r => {
-      if(r.role === role) {
+      if (r.role === role) {
         return true;
       }
     });

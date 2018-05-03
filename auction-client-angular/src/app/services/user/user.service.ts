@@ -19,7 +19,7 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private api: LoginService
-  ){}
+  ) {}
 
   uri() {
     return this.API_BASE_HREF + 'admin/users';
@@ -52,7 +52,7 @@ export class UserService {
   }
 
   deleteUser(username: string) {
-    let options = {
+    const options = {
       headers: this.HEADERS,
       params: new HttpParams().set('delete', username)
     };

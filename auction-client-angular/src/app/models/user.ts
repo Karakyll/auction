@@ -9,5 +9,5 @@ export class User {
     public set_password:string,
     public enabled: boolean,
     public roles: Role[]
-  ){};
+  ) {}
 }

@@ -80,13 +80,13 @@ export class UserOperationsComponent implements OnInit {
   getAuctionsList(username: string) {
     this.auctionService.getAuctionsByUserName(username).subscribe(res => {
       this.auctions = res;
-    })
+    });
   }
 
   getBetList(username: string) {
     this.betService.getBetsByUsername(username).subscribe(res => {
       this.bets = res;
-    })
+    });
   }
 
   hideAuctionsModal() {

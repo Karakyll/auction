@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
     private interact: InteractionService,
     private router: Router,
     private translate: TranslateService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.isLogged = this.auth.isAuthenticated();

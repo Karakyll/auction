@@ -8,5 +8,5 @@ export class Bet {
     public user_name: string,
     public betTime: string,
     public price: number
-  ){};
+  ) {}
 }

@@ -104,11 +104,11 @@ export class AuctionComponent implements OnInit {
   }
 
   isManager() {
-    return this.isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role == 'ROLE_MANAGER') : false;
+    return this.isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role === 'ROLE_MANAGER') : false;
   }
 
   isAdmin() {
-    return this. isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role == 'ROLE_ADMIN') : false;
+    return this. isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role === 'ROLE_ADMIN') : false;
   }
 
 }

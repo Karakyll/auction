@@ -8,5 +8,5 @@ export class Product {
     public category_name: string,
     public price: number,
     public description: string
-  ){};
+  ) {}
 }

@@ -25,13 +25,13 @@ export class BetService {
 
   getBetsByAuctionId(id): Observable<Bet[]> {
     return this.http.get<Bet[]>(uri, {
-      params:new HttpParams().set('auctionId', id)
+      params: new HttpParams().set('auctionId', id)
     });
   }
 
   getBetsByUsername(user): Observable<Bet[]> {
     return this.http.get<Bet[]>(uri, {
-      params:new HttpParams().set('username', user)
+      params: new HttpParams().set('username', user)
     });
   }
 
@@ -41,8 +41,8 @@ export class BetService {
 
   deleteBet(id) {
     return this.http.delete(uri, {
-      params:new HttpParams().set('delete', id)
-    })
+      params: new HttpParams().set('delete', id)
+    });
   }
 
 }

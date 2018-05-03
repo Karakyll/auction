@@ -11,7 +11,7 @@ export class ManagerGuard implements CanActivate {
   constructor(private auth: LoginService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    return !!this.auth.getUserData().roles.find(r => r.role == 'ROLE_MANAGER');
+    return !!this.auth.getUserData().roles.find(r => r.role === 'ROLE_MANAGER');
   }
 
 }
