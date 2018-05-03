@@ -1,7 +1,7 @@
-import {EventEmitter, Injectable, Output} from '@angular/core';
-import {Auction} from "../../models/auction";
-import {Product} from "../../models/product";
-import {User} from "../../models/user";
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Auction } from '../../models/auction';
+import { Product } from '../../models/product';
+import { User } from '../../models/user';
 
 /**
  * Service to allow interactions between components
@@ -66,11 +66,11 @@ export class InteractionService {
     this._betsRefresh.emit();
   }
 
-  searchTagChange(searchTag:string) {
+  searchTagChange(searchTag: string) {
     this._searchTagChanged.emit(searchTag);
   }
 
-  categoryChange(category:string) {
+  categoryChange(category: string) {
     this._categoryChanged.emit(category);
   }
 
@@ -78,23 +78,23 @@ export class InteractionService {
     this._auctionTabClicked.emit();
   }
 
-  selectProduct(product:Product) {
+  selectProduct(product: Product) {
     this._productSelected.emit(product);
   }
 
-  callUserAuctionsModal(user:User) {
+  callUserAuctionsModal(user: User) {
     this._userAuctionsModalCalled.emit(user);
   }
 
-  callUserBetsModal(user:User) {
+  callUserBetsModal(user: User) {
     this._userBetsModalCalled.emit(user);
   }
 
-  callPasswordChangeModal(user:User) {
+  callPasswordChangeModal(user: User) {
     this._passwordChangeModalCalled.emit(user);
   }
 
-  callDeleteAccountModal(user:User) {
+  callDeleteAccountModal(user: User) {
     this._deleteAccountModalCalled.emit(user);
   }
 

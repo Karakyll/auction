@@ -1,13 +1,13 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {Auction} from "../../models/auction";
-import {AuctionService} from "../../services/auction/auction.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Bet} from "../../models/bet";
-import {LoginService} from "../../services/login/login.service";
-import {InteractionService} from "../../services/interaction/interaction.service";
-import {BetService} from "../../services/bet/bet.service";
-import {ModalDirective} from "ngx-bootstrap/modal";
-import {TranslateService} from "@ngx-translate/core";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Auction } from '../../models/auction';
+import { AuctionService } from '../../services/auction/auction.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Bet } from '../../models/bet';
+import { LoginService } from '../../services/login/login.service';
+import { InteractionService } from '../../services/interaction/interaction.service';
+import { BetService } from '../../services/bet/bet.service';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component view /auctions/:id page
@@ -26,17 +26,17 @@ export class AuctionDetailsComponent implements OnInit {
     backdrop: false
   };
 
-  auction:Auction;
-  bets:Bet[];
-  finished:boolean = false;
+  auction: Auction;
+  bets: Bet[];
+  finished: boolean = false;
 
   constructor(
-    private auth:LoginService,
-    private interact:InteractionService,
-    private auctionService:AuctionService,
-    private betService:BetService,
-    private route:ActivatedRoute,
-    private router:Router,
+    private auth: LoginService,
+    private interact: InteractionService,
+    private auctionService: AuctionService,
+    private betService: BetService,
+    private route: ActivatedRoute,
+    private router: Router,
     private translate: TranslateService
   ) { }
 
@@ -54,7 +54,7 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   showCategory(category) {
-    this.router.navigate(["/auctions", {category: category}]);
+    this.router.navigate(['/auctions', {category: category}]);
   }
 
   clickHistory (auction) {
@@ -83,15 +83,15 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   isManager() {
-    return this.isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role == "ROLE_MANAGER") : false;
+    return this.isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role == 'ROLE_MANAGER') : false;
   }
 
   isAdmin() {
-    return this. isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role == "ROLE_ADMIN") : false;
+    return this. isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role == 'ROLE_ADMIN') : false;
   }
 
   subscribeRefreshBets() {
-    this.interact._betsRefresh.subscribe(res => {
+    this.interact._betsRefresh.subscribe(() => {
       this.betService.getBetsByAuctionId(this.auction.id).subscribe(res => {
         if (res.length !== 0) {
           this.bets = res;

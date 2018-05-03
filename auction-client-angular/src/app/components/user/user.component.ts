@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from "../../services/user/user.service";
-import {User} from "../../models/user";
-import {LoginService} from "../../services/login/login.service";
-import {InteractionService} from "../../services/interaction/interaction.service";
-import {TranslateService} from "@ngx-translate/core";
+import { UserService } from '../../services/user/user.service';
+import { User } from '../../models/user';
+import { LoginService } from '../../services/login/login.service';
+import { InteractionService } from '../../services/interaction/interaction.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component view /user page
@@ -18,9 +18,9 @@ export class UserComponent implements OnInit {
   user:User;
 
   constructor(
-    private interact:InteractionService,
-    private userService:UserService,
-    private auth:LoginService,
+    private interact: InteractionService,
+    private userService: UserService,
+    private auth: LoginService,
     private translate: TranslateService
   ) { }
 
@@ -29,11 +29,11 @@ export class UserComponent implements OnInit {
   }
 
   isManager() {
-    return this.user.roles.find(r => r.role == "ROLE_MANAGER");
+    return this.user.roles.find(r => r.role == 'ROLE_MANAGER');
   }
 
   isAdmin() {
-    return this.user.roles.find(r => r.role == "ROLE_ADMIN");
+    return this.user.roles.find(r => r.role == 'ROLE_ADMIN');
   }
 
   showAuctions() {

@@ -1,9 +1,9 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
-import {BsModalRef, BsModalService} from "ngx-bootstrap";
-import {Auction} from "../../../models/auction";
-import {AuctionService} from "../../../services/auction/auction.service";
-import {InteractionService} from "../../../services/interaction/interaction.service";
-import {TranslateService} from "@ngx-translate/core";
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { Auction } from '../../../models/auction';
+import { AuctionService } from '../../../services/auction/auction.service';
+import { InteractionService } from '../../../services/interaction/interaction.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component view /management auctions tab
@@ -15,13 +15,13 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class ManageAuctionsComponent implements OnInit {
 
-  auctions:Auction[];
-  modalRef:BsModalRef;
-  selectedAuction:Auction;
+  auctions: Auction[];
+  modalRef: BsModalRef;
+  selectedAuction: Auction;
 
   constructor(
-    private interact:InteractionService,
-    private auctionService:AuctionService,
+    private interact: InteractionService,
+    private auctionService: AuctionService,
     private modalService: BsModalService,
     private translate: TranslateService
   ) { }

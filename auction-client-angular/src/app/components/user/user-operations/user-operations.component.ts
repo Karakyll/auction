@@ -1,15 +1,15 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {User} from "../../../models/user";
-import {ModalDirective} from "ngx-bootstrap/modal";
-import {InteractionService} from "../../../services/interaction/interaction.service";
-import {Auction} from "../../../models/auction";
-import {AuctionService} from "../../../services/auction/auction.service";
-import {Bet} from "../../../models/bet";
-import {BetService} from "../../../services/bet/bet.service";
-import {UserService} from "../../../services/user/user.service";
-import {LoginService} from "../../../services/login/login.service";
-import {Router} from "@angular/router";
-import {TranslateService} from "@ngx-translate/core";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { User } from '../../../models/user';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { InteractionService } from '../../../services/interaction/interaction.service';
+import { Auction } from '../../../models/auction';
+import { AuctionService } from '../../../services/auction/auction.service';
+import { Bet } from '../../../models/bet';
+import { BetService } from '../../../services/bet/bet.service';
+import { UserService } from '../../../services/user/user.service';
+import { LoginService } from '../../../services/login/login.service';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component view /user operations modals
@@ -30,20 +30,18 @@ export class UserOperationsComponent implements OnInit {
   auctions:Auction[];
   bets:Bet[];
 
-  public passwords = {password: "", confirm: ""};
-
   config = {
     keyboard: true,
     backdrop: false
   };
 
   constructor(
-    private interact:InteractionService,
-    private auctionService:AuctionService,
-    private betService:BetService,
-    private userService:UserService,
-    private auth:LoginService,
-    private router:Router,
+    private interact: InteractionService,
+    private auctionService: AuctionService,
+    private betService: BetService,
+    private userService: UserService,
+    private auth: LoginService,
+    private router: Router,
     private translate: TranslateService
   ) { }
 
@@ -79,13 +77,13 @@ export class UserOperationsComponent implements OnInit {
     })
   }
 
-  getAuctionsList(username:string) {
+  getAuctionsList(username: string) {
     this.auctionService.getAuctionsByUserName(username).subscribe(res => {
       this.auctions = res;
     })
   }
 
-  getBetList(username:string) {
+  getBetList(username: string) {
     this.betService.getBetsByUsername(username).subscribe(res => {
       this.bets = res;
     })
@@ -103,7 +101,7 @@ export class UserOperationsComponent implements OnInit {
     this.userService.deleteUser(this.user.userName).subscribe(() => {
     });
     this.auth.logout();
-    this.router.navigateByUrl("/");
+    this.router.navigateByUrl('/');
   }
 
   declineDeleteUser() {

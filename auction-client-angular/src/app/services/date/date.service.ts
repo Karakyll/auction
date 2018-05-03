@@ -8,7 +8,7 @@ export class DateService {
 
   constructor() { }
 
-  getDateTime(days?:number) {
+  getDateTime(days?: number) {
     let currentDate = new Date();
     if (days) {
       currentDate.setDate(currentDate.getDate() + days);

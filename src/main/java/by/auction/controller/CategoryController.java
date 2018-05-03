@@ -15,7 +15,6 @@ import java.util.Locale;
  * Rest controller. Implement category api to manage categories.
  * Map all /categories requests
  */
-@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/categories")
 public class CategoryController {

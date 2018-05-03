@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import {LoginService} from "../../services/login/login.service";
-import {InteractionService} from "../../services/interaction/interaction.service";
-import { TranslateService } from "@ngx-translate/core";
+import { Router } from '@angular/router';
+import { LoginService } from '../../services/login/login.service';
+import { InteractionService } from '../../services/interaction/interaction.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component view header
@@ -14,12 +14,12 @@ import { TranslateService } from "@ngx-translate/core";
 })
 export class HeaderComponent implements OnInit {
 
-  public searchTag:string = "";
-  public isLogged:boolean = false;
+  public searchTag: string = '';
+  public isLogged: boolean = false;
 
   constructor(
-    private auth:LoginService,
-    private interact:InteractionService,
+    private auth: LoginService,
+    private interact: InteractionService,
     private router: Router,
     private translate: TranslateService
   ) {}
@@ -32,22 +32,22 @@ export class HeaderComponent implements OnInit {
   }
 
   search() {
-    this.router.navigate(["/auctions", {"search":this.searchTag}]);
+    this.router.navigate(['/auctions', {'search':this.searchTag}]);
     this.interact.searchTagChange(this.searchTag);
-    this.searchTag = "";
+    this.searchTag = '';
   }
 
   clickLogin() {
-    this.router.navigateByUrl("/login");
+    this.router.navigateByUrl('/login');
   }
 
   clickLogout() {
     this.auth.logout();
-    this.router.navigateByUrl("/login");
+    this.router.navigateByUrl('/login');
   }
 
   clickUser() {
-    this.router.navigateByUrl("/user")
+    this.router.navigateByUrl('/user');
   }
 
   changeLanguage(lang) {

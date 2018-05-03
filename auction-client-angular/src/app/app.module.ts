@@ -39,8 +39,8 @@ import { DateService } from "./services/date/date.service";
 import { LoggedInGuard } from "./services/guard/logged-in-guard.service";
 import { InteractionService } from "./services/interaction/interaction.service";
 import { AdminGuard } from "./services/guard/admin-guard.service";
-import {ManagerGuard} from "./services/guard/manager-guard.service";
-import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
+import { ManagerGuard } from "./services/guard/manager-guard.service";
+import { TranslateLoader, TranslateModule, TranslateService } from "@ngx-translate/core";
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 const appRoutes: Routes = [

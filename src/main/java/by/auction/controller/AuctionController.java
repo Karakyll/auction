@@ -24,7 +24,6 @@ import java.util.Locale;
  * Rest controller. Implement auction api to manage auctions.
  * Map all /auctions requests
  */
-@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/auctions")
 public class AuctionController {

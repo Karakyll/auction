@@ -19,7 +19,6 @@ import java.util.Locale;
  * Rest controller. Implement product api to manage products.
  * Map all /products requests
  */
-@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/products")
 public class ProductController {

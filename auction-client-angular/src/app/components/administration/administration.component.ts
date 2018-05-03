@@ -1,9 +1,9 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
-import {BsModalRef, BsModalService} from "ngx-bootstrap";
-import {User} from "../../models/user";
-import {UserService} from "../../services/user/user.service";
-import {TranslateService} from "@ngx-translate/core";
-import {InteractionService} from "../../services/interaction/interaction.service";
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user/user.service';
+import { TranslateService } from '@ngx-translate/core';
+import { InteractionService } from '../../services/interaction/interaction.service';
 
 /**
  * Component view /administration page
@@ -15,13 +15,13 @@ import {InteractionService} from "../../services/interaction/interaction.service
 })
 export class AdministrationComponent implements OnInit {
 
-  users:User[];
-  modalRef:BsModalRef;
-  selectedUser:User;
+  users: User[];
+  modalRef: BsModalRef;
+  selectedUser: User;
 
   constructor(
-    public interact:InteractionService,
-    private userService:UserService,
+    public interact: InteractionService,
+    private userService: UserService,
     private modalService: BsModalService,
     private translate: TranslateService
   ) { }
@@ -41,7 +41,7 @@ export class AdministrationComponent implements OnInit {
   }
 
   confirmDelete(): void {
-    this.userService.deleteUser(this.selectedUser.userName).subscribe(res => {
+    this.userService.deleteUser(this.selectedUser.userName).subscribe(() => {
       this.users.splice(this.users.indexOf(this.selectedUser),1);
       this.modalRef.hide();
     });
@@ -51,25 +51,25 @@ export class AdministrationComponent implements OnInit {
     this.modalRef.hide();
   }
 
-  enableUser(user:User) {
+  enableUser(user: User) {
     this.userService.enableUser(user.userName).subscribe(res => {
       this.users[this.users.indexOf(user)] = res;
     })
   }
 
-  disableUser(user:User) {
+  disableUser(user: User) {
     this.userService.disableUser(user.userName).subscribe(res => {
       this.users[this.users.indexOf(user)] = res;
     })
   }
 
-  promoteUser(user:User) {
+  promoteUser(user: User) {
     this.userService.promoteUser(user.userName).subscribe(res => {
       this.users[this.users.indexOf(user)] = res;
     })
   }
 
-  demoteUser(user:User) {
+  demoteUser(user: User) {
     this.userService.demoteUser(user.userName).subscribe(res => {
       this.users[this.users.indexOf(user)] = res;
     })
@@ -79,12 +79,12 @@ export class AdministrationComponent implements OnInit {
     this.interact.callPasswordChangeModal(user);
   }
 
-  isManager(user:User) {
-    return user.roles.find(r => r.role == "ROLE_MANAGER");
+  isManager(user: User) {
+    return user.roles.find(r => r.role == 'ROLE_MANAGER');
   }
 
-  isAdmin(user:User) {
-    return user.roles.find(r => r.role == "ROLE_ADMIN");
+  isAdmin(user: User) {
+    return user.roles.find(r => r.role == 'ROLE_ADMIN');
   }
 
 }

@@ -1,9 +1,9 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
-import {Product} from "../../../models/product";
-import {ProductService} from "../../../services/product/product.service";
-import {BsModalRef, BsModalService} from "ngx-bootstrap";
-import {InteractionService} from "../../../services/interaction/interaction.service";
-import {TranslateService} from "@ngx-translate/core";
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Product } from '../../../models/product';
+import { ProductService } from '../../../services/product/product.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { InteractionService } from '../../../services/interaction/interaction.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component view /management products tab
@@ -15,13 +15,13 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class ManageProductsComponent implements OnInit {
 
-  products:Product[];
-  modalRef:BsModalRef;
-  selectedProduct:Product;
+  products: Product[];
+  modalRef: BsModalRef;
+  selectedProduct: Product;
 
   constructor(
-    private interact:InteractionService,
-    private productService:ProductService,
+    private interact: InteractionService,
+    private productService: ProductService,
     private modalService: BsModalService,
     private translate: TranslateService
   ) { }

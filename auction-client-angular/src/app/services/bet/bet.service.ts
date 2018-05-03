@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from "rxjs/Observable";
-import {Bet} from "../../models/bet";
+import { Observable } from 'rxjs/Observable';
+import { Bet } from '../../models/bet';
 
 const uri = 'http://localhost:8081/api/bets';
 
@@ -11,31 +11,31 @@ const uri = 'http://localhost:8081/api/bets';
 @Injectable()
 export class BetService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getAllBets():Observable<Bet[]> {
+  getAllBets(): Observable<Bet[]> {
     return this.http.get<Bet[]>(uri);
   }
 
-  getBetById(id):Observable<Bet> {
+  getBetById(id): Observable<Bet> {
     return this.http.get<Bet>(uri, {
-      params:new HttpParams().set('id', id)
+      params: new HttpParams().set('id', id)
     });
   }
 
-  getBetsByAuctionId(id):Observable<Bet[]> {
+  getBetsByAuctionId(id): Observable<Bet[]> {
     return this.http.get<Bet[]>(uri, {
       params:new HttpParams().set('auctionId', id)
     });
   }
 
-  getBetsByUsername(user):Observable<Bet[]> {
+  getBetsByUsername(user): Observable<Bet[]> {
     return this.http.get<Bet[]>(uri, {
       params:new HttpParams().set('username', user)
     });
   }
 
-  saveBet(bet:Bet):Observable<Bet> {
+  saveBet(bet: Bet): Observable<Bet> {
     return this.http.post<Bet>(uri, bet);
   }
 

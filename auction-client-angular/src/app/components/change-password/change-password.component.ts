@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ModalDirective} from "ngx-bootstrap/modal";
-import {InteractionService} from "../../services/interaction/interaction.service";
-import {User} from "../../models/user";
-import {UserService} from "../../services/user/user.service";
-import {TranslateService} from "@ngx-translate/core";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { InteractionService } from '../../services/interaction/interaction.service';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user/user.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-change-password',
@@ -16,7 +16,7 @@ export class ChangePasswordComponent implements OnInit {
 
   user:User;
 
-  public passwords = {password: "", confirm: ""};
+  public passwords = {password: '', confirm: ''};
 
   config = {
     keyboard: true,
@@ -24,8 +24,8 @@ export class ChangePasswordComponent implements OnInit {
   };
 
   constructor(
-    private interact:InteractionService,
-    private userService:UserService,
+    private interact: InteractionService,
+    private userService: UserService,
     private translate: TranslateService
   ) { }
 

@@ -1,8 +1,8 @@
 import { Component, OnInit} from '@angular/core';
-import { CategoryService } from "../../services/category/category.service";
-import { Category } from "../../models/category";
-import { Router } from "@angular/router";
-import {InteractionService} from "../../services/interaction/interaction.service";
+import { CategoryService } from '../../services/category/category.service';
+import { Category } from '../../models/category';
+import { Router } from '@angular/router';
+import { InteractionService } from '../../services/interaction/interaction.service';
 
 /**
  * Component view categories sidebar
@@ -19,9 +19,9 @@ export class CategoryComponent implements OnInit {
   categories:Category[];
 
   constructor(
-    private categoryService:CategoryService,
-    private interact:InteractionService,
-    private router:Router
+    private categoryService: CategoryService,
+    private interact: InteractionService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -36,7 +36,7 @@ export class CategoryComponent implements OnInit {
     if (category) {
       this.interact.categoryChange(category);
       this.isOpen = false;
-      this.router.navigate(["/auctions", {category: category}]);
+      this.router.navigate(['/auctions', {category: category}]);
     }
   }
 

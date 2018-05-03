@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BetService } from "../../services/bet/bet.service";
-import { Bet } from "../../models/bet";
+import { BetService } from '../../services/bet/bet.service';
+import { Bet } from '../../models/bet';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { Auction } from "../../models/auction";
-import { AuctionService } from "../../services/auction/auction.service";
-import { DateService } from "../../services/date/date.service";
-import {InteractionService} from "../../services/interaction/interaction.service";
-import {LoginService} from "../../services/login/login.service";
-import {TranslateService} from "@ngx-translate/core";
+import { Auction } from '../../models/auction';
+import { AuctionService } from '../../services/auction/auction.service';
+import { DateService } from '../../services/date/date.service';
+import { InteractionService } from '../../services/interaction/interaction.service';
+import { LoginService } from '../../services/login/login.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component view bets history and new bet modals
@@ -29,16 +29,16 @@ export class BetComponent implements OnInit {
 
   buttonLocked:boolean = false;
 
-  bets:Bet[];
-  auction:Auction;
-  newBet:number;
+  bets: Bet[];
+  auction: Auction;
+  newBet: number;
 
   constructor(
-    private interact:InteractionService,
-    private betService:BetService,
-    private auctionService:AuctionService,
-    private dateService:DateService,
-    private auth:LoginService,
+    private interact: InteractionService,
+    private betService: BetService,
+    private auctionService: AuctionService,
+    private dateService: DateService,
+    private auth: LoginService,
     private translate: TranslateService
   ) { }
 
@@ -64,7 +64,7 @@ export class BetComponent implements OnInit {
         this.buttonLocked = false;
     },
       error => {
-      console.log("User or auction not found");
+      console.log('User or auction not found');
       console.log(error);
         this.buttonLocked = false;
       })
@@ -99,10 +99,6 @@ export class BetComponent implements OnInit {
       this.newBetModal.config = this.config;
       this.newBetModal.toggle();
     });
-  }
-
-  calcMinPrice() {
-
   }
 
 }

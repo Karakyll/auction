@@ -1,10 +1,10 @@
-import {EventEmitter, Injectable, Output} from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Router } from "@angular/router";
-import { Token } from "../../models/token";
-import { User } from "../../models/user";
-import { Observable } from "rxjs/Observable";
-import { Role } from "../../models/role";
+import { EventEmitter, Injectable, Output} from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Token } from '../../models/token';
+import { User } from '../../models/user';
+import { Observable } from 'rxjs/Observable';
+import { Role } from '../../models/role';
 
 /**
  * Service to mange authorities
@@ -41,8 +41,8 @@ export class LoginService {
     this.saveUserData(new User(data.username,
       null,
       true,
-      [new Role(1,"ROLE_ADMIN"), new Role(2, "ROLE_USER"),  new Role(3, "ROLE_MANAGER")]));
-    this.saveToken(new Token("access1", "BEARER", 2000, ["read", "write"]));
+      [new Role(1,'ROLE_ADMIN'), new Role(2, 'ROLE_USER'),  new Role(3, 'ROLE_MANAGER')]));
+    this.saveToken(new Token('access1', 'BEARER', 2000, ['read', 'write']));
     this._loggedChange.emit(true);
   }
 
@@ -97,7 +97,7 @@ export class LoginService {
     return JSON.parse(expiration) - new Date().getTime();
   }
 
-  saveUserData(user:User) {
+  saveUserData(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
@@ -111,7 +111,7 @@ export class LoginService {
     this._loggedChange.emit(false);
   }
 
-  getUserRoles(username:string):Observable<Role[]> {
+  getUserRoles(username: string): Observable<Role[]> {
     let options = {
       headers: new HttpHeaders({
           'Content-type': 'application/application/json',
@@ -119,10 +119,10 @@ export class LoginService {
         }),
       params: new HttpParams().append('username', username)
     };
-    return this.http.get<Role[]>(this.API_BASE_HREF + "roles/", options);
+    return this.http.get<Role[]>(this.API_BASE_HREF + 'roles/', options);
   }
 
-  hasRole(role:string):boolean {
+  hasRole(role: string): boolean {
     this.getUserData().roles.forEach(r => {
       if(r.role === role) {
         return true;

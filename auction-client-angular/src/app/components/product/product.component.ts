@@ -1,11 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import { ProductService } from "../../services/product/product.service";
-import { Product } from "../../models/product";
-import {ModalDirective} from "ngx-bootstrap/modal";
-import {Category} from "../../models/category";
-import {CategoryService} from "../../services/category/category.service";
-import {InteractionService} from "../../services/interaction/interaction.service";
-import {TranslateService} from "@ngx-translate/core";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ProductService } from '../../services/product/product.service';
+import { Product } from '../../models/product';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { Category } from '../../models/category';
+import { CategoryService } from '../../services/category/category.service';
+import { InteractionService } from '../../services/interaction/interaction.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component view new product modal
@@ -26,21 +26,21 @@ export class ProductComponent implements OnInit {
     outsideClick: false
   };
 
-  categories:Category[];
-  products:Product[];
+  categories: Category[];
+  products: Product[];
 
   newProduct:Product = {
     id: null,
-    name: "",
-    category_name: "",
+    name: '',
+    category_name: '',
     price: null,
-    description: ""
+    description: ''
   };
 
   constructor(
-    private interact:InteractionService,
-    private productService:ProductService,
-    private categoryService:CategoryService,
+    private interact: InteractionService,
+    private productService: ProductService,
+    private categoryService: CategoryService,
     private translate: TranslateService
   ) { }
 

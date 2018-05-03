@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuctionService } from "../../services/auction/auction.service";
-import { Auction } from "../../models/auction";
-import { ActivatedRoute, Router } from "@angular/router";
-import {LoginService} from "../../services/login/login.service";
-import {InteractionService} from "../../services/interaction/interaction.service";
-import {TranslateService} from "@ngx-translate/core";
+import { AuctionService } from '../../services/auction/auction.service';
+import { Auction } from '../../models/auction';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from '../../services/login/login.service';
+import { InteractionService } from '../../services/interaction/interaction.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component view /auctions page
@@ -16,16 +16,16 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class AuctionComponent implements OnInit {
 
-  auctions:Auction[];
+  auctions: Auction[];
 
-  showFin:boolean = false;
+  showFin: boolean = false;
 
   constructor(
-    private auctionService:AuctionService,
-    private router:Router,
-    private route:ActivatedRoute,
-    private auth:LoginService,
-    private interact:InteractionService,
+    private auctionService: AuctionService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private auth: LoginService,
+    private interact: InteractionService,
     private translate: TranslateService
   ) { }
 
@@ -76,7 +76,7 @@ export class AuctionComponent implements OnInit {
   }
 
   startNewAuction() {
-    this.isAuthenticated() ? this.router.navigateByUrl("/auction/start") : this.router.navigateByUrl("/login");
+    this.isAuthenticated() ? this.router.navigateByUrl('/auction/start') : this.router.navigateByUrl('/login');
   }
 
   subscribeSearchChange() {
@@ -96,11 +96,19 @@ export class AuctionComponent implements OnInit {
   }
 
   subscribeLinkClicked() {
-    this.interact._auctionTabClicked.subscribe(res => {
+    this.interact._auctionTabClicked.subscribe(() => {
       this.auctionService.getOngoingAuctions().subscribe(res => {
         this.auctions = res;
       });
     })
+  }
+
+  isManager() {
+    return this.isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role == 'ROLE_MANAGER') : false;
+  }
+
+  isAdmin() {
+    return this. isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role == 'ROLE_ADMIN') : false;
   }
 
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Category } from "../../../models/category";
-import { CategoryService } from "../../../services/category/category.service";
-import { BsModalRef, BsModalService } from "ngx-bootstrap";
-import {InteractionService} from "../../../services/interaction/interaction.service";
-import {TranslateService} from "@ngx-translate/core";
+import { Category } from '../../../models/category';
+import { CategoryService } from '../../../services/category/category.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { InteractionService } from '../../../services/interaction/interaction.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component view /management categories tab
@@ -15,16 +15,16 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class ManageCategoriesComponent implements OnInit {
 
-  categories:Category[];
-  newCategory:string = "";
-  modalRef:BsModalRef;
-  selectedCategory:Category;
-  failed:boolean = false;
-  buttonLocked:boolean = false;
+  categories: Category[];
+  newCategory: string = '';
+  modalRef: BsModalRef;
+  selectedCategory: Category;
+  failed: boolean = false;
+  buttonLocked: boolean = false;
 
   constructor(
-    private interact:InteractionService,
-    private categoryService:CategoryService,
+    private interact: InteractionService,
+    private categoryService: CategoryService,
     private modalService: BsModalService,
     private translate: TranslateService
   ) { }
@@ -44,12 +44,12 @@ export class ManageCategoriesComponent implements OnInit {
     this.categoryService.saveCategory(new Category(this.newCategory)).subscribe(
       res => {
         this.interact.callCategoryChanging();
-        this.newCategory = "";
+        this.newCategory = '';
         this.categories.push(res);
         this.buttonLocked = false;
       },
       () => {
-        console.log("err. category exist.")
+        console.log('err. category exist.')
         this.failed = true;
         this.buttonLocked = false;
       }

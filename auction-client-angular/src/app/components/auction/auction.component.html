@@ -13,7 +13,7 @@
     <div class="col"></div>
     <div class="col"></div>
     <div class="col">
-      <button class="btn btn-primary" (click)="startNewAuction()">
+      <button *ngIf="!isAdmin() && !isManager()" class="btn btn-primary" (click)="startNewAuction()">
         {{ 'auction.header.startNew' | translate }}
       </button>
     </div>

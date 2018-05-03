@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {Auction} from "../../models/auction";
-import {ProductService} from "../../services/product/product.service";
-import {InteractionService} from "../../services/interaction/interaction.service";
-import {DateService} from "../../services/date/date.service";
-import {LoginService} from "../../services/login/login.service";
-import {AuctionService} from "../../services/auction/auction.service";
-import {Router} from "@angular/router";
-import {TranslateService} from "@ngx-translate/core";
+import { Auction}  from '../../models/auction';
+import { ProductService } from '../../services/product/product.service';
+import { InteractionService } from '../../services/interaction/interaction.service';
+import { DateService } from '../../services/date/date.service';
+import { LoginService } from '../../services/login/login.service';
+import { AuctionService } from '../../services/auction/auction.service';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component view /auction/start page
@@ -18,26 +18,26 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class StartAuctionComponent implements OnInit {
 
-  duration:number;
-  buttonLocked:boolean = false;
+  duration: number;
+  buttonLocked: boolean = false;
 
-  newAuction:Auction = {
+  newAuction: Auction = {
     id: null,
     product: null,
-    owner_name: "",
-    createTime: "",
-    endTime: "",
+    owner_name: '',
+    createTime: '',
+    endTime: '',
     description: null,
     finished: null
   };
 
   constructor(
-    private interact:InteractionService,
-    private productService:ProductService,
-    private auctionService:AuctionService,
-    private dateService:DateService,
-    private auth:LoginService,
-    private router:Router,
+    private interact: InteractionService,
+    private productService: ProductService,
+    private auctionService: AuctionService,
+    private dateService: DateService,
+    private auth: LoginService,
+    private router: Router,
     private translate: TranslateService
   ) { }
 
@@ -52,7 +52,7 @@ export class StartAuctionComponent implements OnInit {
     this.newAuction.endTime = this.dateService.getDateTime(+this.duration);
     this.newAuction.finished = false;
     this.auctionService.saveAuction(this.newAuction).subscribe(res => {
-      this.router.navigateByUrl("/auctions/" + res.id);
+      this.router.navigateByUrl('/auctions/' + res.id);
       this.buttonLocked = false;
     });
   }

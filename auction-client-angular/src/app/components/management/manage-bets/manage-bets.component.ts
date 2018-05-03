@@ -1,9 +1,9 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
-import {BsModalRef, BsModalService} from "ngx-bootstrap";
-import {Bet} from "../../../models/bet";
-import {BetService} from "../../../services/bet/bet.service";
-import {InteractionService} from "../../../services/interaction/interaction.service";
-import {TranslateService} from "@ngx-translate/core";
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { Bet } from '../../../models/bet';
+import { BetService } from '../../../services/bet/bet.service';
+import { InteractionService } from '../../../services/interaction/interaction.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component view /management bets tab
@@ -15,13 +15,13 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class ManageBetsComponent implements OnInit {
 
-  bets:Bet[];
-  modalRef:BsModalRef;
-  selectedBet:Bet;
+  bets: Bet[];
+  modalRef: BsModalRef;
+  selectedBet: Bet;
 
   constructor(
-    private interact:InteractionService,
-    private betService:BetService,
+    private interact: InteractionService,
+    private betService: BetService,
     private modalService: BsModalService,
     private translate: TranslateService
   ) { }
