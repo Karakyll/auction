@@ -41,6 +41,7 @@ import { InteractionService } from "./services/interaction/interaction.service";
 import { AdminGuard } from "./services/guard/admin-guard.service";
 import {ManagerGuard} from "./services/guard/manager-guard.service";
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 const appRoutes: Routes = [
   {path:'', component:AboutComponent},
@@ -79,7 +80,8 @@ const appRoutes: Routes = [
     ManageBetsComponent,
     ManageCategoriesComponent,
     ManagementComponent,
-    AdministrationComponent
+    AdministrationComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

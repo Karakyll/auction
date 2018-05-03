@@ -32,8 +32,8 @@ export class HeaderComponent implements OnInit {
   }
 
   search() {
+    this.router.navigate(["/auctions", {"search":this.searchTag}]);
     this.interact.searchTagChange(this.searchTag);
-    this.router.navigate(["/auctions"]);
     this.searchTag = "";
   }
 

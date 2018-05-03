@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.buttonLocked = true;
-    this.auth.loginUser(this.loginData)
+    //this.auth.loginUser(this.loginData);
+    this.auth.test(this.loginData);
     this.subscribeLoggedChange();
     this.subscribeOnLoginError();
   }
@@ -39,7 +40,6 @@ export class LoginComponent implements OnInit {
       this.buttonLocked = res;
       this.isFailed = false;
     })
-
   }
 
   subscribeOnLoginError() {

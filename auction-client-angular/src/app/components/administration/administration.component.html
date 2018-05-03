@@ -10,6 +10,7 @@
       <th class="table-info">{{ 'administration.table.header.enable' | translate }}</th>
       <th class="table-success">{{ 'administration.table.header.promote' | translate }}</th>
       <th class="table-warning">{{ 'administration.table.header.demote' | translate }}</th>
+      <th class="table-info">{{ 'administration.table.header.changePassword' | translate }}</th>
       <th class="table-danger">{{ 'administration.table.header.delete' | translate }}</th>
     </tr>
     </thead>
@@ -43,6 +44,10 @@
               (click)="demoteUser(user)"></span>
       </td>
       <td>
+        <span class="btn fa fa-key"
+              (click)="changePassword(user)"></span>
+      </td>
+      <td>
         <span *ngIf="!isAdmin(user)"
               class="btn fa fa-times-rectangle-o dis"
               (click)="openModal(template); selectedUser=user"></span>
@@ -54,7 +59,8 @@
 <ng-template #template>
   <div class="modal-body text-center">
     <p>{{ 'administration.confirm.message' | translate }}</p>
-    <button type="button" class="btn btn-default" (click)="confirm()">{{ 'administration.confirm.yes' | translate }}</button>
-    <button type="button" class="btn btn-primary" (click)="decline()">{{ 'administration.confirm.no' | translate }}</button>
+    <button type="button" class="btn btn-default" (click)="confirmDelete()">{{ 'administration.confirm.yes' | translate }}</button>
+    <button type="button" class="btn btn-primary" (click)="declineDelete()">{{ 'administration.confirm.no' | translate }}</button>
   </div>
 </ng-template>
+<app-change-password></app-change-password>

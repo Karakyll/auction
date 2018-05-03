@@ -1,18 +1,18 @@
-<div class="navbar navbar-expand navbar-dark bg-dark">
+<div class="navbar navbar-expand-sm  navbar-dark bg-dark">
   <div class="mr-lg-5">
     <a class="navbar-brand" routerLink="/">{{ 'header.mainPage' | translate }}</a>
   </div>
   <form class="form-inline" (submit)="search()">
-    <ul class="navbar-nav">
-      <li class="nav-item">
+    <div class="navbar-nav">
+      <div class="nav-item">
         <input class="form-control-sm" type="text" placeholder="{{ 'header.search.placeHolder' | translate }}" [(ngModel)]="searchTag" name="searchInput">
-      </li>
-      <li class="nav-item">
+      </div>
+      <div class="nav-item">
         <button class="btn btn-sm btn-info" type="submit">{{ 'header.search.button' | translate }}</button>
-      </li>
-    </ul>
+      </div>
+    </div>
   </form>
-  <ul class="navbar-nav ml-auto">
+  <div class="navbar-nav ml-auto">
     <div class=" dropdown">
       <button class="btn btn-dark dropdown-toggle"
               id="localeMenu"
@@ -24,17 +24,17 @@
         <button class="btn dropdown-item" (click)="changeLanguage('ru')">ru</button>
       </div>
     </div>
-    <li class="nav-item">
+    <div class="nav-item">
       <a *ngIf="!isLogged" class="btn btn-link nav-link" (click)="clickLogin()">
         <span class="fa fa-sign-in"></span>{{ 'header.login' | translate }}</a>
       <a *ngIf="isLogged" class="btn btn-link nav-link" (click)="clickUser()">
         <span class="fa fa-user"></span>{{ 'header.user' | translate }}</a>
-    </li>
-    <li class="nav-item">
+    </div>
+    <div class="nav-item">
       <a *ngIf="!isLogged" class="btn btn-link nav-link" routerLink="/signup">
         <span class="fa fa-user-plus"></span>{{ 'header.signUp' | translate }}</a>
       <a *ngIf="isLogged" class="btn btn-link nav-link" (click)="clickLogout()">
         <span class="fa fa-sign-out"></span>{{ 'header.logout' | translate }}</a>
-    </li>
-  </ul>
+    </div>
+  </div>
 </div>

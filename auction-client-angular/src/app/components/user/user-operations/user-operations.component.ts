@@ -50,7 +50,6 @@ export class UserOperationsComponent implements OnInit {
   ngOnInit() {
     this.subscribeUserAuctionsModalCalled();
     this.subscribeUserBetsModalCalled();
-    this.subscribePasswordChangeModalCalled();
     this.subscribeDeleteAccountModalCalled();
   }
 
@@ -69,14 +68,6 @@ export class UserOperationsComponent implements OnInit {
       this.getBetList(user.userName);
       this.userBetsModal.config = this.config;
       this.userBetsModal.toggle();
-    })
-  }
-
-  subscribePasswordChangeModalCalled() {
-    this.interact._passwordChangeModalCalled.subscribe(user => {
-      this.user = user;
-      this.changePasswordModal.config = this.config;
-      this.changePasswordModal.toggle();
     })
   }
 
@@ -106,22 +97,6 @@ export class UserOperationsComponent implements OnInit {
 
   hideBetsModal() {
     this.userBetsModal.hide();
-  }
-
-  hidePasswordModal() {
-    this.changePasswordModal.hide();
-  }
-
-  onSubmitPasswordChange() {
-   this.userService.changePassword(
-     new User(
-       this.user.userName,
-       this.passwords.password,
-       true,
-       this.user.roles
-     )).subscribe(() => {
-     this.changePasswordModal.hide();
-   })
   }
 
   confirmDeleteUser() {

@@ -3,6 +3,7 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {User} from "../../models/user";
 import {UserService} from "../../services/user/user.service";
 import {TranslateService} from "@ngx-translate/core";
+import {InteractionService} from "../../services/interaction/interaction.service";
 
 /**
  * Component view /administration page
@@ -19,6 +20,7 @@ export class AdministrationComponent implements OnInit {
   selectedUser:User;
 
   constructor(
+    public interact:InteractionService,
     private userService:UserService,
     private modalService: BsModalService,
     private translate: TranslateService
@@ -38,14 +40,14 @@ export class AdministrationComponent implements OnInit {
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
-  confirm(): void {
+  confirmDelete(): void {
     this.userService.deleteUser(this.selectedUser.userName).subscribe(res => {
       this.users.splice(this.users.indexOf(this.selectedUser),1);
       this.modalRef.hide();
     });
   }
 
-  decline(): void {
+  declineDelete(): void {
     this.modalRef.hide();
   }
 
@@ -71,6 +73,10 @@ export class AdministrationComponent implements OnInit {
     this.userService.demoteUser(user.userName).subscribe(res => {
       this.users[this.users.indexOf(user)] = res;
     })
+  }
+
+  changePassword(user) {
+    this.interact.callPasswordChangeModal(user);
   }
 
   isManager(user:User) {

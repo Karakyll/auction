@@ -61,6 +61,7 @@
         "enable": "Активен",
         "promote": "Повысить",
         "demote": "Понизить",
+        "changePassword": "Сменить пароль",
         "delete": "Удалить"
       },
       "body": {
