@@ -41,7 +41,7 @@ public class ProductController {
      */
     @RequestMapping(method = RequestMethod.GET)
     ResponseEntity findAll() {
-        logger.debug(messageSource.getMessage("controller.product.get", null, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.product.get", null, Locale.getDefault()));
         return ResponseEntity.ok(productService.findAll());
     }
 
@@ -54,7 +54,7 @@ public class ProductController {
      */
     @RequestMapping(value = "/{productId:[\\d]+}", method = RequestMethod.GET)
     ResponseEntity findById(@PathVariable Long productId) {
-        logger.debug(messageSource.getMessage("controller.product.get.by.id", new Object[]{productId}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.product.get.by.id", new Object[]{productId}, Locale.getDefault()));
         if ((productService.findById(productId)).isPresent()) {
             logger.debug(messageSource.getMessage("controller.product.get.by.id.ok", new Object[]{productId}, Locale.getDefault()));
             return ResponseEntity.ok(productService.findById(productId).get());
@@ -73,7 +73,7 @@ public class ProductController {
      */
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity save(@RequestBody Product product) {
-        logger.debug(messageSource.getMessage("controller.product.save.product", new Object[]{product}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.product.save.product", new Object[]{product}, Locale.getDefault()));
         if (!categoryService.findByName(product.getCategory_name()).isPresent()) {
             logger.debug(messageSource.getMessage("controller.product.save.product.error", new Object[]{product}, Locale.getDefault()));
             return ResponseEntity.unprocessableEntity().build();
@@ -105,7 +105,7 @@ public class ProductController {
      */
     @RequestMapping(value = "/{productId:[\\d]+}", method = RequestMethod.DELETE)
     ResponseEntity delete(@PathVariable Long productId) {
-        logger.debug(messageSource.getMessage("controller.product.delete.product", new Object[]{productId}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.product.delete.product", new Object[]{productId}, Locale.getDefault()));
         if (productService.findById(productId).isPresent()) {
             productService.deleteById(productId);
             logger.debug(messageSource.getMessage("controller.product.delete.product.ok", new Object[]{productId}, Locale.getDefault()));

@@ -29,7 +29,7 @@
     <div class="col-sm-12">
       <button class="btn btn-primary pull-right"
               type="submit"
-              [disabled]="!loginForm.form.valid && buttonLocked">{{ 'login.button' | translate }}</button>
+              [disabled]="!loginForm.form.valid || buttonLocked">{{ 'login.button' | translate }}</button>
     </div>
   </form>
 </div>

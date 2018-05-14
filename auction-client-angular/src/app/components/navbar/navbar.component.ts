@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
 
   openAuctions() {
     this.router.navigate(['/auctions', {refresh:'true'}]);
-    this.interact.refreshAuctionPage();
+    this.interact.clickAuctionTab();
   }
 
 }

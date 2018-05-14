@@ -1,5 +1,4 @@
 <div class="row">
-  <div class="col col-sm-2"></div>
   <div class="col col-sm-8">
     <div class="jumbotron">
       <div class="container">
@@ -22,13 +21,13 @@
               <p *ngIf="auction">{{auction.description}}</p>
             </td>
             <td>
-              <div *ngIf="auction"><b>{{ 'auctionDet.startPrice' | translate }}</b>{{auction.product.price}} $</div>
-              <div *ngIf="auction"><b>{{ 'auctionDet.owner' | translate }}</b>{{auction.owner_name}}</div>
+              <div class="unBreak" *ngIf="auction"><b>{{ 'auctionDet.startPrice' | translate }}</b>{{auction.product.price}} $</div>
+              <div class="unBreak" *ngIf="auction"><b>{{ 'auctionDet.owner' | translate }}</b>{{auction.owner_name}}</div>
             </td>
           </tr>
           <tr>
             <td>
-              <div *ngIf="bets"><b>{{ 'auctionDet.currentBet' | translate }}</b> {{bets[bets.length - 1].price}} $</div>
+              <div class="unBreak" *ngIf="bets"><b>{{ 'auctionDet.currentBet' | translate }}</b> {{bets[bets.length - 1].price}} $</div>
               <button *ngIf="isAuthenticated()"
                       type="button"
                       class="btn btn-sm btn-link"
@@ -51,7 +50,6 @@
       </div>
     </div>
   </div>
-  <div class="col col-sm-2"></div>
 </div>
 <div bsModal #confirmModal="bs-modal" class="modal ">
   <div class="modal-dialog">

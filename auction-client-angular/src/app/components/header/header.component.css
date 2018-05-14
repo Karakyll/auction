@@ -16,6 +16,7 @@
 }
 .btn-sm {
   border: 0px;
+  margin-bottom: 3px;
 }
 .btn-dark {
   background-color: #212529 !important;
@@ -37,4 +38,7 @@
   padding-left: 8px;
   padding-right: 0px;
   color: aliceblue;
+}
+.navbar-toggler {
+  margin-top: 5px;
 }

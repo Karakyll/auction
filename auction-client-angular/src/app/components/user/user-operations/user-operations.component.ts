@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { User } from '../../../models/user';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { InteractionService } from '../../../services/interaction/interaction.service';
@@ -10,6 +10,7 @@ import { UserService } from '../../../services/user/user.service';
 import { LoginService } from '../../../services/login/login.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import "rxjs/add/operator/takeWhile";
 
 /**
  * Component view /user operations modals
@@ -19,7 +20,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './user-operations.component.html',
   styleUrls: ['./user-operations.component.css']
 })
-export class UserOperationsComponent implements OnInit {
+export class UserOperationsComponent implements OnInit, OnDestroy {
 
   @ViewChild('userAuctionsModal') userAuctionsModal: ModalDirective;
   @ViewChild('userBetsModal') userBetsModal: ModalDirective;
@@ -30,7 +31,8 @@ export class UserOperationsComponent implements OnInit {
   auctions: Auction[];
   bets: Bet[];
 
-  unset: boolean;
+  unset;
+  private alive: boolean = true;
 
   config = {
     keyboard: true,
@@ -54,7 +56,9 @@ export class UserOperationsComponent implements OnInit {
   }
 
   subscribeUserAuctionsModalCalled() {
-    this.interact._userAuctionsModalCalled.subscribe(user => {
+    this.interact._userAuctionsModalCalled
+      .takeWhile(() => this.alive)
+      .subscribe(user => {
       this.user = user;
       this.getAuctionsList(user.userName);
       this.userAuctionsModal.config = this.config;
@@ -63,7 +67,9 @@ export class UserOperationsComponent implements OnInit {
   }
 
   subscribeUserBetsModalCalled() {
-    this.interact._userBetsModalCalled.subscribe(user => {
+    this.interact._userBetsModalCalled
+      .takeWhile(() => this.alive)
+      .subscribe(user => {
       this.user = user;
       this.getBetList(user.userName);
       this.userBetsModal.config = this.config;
@@ -72,7 +78,9 @@ export class UserOperationsComponent implements OnInit {
   }
 
   subscribeDeleteAccountModalCalled() {
-    this.interact._deleteAccountModalCalled.subscribe(user => {
+    this.interact._deleteAccountModalCalled
+      .takeWhile(() => this.alive)
+      .subscribe(user => {
       this.user = user;
       this.confirmDeleteModal.config = this.config;
       this.confirmDeleteModal.toggle();
@@ -80,13 +88,17 @@ export class UserOperationsComponent implements OnInit {
   }
 
   getAuctionsList(username: string) {
-    this.auctionService.findByUserName(username).subscribe(res => {
+    this.auctionService.findByUserName(username)
+      .takeWhile(() => this.alive)
+      .subscribe(res => {
       this.auctions = res;
     });
   }
 
-  getBetList(username: string) {
-    this.betService.findByUsername(username).subscribe(res => {
+  getBetList(username: string){
+    this.betService.findByUsername(username)
+      .takeWhile(() => this.alive)
+      .subscribe(res => {
       this.bets = res;
     });
   }
@@ -108,6 +120,10 @@ export class UserOperationsComponent implements OnInit {
 
   declineDeleteUser() {
     this.confirmDeleteModal.hide();
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

@@ -14,8 +14,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HeaderComponent implements OnInit {
 
-  public searchTag: string = '';
-  public isLogged: boolean = false;
+  searchTag: string = '';
+  isLogged: boolean = false;
+  isOpen = false;
 
   constructor(
     private auth: LoginService,
@@ -32,9 +33,11 @@ export class HeaderComponent implements OnInit {
   }
 
   search() {
-    this.router.navigate(['/auctions', {'search':this.searchTag}]);
-    this.interact.searchTagChange(this.searchTag);
-    this.searchTag = '';
+    if (this.searchTag) {
+      this.interact.searchTagChange(this.searchTag);
+      this.router.navigate(['/auctions', {'search':this.searchTag}]);
+      this.searchTag = '';
+    }
   }
 
   clickLogin() {

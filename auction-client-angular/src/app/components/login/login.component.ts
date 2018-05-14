@@ -24,14 +24,14 @@ export class LoginComponent implements OnInit {
   ){ }
 
   ngOnInit(){
+    this.subscribeLoggedChange();
+    this.subscribeOnLoginError();
   }
 
   login() {
     this.buttonLocked = true;
-    this.auth.loginUser(this.loginData);
-    //this.auth.test(this.loginData);
-    this.subscribeLoggedChange();
-    this.subscribeOnLoginError();
+    //this.auth.loginUser(this.loginData);
+    this.auth.test(this.loginData);
   }
 
   subscribeLoggedChange() {

@@ -36,7 +36,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     ResponseEntity findAll() {
-        logger.debug(messageSource.getMessage("controller.admin.users.get", null, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.admin.users.get", null, Locale.getDefault()));
         return ResponseEntity.ok(userService.findAll());
     }
 
@@ -49,7 +49,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", params = "username", method = RequestMethod.GET)
     ResponseEntity findByUsername(@RequestParam("username") String username) {
-        logger.debug(messageSource.getMessage("controller.admin.users.get.user.by.username", new Object[]{username}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.admin.users.get.user.by.username", new Object[]{username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
             logger.debug(messageSource.getMessage("controller.admin.users.get.user.by.username.ok", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.ok(userService.findByUserName(username).get());
@@ -67,7 +67,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", params = "enabled", method = RequestMethod.GET)
     ResponseEntity findByEnabled(@RequestParam("enabled") Boolean enabled) {
-        logger.debug(messageSource.getMessage("controller.admin.users.get.user.by.enabled", new Object[]{enabled}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.admin.users.get.user.by.enabled", new Object[]{enabled}, Locale.getDefault()));
         return ResponseEntity.ok(userService.findByEnabled(enabled));
     }
 
@@ -80,7 +80,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     ResponseEntity save(@RequestBody User user) {
-        logger.debug(messageSource.getMessage("controller.admin.users.post.save.user", new Object[]{user.getUserName()}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.admin.users.post.save.user", new Object[]{user.getUserName()}, Locale.getDefault()));
         if (userService.findByUserName(user.getUserName()).isPresent()) {
             logger.debug(messageSource.getMessage("controller.admin.users.post.save.user.error", new Object[]{user.getUserName()}, Locale.getDefault()));
             return ResponseEntity.unprocessableEntity().build();
@@ -111,7 +111,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", params = "delete", method = RequestMethod.DELETE)
     ResponseEntity delete(@RequestParam("delete") String username) {
-        logger.debug(messageSource.getMessage("controller.admin.users.delete.user", new Object[]{username}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.admin.users.delete.user", new Object[]{username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
             userService.deleteByUserName(username);
             logger.debug(messageSource.getMessage("controller.admin.users.delete.user.ok", new Object[]{username}, Locale.getDefault()));
@@ -132,7 +132,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", params = {"enable", "username"}, method = RequestMethod.PUT)
     ResponseEntity enable(@RequestParam("enable") Boolean enable, @RequestParam("username") String username) {
-        logger.debug(messageSource.getMessage("controller.admin.users.put.enable.user", new Object[]{enable, username}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.admin.users.put.enable.user", new Object[]{enable, username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
             userService.enable(enable, username);
             logger.debug(messageSource.getMessage("controller.admin.users.put.enable.user.ok", new Object[]{username, enable}, Locale.getDefault()));
@@ -153,7 +153,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", params = {"promote", "username"}, method = RequestMethod.PUT)
     ResponseEntity promote(@RequestParam("promote") Boolean promote, @RequestParam("username") String username) {
-        logger.debug(messageSource.getMessage("controller.admin.users.put.promote.user", new Object[]{promote, username}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.admin.users.put.promote.user", new Object[]{promote, username}, Locale.getDefault()));
         if (promote && userService.findByUserName(username).isPresent()) {
             userService.promote(username);
             logger.debug(messageSource.getMessage("controller.admin.users.put.promote.user.ok", new Object[]{username}, Locale.getDefault()));
@@ -177,7 +177,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     ResponseEntity edit(@RequestBody User user) {
-        logger.debug(messageSource.getMessage("controller.admin.users.put.edit.user", new Object[]{user.getUserName()}, Locale.getDefault()));
+        logger.info(messageSource.getMessage("controller.admin.users.put.edit.user", new Object[]{user.getUserName()}, Locale.getDefault()));
         if (!userService.findByUserName(user.getUserName()).isPresent()) {
             logger.debug(messageSource.getMessage("controller.admin.users.put.edit.user.error", new Object[]{user.getUserName()}, Locale.getDefault()));
             return ResponseEntity.notFound().build();

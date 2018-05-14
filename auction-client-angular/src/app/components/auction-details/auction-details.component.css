@@ -8,3 +8,6 @@
 table tr td {
   word-break: break-all;
 }
+.unBreak {
+  word-break: keep-all;
+}

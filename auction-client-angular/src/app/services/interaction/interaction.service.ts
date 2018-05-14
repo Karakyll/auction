@@ -74,7 +74,7 @@ export class InteractionService {
     this._categoryChanged.emit(category);
   }
 
-  refreshAuctionPage() {
+  clickAuctionTab() {
     this._auctionTabClicked.emit();
   }
 

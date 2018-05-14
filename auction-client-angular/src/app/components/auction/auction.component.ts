@@ -50,7 +50,7 @@ export class AuctionComponent implements OnInit {
     }
     this.subscribeSearchChange();
     this.subscribeCategoryChange();
-    this.subscribeLinkClicked();
+    this.subscribeTabClicked();
   }
 
   showFinished() {
@@ -95,7 +95,7 @@ export class AuctionComponent implements OnInit {
     });
   }
 
-  subscribeLinkClicked() {
+  subscribeTabClicked() {
     this.interact._auctionTabClicked.subscribe(() => {
       this.auctionService.findOngoing().subscribe(res => {
         this.auctions = res;
