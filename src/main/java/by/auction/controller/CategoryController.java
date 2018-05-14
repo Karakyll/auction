@@ -33,7 +33,7 @@ public class CategoryController {
      * @return - JSON with found categories
      */
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity getAllCategory() {
+    ResponseEntity findAll() {
         logger.debug(messageSource.getMessage("controller.category.get", null, Locale.getDefault()));
         return ResponseEntity.ok(categoryService.findAll());
     }
@@ -46,7 +46,7 @@ public class CategoryController {
      * @return - JSON with saved category
      */
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity saveCategory(@RequestBody Category category) {
+    ResponseEntity save(@RequestBody Category category) {
         logger.debug(messageSource.getMessage("controller.category.post.save.category", new Object[]{category}, Locale.getDefault()));
         if (categoryService.findByName(category.getName()).isPresent()) {
             logger.debug(messageSource.getMessage("controller.category.post.save.category.error", new Object[]{category}, Locale.getDefault()));
@@ -65,7 +65,7 @@ public class CategoryController {
      * @return - status Ok
      */
     @RequestMapping(params = "delete", method = RequestMethod.DELETE)
-    ResponseEntity deleteCategory(@RequestParam("delete") String category) {
+    ResponseEntity delete(@RequestParam("delete") String category) {
         logger.debug(messageSource.getMessage("controller.category.delete.category", new Object[]{category}, Locale.getDefault()));
         if (categoryService.findByName(category).isPresent()) {
             categoryService.deleteByName(category);

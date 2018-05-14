@@ -30,22 +30,12 @@ public class AdminController {
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
     /**
-     * Map /admin GET request.
-     * @return - string with "hello" message
-     */
-    @RequestMapping(method = RequestMethod.GET)
-    public String helloAdmin() {
-        logger.debug(messageSource.getMessage("controller.admin.hello", null, Locale.getDefault()));
-        return messageSource.getMessage("hello.admin", null, Locale.getDefault());
-    }
-
-    /**
      * Map /admin/users GET requests.
      * Find all users
      * @return - JSON with all users.
      */
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    ResponseEntity getAllUsers() {
+    ResponseEntity findAll() {
         logger.debug(messageSource.getMessage("controller.admin.users.get", null, Locale.getDefault()));
         return ResponseEntity.ok(userService.findAll());
     }
@@ -58,7 +48,7 @@ public class AdminController {
      * @return - JSON with requested user
      */
     @RequestMapping(value = "/users", params = "username", method = RequestMethod.GET)
-    ResponseEntity getUserByUsername(@RequestParam("username") String username) {
+    ResponseEntity findByUsername(@RequestParam("username") String username) {
         logger.debug(messageSource.getMessage("controller.admin.users.get.user.by.username", new Object[]{username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
             logger.debug(messageSource.getMessage("controller.admin.users.get.user.by.username.ok", new Object[]{username}, Locale.getDefault()));
@@ -76,7 +66,7 @@ public class AdminController {
      * @return - JSON with enabled/disabled users.
      */
     @RequestMapping(value = "/users", params = "enabled", method = RequestMethod.GET)
-    ResponseEntity getAllEnabledUsers(@RequestParam("enabled") Boolean enabled) {
+    ResponseEntity findByEnabled(@RequestParam("enabled") Boolean enabled) {
         logger.debug(messageSource.getMessage("controller.admin.users.get.user.by.enabled", new Object[]{enabled}, Locale.getDefault()));
         return ResponseEntity.ok(userService.findByEnabled(enabled));
     }
@@ -89,7 +79,7 @@ public class AdminController {
      * @return - link to created user with JSON in body.
      */
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    ResponseEntity saveUser(@RequestBody User user) {
+    ResponseEntity save(@RequestBody User user) {
         logger.debug(messageSource.getMessage("controller.admin.users.post.save.user", new Object[]{user.getUserName()}, Locale.getDefault()));
         if (userService.findByUserName(user.getUserName()).isPresent()) {
             logger.debug(messageSource.getMessage("controller.admin.users.post.save.user.error", new Object[]{user.getUserName()}, Locale.getDefault()));
@@ -120,7 +110,7 @@ public class AdminController {
      * @return - status Ok
      */
     @RequestMapping(value = "/users", params = "delete", method = RequestMethod.DELETE)
-    ResponseEntity deleteUser(@RequestParam("delete") String username) {
+    ResponseEntity delete(@RequestParam("delete") String username) {
         logger.debug(messageSource.getMessage("controller.admin.users.delete.user", new Object[]{username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
             userService.deleteByUserName(username);
@@ -141,7 +131,7 @@ public class AdminController {
      * @return - status Ok with changed user in body
      */
     @RequestMapping(value = "/users", params = {"enable", "username"}, method = RequestMethod.PUT)
-    ResponseEntity enableUser(@RequestParam("enable") Boolean enable, @RequestParam("username") String username) {
+    ResponseEntity enable(@RequestParam("enable") Boolean enable, @RequestParam("username") String username) {
         logger.debug(messageSource.getMessage("controller.admin.users.put.enable.user", new Object[]{enable, username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
             userService.enable(enable, username);
@@ -162,7 +152,7 @@ public class AdminController {
      * @return - status Ok with changed user in body
      */
     @RequestMapping(value = "/users", params = {"promote", "username"}, method = RequestMethod.PUT)
-    ResponseEntity promoteUser(@RequestParam("promote") Boolean promote, @RequestParam("username") String username) {
+    ResponseEntity promote(@RequestParam("promote") Boolean promote, @RequestParam("username") String username) {
         logger.debug(messageSource.getMessage("controller.admin.users.put.promote.user", new Object[]{promote, username}, Locale.getDefault()));
         if (promote && userService.findByUserName(username).isPresent()) {
             userService.promote(username);
@@ -186,7 +176,7 @@ public class AdminController {
      * @return - link to created user with JSON in body.
      */
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
-    ResponseEntity editUser(@RequestBody User user) {
+    ResponseEntity edit(@RequestBody User user) {
         logger.debug(messageSource.getMessage("controller.admin.users.put.edit.user", new Object[]{user.getUserName()}, Locale.getDefault()));
         if (!userService.findByUserName(user.getUserName()).isPresent()) {
             logger.debug(messageSource.getMessage("controller.admin.users.put.edit.user.error", new Object[]{user.getUserName()}, Locale.getDefault()));

@@ -43,7 +43,7 @@ public class BetController {
      * @return - JSON with found bets
      */
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity getAllBets() {
+    ResponseEntity findAll() {
         logger.debug(messageSource.getMessage("controller.bet.get", null, Locale.getDefault()));
         return ResponseEntity.ok(betService.findAll());
     }
@@ -56,7 +56,7 @@ public class BetController {
      * @return - JSON with found bet
      */
     @RequestMapping(params = "id", method = RequestMethod.GET)
-    ResponseEntity getBetById(@RequestParam("id") Long id) {
+    ResponseEntity findById(@RequestParam("id") Long id) {
         logger.debug(messageSource.getMessage("controller.bet.get.by.id", new Object[]{id}, Locale.getDefault()));
         if (betService.findById(id).isPresent()) {
             logger.debug(messageSource.getMessage("controller.bet.get.by.id.ok", new Object[]{id}, Locale.getDefault()));
@@ -75,7 +75,7 @@ public class BetController {
      * @return - JSON with found bets
      */
     @RequestMapping(params = "auctionId", method = RequestMethod.GET)
-    ResponseEntity getBetsByAuctionId(@RequestParam("auctionId") Long auctionId) {
+    ResponseEntity findByAuctionId(@RequestParam("auctionId") Long auctionId) {
         logger.debug(messageSource.getMessage("controller.bet.get.by.auction.id", new Object[]{auctionId}, Locale.getDefault()));
         if (auctionService.findById(auctionId).isPresent()) {
             logger.debug(messageSource.getMessage("controller.bet.get.by.auction.id.ok", new Object[]{auctionId}, Locale.getDefault()));
@@ -94,7 +94,7 @@ public class BetController {
      * @return - JSON with found bets
      */
     @RequestMapping(params = "username", method = RequestMethod.GET)
-    ResponseEntity getBetsByUserName(@RequestParam("username") String username) {
+    ResponseEntity findByUserName(@RequestParam("username") String username) {
         logger.debug(messageSource.getMessage("controller.bet.get.by.username", new Object[]{username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
             logger.debug(messageSource.getMessage("controller.bet.get.by.username.ok", new Object[]{username}, Locale.getDefault()));
@@ -113,7 +113,7 @@ public class BetController {
      * @return - link to saved bet with JSON in body
      */
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity saveBet(@RequestBody Bet bet) {
+    ResponseEntity save(@RequestBody Bet bet) {
         logger.debug(messageSource.getMessage("controller.bet.post.save.bet", new Object[]{bet}, Locale.getDefault()));
         if(!auctionService.findById(bet.getAuction_id()).isPresent()
                 || !userService.findByUserName(bet.getUser_name()).isPresent()) {
@@ -146,7 +146,7 @@ public class BetController {
      * @return - status Ok
      */
     @RequestMapping(params = "delete", method = RequestMethod.DELETE)
-    ResponseEntity deleteBet(@RequestParam("delete") Long id) {
+    ResponseEntity delete(@RequestParam("delete") Long id) {
         logger.debug(messageSource.getMessage("controller.bet.delete.bet", new Object[]{id}, Locale.getDefault()));
         if (betService.findById(id).isPresent()) {
             betService.deleteById(id);

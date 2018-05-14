@@ -16,7 +16,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 /**
- * Implementation for interface AuctionService
+ * Implementing the AuctionService interface
  */
 @Service("auctionService")
 @Transactional
@@ -30,87 +30,48 @@ public class AuctionServiceImpl implements AuctionService {
     @Autowired
     private MessageSource messageSource;
 
-    /**
-     * Find all auctions in DB
-     * @return list of auctions
-     */
     @Override
     public List<Auction> findAll() {
         logger.debug(messageSource.getMessage("service.auction.find.all", null, Locale.getDefault()));
         return auctionRepository.findAll();
     }
 
-    /**
-     * Find auction in DB with ID
-     * @param id
-     * @return Optional of found result.
-     */
     @Override
     public Optional<Auction> findById(Long id) {
         logger.debug(messageSource.getMessage("service.auction.find.by.id", new Object[]{id}, Locale.getDefault()));
         return auctionRepository.findById(id);
     }
 
-    /**
-     * Find finished or not auctions
-     * @param finished - boolean
-     * @return list of found auctions
-     */
     @Override
     public List<Auction> findFinished(Boolean finished) {
         logger.debug(messageSource.getMessage("service.auction.find.finished", new Object[]{finished}, Locale.getDefault()));
         return auctionRepository.findByFinished(finished);
     }
 
-    /**
-     * Find auctions by category name
-     * @param categoryName
-     * @return list of found auctions
-     */
     @Override
     public List<Auction> findByCategoryName(String categoryName) {
         logger.debug(messageSource.getMessage("service.auction.find.by.category.name", new Object[]{categoryName}, Locale.getDefault()));
         return auctionRepository.findByProductCategoryName(categoryName);
     }
 
-    /**
-     * Find auctions with search tag contains in product name
-     * @param searchTag - case-sensitive
-     * @return list of found auctions
-     */
     @Override
     public List<Auction> findByProductNameContains(String searchTag) {
         logger.debug(messageSource.getMessage("service.auction.find.by.product.name", new Object[]{searchTag}, Locale.getDefault()));
         return auctionRepository.findByProductNameContains(searchTag);
     }
 
-    /**
-     * Find auctions by owner username
-     * @param userName
-     * @return list of found auctions
-     */
     @Override
     public List<Auction> findByUserName(String userName) {
         logger.debug(messageSource.getMessage("service.auction.find.by.user.name", new Object[]{userName}, Locale.getDefault()));
         return auctionRepository.findByOwnerUserName(userName);
     }
 
-    /**
-     * Find auctions what end before input date
-     * @param date
-     * @return list of found auctions
-     */
     @Override
     public List<Auction> findByEndTimeLessThan(Date date) {
         logger.debug(messageSource.getMessage("service.auction.find.by.end.time", new Object[]{date}, Locale.getDefault()));
         return auctionRepository.findByEndTimeIsLessThan(date);
     }
 
-    /**
-     * Save auction to DB
-     * @param auction
-     * @return saved auction
-     */
     @Override
     public Auction save(Auction auction) {
         logger.debug(messageSource.getMessage("service.auction.save",
@@ -118,10 +79,6 @@ public class AuctionServiceImpl implements AuctionService {
         return auctionRepository.save(auction);
     }
 
-    /**
-     * Delete auction by ID
-     * @param id
-     */
     @Override
     public void deleteById(Long id) {
         logger.debug(messageSource.getMessage("service.auction.delete.by.id", new Object[]{id}, Locale.getDefault()));

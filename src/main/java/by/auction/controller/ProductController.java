@@ -40,7 +40,7 @@ public class ProductController {
      * @return - JSON with found products
      */
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity getAllProducts() {
+    ResponseEntity findAll() {
         logger.debug(messageSource.getMessage("controller.product.get", null, Locale.getDefault()));
         return ResponseEntity.ok(productService.findAll());
     }
@@ -53,7 +53,7 @@ public class ProductController {
      * @return - JSOn with found product
      */
     @RequestMapping(value = "/{productId:[\\d]+}", method = RequestMethod.GET)
-    ResponseEntity getProductById(@PathVariable Long productId) {
+    ResponseEntity findById(@PathVariable Long productId) {
         logger.debug(messageSource.getMessage("controller.product.get.by.id", new Object[]{productId}, Locale.getDefault()));
         if ((productService.findById(productId)).isPresent()) {
             logger.debug(messageSource.getMessage("controller.product.get.by.id.ok", new Object[]{productId}, Locale.getDefault()));
@@ -72,7 +72,7 @@ public class ProductController {
      * @return - slink to saved product with JSON in body
      */
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity saveProduct(@RequestBody Product product) {
+    ResponseEntity save(@RequestBody Product product) {
         logger.debug(messageSource.getMessage("controller.product.save.product", new Object[]{product}, Locale.getDefault()));
         if (!categoryService.findByName(product.getCategory_name()).isPresent()) {
             logger.debug(messageSource.getMessage("controller.product.save.product.error", new Object[]{product}, Locale.getDefault()));
@@ -104,7 +104,7 @@ public class ProductController {
      * @return - status Ok
      */
     @RequestMapping(value = "/{productId:[\\d]+}", method = RequestMethod.DELETE)
-    ResponseEntity deleteProduct(@PathVariable Long productId) {
+    ResponseEntity delete(@PathVariable Long productId) {
         logger.debug(messageSource.getMessage("controller.product.delete.product", new Object[]{productId}, Locale.getDefault()));
         if (productService.findById(productId).isPresent()) {
             productService.deleteById(productId);

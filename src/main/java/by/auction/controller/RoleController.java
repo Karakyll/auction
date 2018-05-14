@@ -27,7 +27,7 @@ public class RoleController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     @RequestMapping(params = "username", method = RequestMethod.GET)
-    ResponseEntity getUserRoles(@RequestParam("username") String username) {
+    ResponseEntity findUserRoles(@RequestParam("username") String username) {
         logger.debug(messageSource.getMessage("controller.role.get.by.username", new Object[]{username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
             logger.debug(messageSource.getMessage("controller.role.get.by.username.ok", new Object[]{username}, Locale.getDefault()));
