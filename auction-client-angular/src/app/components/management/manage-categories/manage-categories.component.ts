@@ -34,14 +34,14 @@ export class ManageCategoriesComponent implements OnInit {
   }
 
   getCategoryList() {
-    this.categoryService.getAllCategories().subscribe(res => {
+    this.categoryService.findAll().subscribe(res => {
       this.categories = res;
     })
   }
 
   addNewCategory() {
     this.buttonLocked = true;
-    this.categoryService.saveCategory(new Category(this.newCategory)).subscribe(
+    this.categoryService.save(new Category(this.newCategory)).subscribe(
       res => {
         this.interact.callCategoryChanging();
         this.newCategory = '';

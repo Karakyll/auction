@@ -34,17 +34,17 @@ export class AuctionComponent implements OnInit {
     let category = this.route.snapshot.paramMap.get('category');
     let refresh = this.route.snapshot.paramMap.get('refresh');
     if (refresh) {
-      this.auctionService.getOngoingAuctions().subscribe(res => {
+      this.auctionService.findOngoing().subscribe(res => {
         this.auctions = res;
       });
     }
     if (search) {
-      this.auctionService.getAuctionsProductContains(search).subscribe(res => {
+      this.auctionService.findByProductNameContains(search).subscribe(res => {
         this.auctions = res;
       });
     }
     if (category) {
-      this.auctionService.getAuctionsByCategory(category).subscribe(res => {
+      this.auctionService.findByCategory(category).subscribe(res => {
         this.auctions = res;
       });
     }
@@ -55,7 +55,7 @@ export class AuctionComponent implements OnInit {
 
   showFinished() {
     if (!this.showFin) {
-      this.auctionService.getFinishedAuctions().subscribe(res => {
+      this.auctionService.findFinished().subscribe(res => {
         this.auctions = res;
         this.showFin = true;
       })
@@ -64,7 +64,7 @@ export class AuctionComponent implements OnInit {
 
   showOngoing() {
     if (this.showFin) {
-      this.auctionService.getOngoingAuctions().subscribe(res => {
+      this.auctionService.findOngoing().subscribe(res => {
         this.auctions = res;
         this.showFin = false;
       });
@@ -81,7 +81,7 @@ export class AuctionComponent implements OnInit {
 
   subscribeSearchChange() {
     this.interact._searchTagChanged.subscribe(searchTag => {
-      this.auctionService.getAuctionsProductContains(searchTag).subscribe(res => {
+      this.auctionService.findByProductNameContains(searchTag).subscribe(res => {
         this.auctions = res;
       })
     });
@@ -89,7 +89,7 @@ export class AuctionComponent implements OnInit {
 
   subscribeCategoryChange() {
     this.interact._categoryChanged.subscribe(category => {
-      this.auctionService.getAuctionsByCategory(category).subscribe(res => {
+      this.auctionService.findByCategory(category).subscribe(res => {
         this.auctions = res;
       })
     });
@@ -97,7 +97,7 @@ export class AuctionComponent implements OnInit {
 
   subscribeLinkClicked() {
     this.interact._auctionTabClicked.subscribe(() => {
-      this.auctionService.getOngoingAuctions().subscribe(res => {
+      this.auctionService.findOngoing().subscribe(res => {
         this.auctions = res;
       });
     })

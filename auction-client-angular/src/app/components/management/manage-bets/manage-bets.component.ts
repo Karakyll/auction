@@ -35,7 +35,7 @@ export class ManageBetsComponent implements OnInit {
   }
 
   getBets() {
-    this.betService.getAllBets().subscribe(res => {
+    this.betService.findAll().subscribe(res => {
       this.bets = res;
     })
   }
@@ -45,7 +45,7 @@ export class ManageBetsComponent implements OnInit {
   }
 
   confirmDeleteBet(): void {
-    this.betService.deleteBet(this.selectedBet.id).subscribe(() => {
+    this.betService.deleteById(this.selectedBet.id).subscribe(() => {
       this.interact.callBetChanging();
       this.bets.splice(this.bets.indexOf(this.selectedBet),1);
       this.modalRef.hide();

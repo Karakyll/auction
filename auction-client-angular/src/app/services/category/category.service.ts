@@ -19,11 +19,11 @@ export class CategoryService {
     return this.config.getApiHref() + 'categories';
   }
 
-  getAllCategories(): Observable<Category[]> {
+  findAll(): Observable<Category[]> {
     return this.http.get<Category[]>(this.uri());
   }
 
-  saveCategory(category: Category): Observable<Category> {
+  save(category: Category): Observable<Category> {
     return this.http.post<Category>(this.uri(), category);
   }
 

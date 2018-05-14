@@ -31,7 +31,7 @@ export class AdministrationComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.getAllUsers().subscribe(res => {
+    this.userService.findAll().subscribe(res => {
       this.users = res;
     })
   }
@@ -52,25 +52,25 @@ export class AdministrationComponent implements OnInit {
   }
 
   enableUser(user: User) {
-    this.userService.enableUser(user.userName).subscribe(res => {
+    this.userService.enable(user.userName).subscribe(res => {
       this.users[this.users.indexOf(user)] = res;
     })
   }
 
   disableUser(user: User) {
-    this.userService.disableUser(user.userName).subscribe(res => {
+    this.userService.disable(user.userName).subscribe(res => {
       this.users[this.users.indexOf(user)] = res;
     })
   }
 
   promoteUser(user: User) {
-    this.userService.promoteUser(user.userName).subscribe(res => {
+    this.userService.promote(user.userName).subscribe(res => {
       this.users[this.users.indexOf(user)] = res;
     })
   }
 
   demoteUser(user: User) {
-    this.userService.demoteUser(user.userName).subscribe(res => {
+    this.userService.demote(user.userName).subscribe(res => {
       this.users[this.users.indexOf(user)] = res;
     })
   }

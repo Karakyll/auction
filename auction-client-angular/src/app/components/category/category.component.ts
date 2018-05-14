@@ -41,7 +41,7 @@ export class CategoryComponent implements OnInit {
   }
 
   subscribeListCategory() {
-    this.categoryService.getAllCategories().subscribe((res) => {
+    this.categoryService.findAll().subscribe((res) => {
       this.categories = res;
       while (this.categories.length < 10) {
         this.categories.push(new Category(null));

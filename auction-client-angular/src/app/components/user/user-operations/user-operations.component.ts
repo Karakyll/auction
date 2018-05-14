@@ -26,9 +26,11 @@ export class UserOperationsComponent implements OnInit {
   @ViewChild('changePasswordModal') changePasswordModal: ModalDirective;
   @ViewChild('confirmDeleteModal') confirmDeleteModal: ModalDirective;
 
-  user:User;
-  auctions:Auction[];
-  bets:Bet[];
+  user: User;
+  auctions: Auction[];
+  bets: Bet[];
+
+  unset: boolean;
 
   config = {
     keyboard: true,
@@ -78,13 +80,13 @@ export class UserOperationsComponent implements OnInit {
   }
 
   getAuctionsList(username: string) {
-    this.auctionService.getAuctionsByUserName(username).subscribe(res => {
+    this.auctionService.findByUserName(username).subscribe(res => {
       this.auctions = res;
     });
   }
 
   getBetList(username: string) {
-    this.betService.getBetsByUsername(username).subscribe(res => {
+    this.betService.findByUsername(username).subscribe(res => {
       this.bets = res;
     });
   }

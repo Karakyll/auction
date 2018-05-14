@@ -51,7 +51,7 @@ export class StartAuctionComponent implements OnInit {
     this.newAuction.createTime = this.dateService.getDateTime();
     this.newAuction.endTime = this.dateService.getDateTime(+this.duration);
     this.newAuction.finished = false;
-    this.auctionService.saveAuction(this.newAuction).subscribe(res => {
+    this.auctionService.save(this.newAuction).subscribe(res => {
       this.router.navigateByUrl('/auctions/' + res.id);
       this.buttonLocked = false;
     });

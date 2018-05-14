@@ -71,7 +71,7 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   confirmStopAuction() {
-    this.auctionService.finishAuction(this.auction.id).subscribe(res => {
+    this.auctionService.finish(this.auction.id).subscribe(res => {
       this.auction = res;
       this.finished = res.finished;
     });
@@ -92,7 +92,7 @@ export class AuctionDetailsComponent implements OnInit {
 
   subscribeRefreshBets() {
     this.interact._betsRefresh.subscribe(() => {
-      this.betService.getBetsByAuctionId(this.auction.id).subscribe(res => {
+      this.betService.findByAuctionId(this.auction.id).subscribe(res => {
         if (res.length !== 0) {
           this.bets = res;
         }
@@ -102,11 +102,11 @@ export class AuctionDetailsComponent implements OnInit {
 
   subscribeRoute() {
     this.route.params.subscribe(params => {
-      this.auctionService.getAuctionById(+params['id']).subscribe(res => {
+      this.auctionService.findById(+params['id']).subscribe(res => {
         this.auction = res;
         this.finished = res.finished;
       });
-      this.betService.getBetsByAuctionId(+params['id']).subscribe(res => {
+      this.betService.findByAuctionId(+params['id']).subscribe(res => {
         if (res.length !== 0) {
           this.bets = res;
         }

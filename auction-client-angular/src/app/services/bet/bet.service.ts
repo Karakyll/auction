@@ -19,33 +19,33 @@ export class BetService {
     return this.config.getApiHref() + 'bets';
   }
 
-  getAllBets(): Observable<Bet[]> {
+  findAll(): Observable<Bet[]> {
     return this.http.get<Bet[]>(this.uri());
   }
 
-  getBetById(id): Observable<Bet> {
+  findById(id): Observable<Bet> {
     return this.http.get<Bet>(this.uri(), {
       params: new HttpParams().set('id', id)
     });
   }
 
-  getBetsByAuctionId(id): Observable<Bet[]> {
+  findByAuctionId(id): Observable<Bet[]> {
     return this.http.get<Bet[]>(this.uri(), {
       params: new HttpParams().set('auctionId', id)
     });
   }
 
-  getBetsByUsername(user): Observable<Bet[]> {
+  findByUsername(user): Observable<Bet[]> {
     return this.http.get<Bet[]>(this.uri(), {
       params: new HttpParams().set('username', user)
     });
   }
 
-  saveBet(bet: Bet): Observable<Bet> {
+  save(bet: Bet): Observable<Bet> {
     return this.http.post<Bet>(this.uri(), bet);
   }
 
-  deleteBet(id) {
+  deleteById(id) {
     return this.http.delete(this.uri(), {
       params: new HttpParams().set('delete', id)
     });

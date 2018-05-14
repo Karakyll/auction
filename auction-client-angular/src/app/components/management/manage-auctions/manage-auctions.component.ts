@@ -34,7 +34,7 @@ export class ManageAuctionsComponent implements OnInit {
   }
 
   getAuctions() {
-    this.auctionService.getAllAuctions().subscribe(res => {
+    this.auctionService.findAll().subscribe(res => {
       this.auctions = res;
     })
   }
@@ -44,7 +44,7 @@ export class ManageAuctionsComponent implements OnInit {
   }
 
   confirmDeleteAuction(): void {
-    this.auctionService.deleteAuctionById(this.selectedAuction.id).subscribe(() => {
+    this.auctionService.deleteById(this.selectedAuction.id).subscribe(() => {
       this.interact.callAuctionChanging();
       this.auctions.splice(this.auctions.indexOf(this.selectedAuction),1);
       this.modalRef.hide();

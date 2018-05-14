@@ -19,19 +19,19 @@ export class ProductService {
     return this.config.getApiHref() + 'products';
   }
 
-  getAllProducts(): Observable<Product[]> {
+  findAll(): Observable<Product[]> {
     return this.http.get<Product[]>(this.uri());
   }
 
-  getProductById(id: number): Observable<Product> {
+  findById(id: number): Observable<Product> {
     return this.http.get<Product>(this.uri() + '/' + id);
   }
 
-  saveProduct(product: Product): Observable<Product> {
+  save(product: Product): Observable<Product> {
     return this.http.post<Product>(this.uri(), product);
   }
 
-  deleteProduct(id: number) {
+  deleteById(id: number) {
     return this.http.delete(this.uri() + '/' + id);
   }
 }

@@ -57,7 +57,7 @@ export class LoginService {
     this.requestAccessToken(loginData).subscribe(
       data => {
         this.saveToken(data);
-        this.getUserRoles(loginData.username).subscribe(res => {
+        this.findUserRoles(loginData.username).subscribe(res => {
           this.saveUserData(new User(loginData.username, null, true, res));
         });
         this._loggedChange.emit(true);
@@ -114,7 +114,7 @@ export class LoginService {
     this._loggedChange.emit(false);
   }
 
-  getUserRoles(username: string): Observable<Role[]> {
+  findUserRoles(username: string): Observable<Role[]> {
     const options = {
       headers: this.config.getHeaders(),
       params: new HttpParams().append('username', username)

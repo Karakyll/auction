@@ -114,7 +114,7 @@ public class AuctionController {
      * @return - JSON with found auctions
      */
     @RequestMapping(params = "search", method = RequestMethod.GET)
-    ResponseEntity findByProductNameContain(@RequestParam("search") String search) {
+    ResponseEntity findByProductNameContains(@RequestParam("search") String search) {
         logger.debug(messageSource.getMessage("controller.auction.get.search", new Object[]{search}, Locale.getDefault()));
         return ResponseEntity.ok(auctionService.findByProductNameContains(search));
     }

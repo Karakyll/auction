@@ -29,6 +29,8 @@ export class ProductComponent implements OnInit {
   categories: Category[];
   products: Product[];
 
+  unset: boolean;
+
   newProduct:Product = {
     id: null,
     name: '',
@@ -74,13 +76,13 @@ export class ProductComponent implements OnInit {
   }
 
   getProductList() {
-    this.productService.getAllProducts().subscribe(res => {
+    this.productService.findAll().subscribe(res => {
       this.products = res;
     })
   }
 
   getCategoryList() {
-    this.categoryService.getAllCategories().subscribe(res => {
+    this.categoryService.findAll().subscribe(res => {
       this.categories = res;
     })
   }

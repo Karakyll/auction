@@ -32,7 +32,7 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     this.buttonLocked = true;
     this.userExist = false;
-    this.userService.saveUser(new User(this.signData.username, this.signData.password, null, null)).subscribe(
+    this.userService.save(new User(this.signData.username, this.signData.password, null, null)).subscribe(
       () => {
         this.success = true;
         this.buttonLocked = false;

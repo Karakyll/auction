@@ -21,12 +21,12 @@ export class UserService {
     return this.config.getApiHref() + 'admin/users';
   }
 
-  getAllUsers(): Observable<User[]> {
+  findAll(): Observable<User[]> {
     const options = {headers: this.config.getHeaders()};
     return this.http.get<User[]>(this.uri(), options);
   }
 
-  getUserByUserName(username: string): Observable<User> {
+  findByUserName(username: string): Observable<User> {
     const options = {
       headers: this.config.getHeaders(),
       params: new HttpParams().append('username', username)
@@ -34,7 +34,7 @@ export class UserService {
     return this.http.get<User>(this.uri(), options);
   }
 
-  getEnabledUsers(enabled): Observable<User[]> {
+  findByEnabled(enabled): Observable<User[]> {
     const options = {
       headers: this.config.getHeaders(),
       params: new HttpParams().append('enabled', enabled)
@@ -42,7 +42,7 @@ export class UserService {
     return this.http.get<User[]>(this.uri(), options);
   }
 
-  saveUser(user: User): Observable<User> {
+  save(user: User): Observable<User> {
     const options = {headers: this.config.getHeaders()};
     return this.http.post<User>(this.uri(), user, options);
   }
@@ -55,7 +55,7 @@ export class UserService {
     return this.http.delete(this.uri(), options);
   }
 
-  enableUser(username: string): Observable<User> {
+  enable(username: string): Observable<User> {
     const options = {
       headers: this.config.getHeaders(),
       params: new HttpParams().append('username', username).append('enable', 'true')
@@ -63,7 +63,7 @@ export class UserService {
     return this.http.put<User>(this.uri(), null, options);
   }
 
-  disableUser(username: string): Observable<User> {
+  disable(username: string): Observable<User> {
     const options = {
       headers: this.config.getHeaders(),
       params: new HttpParams().append('username', username).append('enable', 'false')
@@ -71,7 +71,7 @@ export class UserService {
     return this.http.put<User>(this.uri(), null, options);
   }
 
-  promoteUser(username: string): Observable<User> {
+  promote(username: string): Observable<User> {
    const options = {
       headers: this.config.getHeaders(),
       params: new HttpParams().append('username', username).append('promote', 'true')
@@ -79,7 +79,7 @@ export class UserService {
     return this.http.put<User>(this.uri(), null, options);
   }
 
-  demoteUser(username: string): Observable<User> {
+  demote(username: string): Observable<User> {
     const options = {
       headers: this.config.getHeaders(),
       params: new HttpParams().append('username', username).append('promote', 'false')

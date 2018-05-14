@@ -33,6 +33,8 @@ export class BetComponent implements OnInit {
   auction: Auction;
   newBet: number;
 
+  unset: boolean;
+
   constructor(
     private interact: InteractionService,
     private betService: BetService,
@@ -58,7 +60,7 @@ export class BetComponent implements OnInit {
   onSubmitNewBet() {
     this.buttonLocked = true;
     let bet = new Bet(null, this.auction.id, this.auth.getUserData().userName, this.dateService.getDateTime(), this.newBet);
-    this.betService.saveBet(bet).subscribe(() => {
+    this.betService.save(bet).subscribe(() => {
       this.interact.refreshBets();
       this.newBetModal.hide();
         this.buttonLocked = false;
@@ -74,7 +76,7 @@ export class BetComponent implements OnInit {
     this.interact._betsModalCalled.subscribe(auction => {
       this.auction = auction;
       if (auction) {
-        this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {
+        this.betService.findByAuctionId(auction.id).subscribe(bets => {
           this.bets = bets;
         })
       }
@@ -87,7 +89,7 @@ export class BetComponent implements OnInit {
     this.interact._newBetModalCalled.subscribe(auction => {
       this.auction = auction;
       if (auction) {
-        this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {
+        this.betService.findByAuctionId(auction.id).subscribe(bets => {
           this.bets = bets;
           if (this.bets.length == 0 ){
             this.newBet = +(auction.product.price * 1.1).toFixed(2);

@@ -32,7 +32,7 @@ export class ManageProductsComponent implements OnInit {
   }
 
   getProducts() {
-    this.productService.getAllProducts().subscribe(res => {
+    this.productService.findAll().subscribe(res => {
       this.products = res;
     })
   }
@@ -42,7 +42,7 @@ export class ManageProductsComponent implements OnInit {
   }
 
   confirmDeleteProduct(): void {
-    this.productService.deleteProduct(this.selectedProduct.id).subscribe(() => {
+    this.productService.deleteById(this.selectedProduct.id).subscribe(() => {
       this.interact.callProductChanging();
       this.products.splice(this.products.indexOf(this.selectedProduct),1);
       this.modalRef.hide();

@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class UserComponent implements OnInit {
 
-  user:User;
+  user: User;
 
   constructor(
     private interact: InteractionService,
