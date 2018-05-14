@@ -41,7 +41,7 @@ public class ProductController {
      */
     @RequestMapping(method = RequestMethod.GET)
     ResponseEntity findAll() {
-        logger.info(messageSource.getMessage("controller.product.get", null, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.product.get", null, Locale.getDefault()));
         return ResponseEntity.ok(productService.findAll());
     }
 
@@ -54,7 +54,7 @@ public class ProductController {
      */
     @RequestMapping(value = "/{productId:[\\d]+}", method = RequestMethod.GET)
     ResponseEntity findById(@PathVariable Long productId) {
-        logger.info(messageSource.getMessage("controller.product.get.by.id", new Object[]{productId}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.product.get.by.id", new Object[]{productId}, Locale.getDefault()));
         if ((productService.findById(productId)).isPresent()) {
             logger.debug(messageSource.getMessage("controller.product.get.by.id.ok", new Object[]{productId}, Locale.getDefault()));
             return ResponseEntity.ok(productService.findById(productId).get());

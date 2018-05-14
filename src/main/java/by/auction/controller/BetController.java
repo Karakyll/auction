@@ -44,7 +44,7 @@ public class BetController {
      */
     @RequestMapping(method = RequestMethod.GET)
     ResponseEntity findAll() {
-        logger.info(messageSource.getMessage("controller.bet.get", null, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.bet.get", null, Locale.getDefault()));
         return ResponseEntity.ok(betService.findAll());
     }
 
@@ -57,7 +57,7 @@ public class BetController {
      */
     @RequestMapping(params = "id", method = RequestMethod.GET)
     ResponseEntity findById(@RequestParam("id") Long id) {
-        logger.info(messageSource.getMessage("controller.bet.get.by.id", new Object[]{id}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.bet.get.by.id", new Object[]{id}, Locale.getDefault()));
         if (betService.findById(id).isPresent()) {
             logger.debug(messageSource.getMessage("controller.bet.get.by.id.ok", new Object[]{id}, Locale.getDefault()));
             return ResponseEntity.ok(betService.findById(id).get());
@@ -76,7 +76,7 @@ public class BetController {
      */
     @RequestMapping(params = "auctionId", method = RequestMethod.GET)
     ResponseEntity findByAuctionId(@RequestParam("auctionId") Long auctionId) {
-        logger.info(messageSource.getMessage("controller.bet.get.by.auction.id", new Object[]{auctionId}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.bet.get.by.auction.id", new Object[]{auctionId}, Locale.getDefault()));
         if (auctionService.findById(auctionId).isPresent()) {
             logger.debug(messageSource.getMessage("controller.bet.get.by.auction.id.ok", new Object[]{auctionId}, Locale.getDefault()));
             return ResponseEntity.ok(betService.findByAuctionId(auctionId));
@@ -95,7 +95,7 @@ public class BetController {
      */
     @RequestMapping(params = "username", method = RequestMethod.GET)
     ResponseEntity findByUserName(@RequestParam("username") String username) {
-        logger.info(messageSource.getMessage("controller.bet.get.by.username", new Object[]{username}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.bet.get.by.username", new Object[]{username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
             logger.debug(messageSource.getMessage("controller.bet.get.by.username.ok", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.ok(betService.findByUserName(username));

@@ -34,7 +34,7 @@ public class CategoryController {
      */
     @RequestMapping(method = RequestMethod.GET)
     ResponseEntity findAll() {
-        logger.info(messageSource.getMessage("controller.category.get", null, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.category.get", null, Locale.getDefault()));
         return ResponseEntity.ok(categoryService.findAll());
     }
 

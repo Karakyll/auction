@@ -52,7 +52,7 @@ public class AuctionController {
      */
     @RequestMapping(method = RequestMethod.GET)
     ResponseEntity findAll() {
-        logger.info(messageSource.getMessage("controller.auction.get", null, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get", null, Locale.getDefault()));
         return ResponseEntity.ok(auctionService.findAll());
     }
 
@@ -65,7 +65,7 @@ public class AuctionController {
      */
     @RequestMapping(value = "/{auctionId:[\\d]+}", method = RequestMethod.GET)
     ResponseEntity findById(@PathVariable Long auctionId) {
-        logger.info(messageSource.getMessage("controller.auction.get.id", new Object[]{auctionId}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get.id", new Object[]{auctionId}, Locale.getDefault()));
         if (auctionService.findById(auctionId).isPresent()) {
             logger.debug(messageSource.getMessage("controller.auction.get.id.ok", new Object[]{auctionId}, Locale.getDefault()));
             return ResponseEntity.ok(auctionService.findById(auctionId).get());
@@ -83,7 +83,7 @@ public class AuctionController {
      */
     @RequestMapping(params = "finished", method = RequestMethod.GET)
     ResponseEntity findOngoing(@RequestParam("finished") boolean finished) {
-        logger.info(messageSource.getMessage("controller.auction.get.finished", new Object[]{finished}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get.finished", new Object[]{finished}, Locale.getDefault()));
         return ResponseEntity.ok(auctionService.findFinished(finished));
     }
 
@@ -96,7 +96,7 @@ public class AuctionController {
      */
     @RequestMapping(params = "category", method = RequestMethod.GET)
     ResponseEntity findByCategory(@RequestParam("category") String category) {
-        logger.info(messageSource.getMessage("controller.auction.get.category", new Object[]{category}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get.category", new Object[]{category}, Locale.getDefault()));
         if (categoryService.findByName(category).isPresent()) {
             logger.debug(messageSource.getMessage("controller.auction.get.category.ok", new Object[]{category}, Locale.getDefault()));
             return ResponseEntity.ok(auctionService.findByCategoryName(category));
@@ -115,7 +115,7 @@ public class AuctionController {
      */
     @RequestMapping(params = "search", method = RequestMethod.GET)
     ResponseEntity findByProductNameContains(@RequestParam("search") String search) {
-        logger.info(messageSource.getMessage("controller.auction.get.search", new Object[]{search}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get.search", new Object[]{search}, Locale.getDefault()));
         return ResponseEntity.ok(auctionService.findByProductNameContains(search));
     }
 
@@ -128,7 +128,7 @@ public class AuctionController {
      */
     @RequestMapping(params = "user", method = RequestMethod.GET)
     ResponseEntity findByUserName(@RequestParam("user") String userName) {
-        logger.info(messageSource.getMessage("controller.auction.get.by.username", new Object[]{userName}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get.by.username", new Object[]{userName}, Locale.getDefault()));
         if (userService.findByUserName(userName).isPresent()) {
             logger.debug(messageSource.getMessage("controller.auction.get.by.username.ok", new Object[]{userName}, Locale.getDefault()));
             return ResponseEntity.ok(auctionService.findByUserName(userName));
@@ -146,7 +146,7 @@ public class AuctionController {
      */
     @RequestMapping(params = "endBefore", method = RequestMethod.GET)
     ResponseEntity findByEndTime(@RequestParam("endBefore") @DateTimeFormat(pattern="dd.MM.yyyyhh:mm") Date date) {
-        logger.info(messageSource.getMessage("controller.auction.get.by.date", new Object[]{date}, Locale.getDefault()));
+        logger.debug(messageSource.getMessage("controller.auction.get.by.date", new Object[]{date}, Locale.getDefault()));
         return ResponseEntity.ok(auctionService.findByEndTimeLessThan(date));
     }
 
