@@ -19,7 +19,7 @@ public class Category implements Serializable {
     }
 
     @Id
-    @Column(name = "name", nullable = false, unique = true, length = 50)
+    @Column(name = "name", nullable = false, unique = true, length = 25)
     public String getName() {
         return name;
     }

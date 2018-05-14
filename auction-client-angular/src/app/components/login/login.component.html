@@ -9,7 +9,9 @@
              name="username"
              id="username"
              #usernameInput="ngModel"
-             [(ngModel)]="loginData.username" required>
+             [(ngModel)]="loginData.username"
+             maxlength="50"
+             required>
       <div [hidden]="!isFailed || usernameInput.pristine"
            class="alert alert-danger">{{ 'login.username.failed' | translate }}
       </div>
@@ -20,7 +22,9 @@
              type="password"
              name="password"
              id="password"
-             [(ngModel)]="loginData.password" required/>
+             [(ngModel)]="loginData.password"
+             maxlength="255"
+             required/>
     </div>
     <div class="col-sm-12">
       <button class="btn btn-primary pull-right"

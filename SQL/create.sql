@@ -18,7 +18,7 @@ CREATE TABLE user_roles (
 );
 
 CREATE TABLE categories (
-	name varchar(50) NOT NULL UNIQUE,
+	name varchar(25) NOT NULL UNIQUE,
 	CONSTRAINT categories_pk PRIMARY KEY (name)
 );
 

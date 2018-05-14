@@ -5,7 +5,12 @@
   <form class="form-inline" (submit)="search()">
     <div class="navbar-nav">
       <div class="nav-item">
-        <input class="form-control-sm" type="text" placeholder="{{ 'header.search.placeHolder' | translate }}" [(ngModel)]="searchTag" name="searchInput">
+        <input class="form-control-sm"
+               type="text"
+               placeholder="{{ 'header.search.placeHolder' | translate }}"
+               [(ngModel)]="searchTag"
+               maxlength="50"
+               name="searchInput">
       </div>
       <div class="nav-item">
         <button class="btn btn-sm btn-info" type="submit">{{ 'header.search.button' | translate }}</button>

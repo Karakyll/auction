@@ -5,7 +5,12 @@
   <div class="form-group row">
     <label for="newCategory"><b>{{ 'management.categories.form.label' | translate }}</b></label>
     <div class="col">
-      <input type="text" [(ngModel)]="newCategory" class="form-control input-sm" id="newCategory" #newInput="ngModel">
+      <input type="text"
+             [(ngModel)]="newCategory"
+             class="form-control input-sm"
+             id="newCategory"
+             maxlength="25"
+             #newInput="ngModel">
       <div [hidden]="!failed || newInput.pristine"
            class="alert alert-danger">{{ 'management.categories.form.failed' | translate }}
       </div>
