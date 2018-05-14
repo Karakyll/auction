@@ -27,7 +27,7 @@ CREATE TABLE products (
 	name varchar(50) NOT NULL,
 	category varchar(50) NOT NULL REFERENCES categories(name) ON DELETE CASCADE,
 	price float8 NOT NULL,
-	description varchar,
+	description varchar(255),
 	CONSTRAINT products_pk PRIMARY KEY (id)
 );
 
@@ -37,7 +37,7 @@ CREATE TABLE auctions (
 	product_id bigint NOT NULL UNIQUE REFERENCES products(id) ON DELETE CASCADE,
 	create_time TIMESTAMP NOT NULL,
 	end_time TIMESTAMP NOT NULL,
-	description varchar NOT NULL,
+	description varchar(255) NOT NULL,
 	finished BOOLEAN NOT NULL DEFAULT false,
 	CONSTRAINT auctions_pk PRIMARY KEY (id)
 );
