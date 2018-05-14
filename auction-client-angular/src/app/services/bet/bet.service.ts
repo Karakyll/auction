@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Bet } from '../../models/bet';
-
-const uri = 'http://localhost:8081/api/bets';
+import {ConfigService} from "../config/config.service";
 
 /**
  * Service to access bets data
@@ -11,36 +10,43 @@ const uri = 'http://localhost:8081/api/bets';
 @Injectable()
 export class BetService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService
+  ) { }
+
+  uri() {
+    return this.config.getApiHref() + 'bets';
+  }
 
   getAllBets(): Observable<Bet[]> {
-    return this.http.get<Bet[]>(uri);
+    return this.http.get<Bet[]>(this.uri());
   }
 
   getBetById(id): Observable<Bet> {
-    return this.http.get<Bet>(uri, {
+    return this.http.get<Bet>(this.uri(), {
       params: new HttpParams().set('id', id)
     });
   }
 
   getBetsByAuctionId(id): Observable<Bet[]> {
-    return this.http.get<Bet[]>(uri, {
+    return this.http.get<Bet[]>(this.uri(), {
       params: new HttpParams().set('auctionId', id)
     });
   }
 
   getBetsByUsername(user): Observable<Bet[]> {
-    return this.http.get<Bet[]>(uri, {
+    return this.http.get<Bet[]>(this.uri(), {
       params: new HttpParams().set('username', user)
     });
   }
 
   saveBet(bet: Bet): Observable<Bet> {
-    return this.http.post<Bet>(uri, bet);
+    return this.http.post<Bet>(this.uri(), bet);
   }
 
   deleteBet(id) {
-    return this.http.delete(uri, {
+    return this.http.delete(this.uri(), {
       params: new HttpParams().set('delete', id)
     });
   }

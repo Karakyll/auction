@@ -28,6 +28,7 @@ import { ManageBetsComponent } from './components/management/manage-bets/manage-
 import { ManageCategoriesComponent } from './components/management/manage-categories/manage-categories.component';
 import { ManagementComponent } from './components/management/management.component';
 import { AdministrationComponent } from './components/administration/administration.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 import { AuctionService } from "./services/auction/auction.service";
 import { ProductService } from "./services/product/product.service";
@@ -38,10 +39,10 @@ import { LoginService } from "./services/login/login.service";
 import { DateService } from "./services/date/date.service";
 import { LoggedInGuard } from "./services/guard/logged-in-guard.service";
 import { InteractionService } from "./services/interaction/interaction.service";
+import { ConfigService } from "./services/config/config.service";
 import { AdminGuard } from "./services/guard/admin-guard.service";
 import { ManagerGuard } from "./services/guard/manager-guard.service";
 import { TranslateLoader, TranslateModule, TranslateService } from "@ngx-translate/core";
-import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 const appRoutes: Routes = [
   {path:'', component:AboutComponent},
@@ -113,7 +114,8 @@ const appRoutes: Routes = [
     InteractionService,
     AdminGuard,
     ManagerGuard,
-    TranslateService
+    TranslateService,
+    ConfigService
   ],
   bootstrap: [AppComponent]
 })

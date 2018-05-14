@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../models/user';
 import { LoginService } from '../login/login.service';
+import { ConfigService } from '../config/config.service';
 
 /**
  * Service to access users data
@@ -10,29 +11,24 @@ import { LoginService } from '../login/login.service';
 @Injectable()
 export class UserService {
 
-  private API_BASE_HREF = 'http://localhost:8081/api/';
-  private HEADERS = new HttpHeaders({
-      'Content-type': 'application/json',
-      'Accept': 'application/json'
-    });
-
   constructor(
     private http: HttpClient,
-    private api: LoginService
+    private api: LoginService,
+    private config: ConfigService
   ) {}
 
   uri() {
-    return this.API_BASE_HREF + 'admin/users';
+    return this.config.getApiHref() + 'admin/users';
   }
 
   getAllUsers(): Observable<User[]> {
-    const options = {headers: this.HEADERS};
+    const options = {headers: this.config.getHeaders()};
     return this.http.get<User[]>(this.uri(), options);
   }
 
   getUserByUserName(username: string): Observable<User> {
     const options = {
-      headers: this.HEADERS,
+      headers: this.config.getHeaders(),
       params: new HttpParams().append('username', username)
     };
     return this.http.get<User>(this.uri(), options);
@@ -40,20 +36,20 @@ export class UserService {
 
   getEnabledUsers(enabled): Observable<User[]> {
     const options = {
-      headers: this.HEADERS,
+      headers: this.config.getHeaders(),
       params: new HttpParams().append('enabled', enabled)
     };
     return this.http.get<User[]>(this.uri(), options);
   }
 
   saveUser(user: User): Observable<User> {
-    const options = {headers: this.HEADERS};
+    const options = {headers: this.config.getHeaders()};
     return this.http.post<User>(this.uri(), user, options);
   }
 
   deleteUser(username: string) {
     const options = {
-      headers: this.HEADERS,
+      headers: this.config.getHeaders(),
       params: new HttpParams().set('delete', username)
     };
     return this.http.delete(this.uri(), options);
@@ -61,7 +57,7 @@ export class UserService {
 
   enableUser(username: string): Observable<User> {
     const options = {
-      headers: this.HEADERS,
+      headers: this.config.getHeaders(),
       params: new HttpParams().append('username', username).append('enable', 'true')
     };
     return this.http.put<User>(this.uri(), null, options);
@@ -69,7 +65,7 @@ export class UserService {
 
   disableUser(username: string): Observable<User> {
     const options = {
-      headers: this.HEADERS,
+      headers: this.config.getHeaders(),
       params: new HttpParams().append('username', username).append('enable', 'false')
     };
     return this.http.put<User>(this.uri(), null, options);
@@ -77,7 +73,7 @@ export class UserService {
 
   promoteUser(username: string): Observable<User> {
    const options = {
-      headers: this.HEADERS,
+      headers: this.config.getHeaders(),
       params: new HttpParams().append('username', username).append('promote', 'true')
     };
     return this.http.put<User>(this.uri(), null, options);
@@ -85,14 +81,14 @@ export class UserService {
 
   demoteUser(username: string): Observable<User> {
     const options = {
-      headers: this.HEADERS,
+      headers: this.config.getHeaders(),
       params: new HttpParams().append('username', username).append('promote', 'false')
     };
     return this.http.put<User>(this.uri(), null, options);
   }
 
   changePassword(user: User): Observable<User> {
-    const options = {headers: this.HEADERS};
+    const options = {headers: this.config.getHeaders()};
     return this.http.put<User>(this.uri(), user, options);
   }
 

@@ -5,6 +5,7 @@ import { Token } from '../../models/token';
 import { User } from '../../models/user';
 import { Observable } from 'rxjs/Observable';
 import { Role } from '../../models/role';
+import { ConfigService } from "../config/config.service";
 
 /**
  * Service to mange authorities
@@ -12,7 +13,6 @@ import { Role } from '../../models/role';
 @Injectable()
 export class LoginService {
 
-  private API_BASE_HREF = 'http://localhost:8081/api/';
   private HEADERS = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
       'Accept': 'application/json'
@@ -36,7 +36,8 @@ export class LoginService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private config: ConfigService
   ) { }
 
   test(data) {
@@ -73,7 +74,7 @@ export class LoginService {
       .append('grant_type', 'password')
       .append('username', loginData.username)
       .append('password', loginData.password);
-    return this.http.post('http://localhost:8081/oauth/token', params, {headers: this.HEADERS});
+    return this.http.post(this.config.getBaseHref() + 'oauth/token', params, {headers: this.HEADERS});
   }
 
   saveToken(token) {
@@ -115,13 +116,10 @@ export class LoginService {
 
   getUserRoles(username: string): Observable<Role[]> {
     const options = {
-      headers: new HttpHeaders({
-          'Content-type': 'application/application/json',
-          'Accept': 'application/json'
-        }),
+      headers: this.config.getHeaders(),
       params: new HttpParams().append('username', username)
     };
-    return this.http.get<Role[]>(this.API_BASE_HREF + 'roles/', options);
+    return this.http.get<Role[]>(this.config.getApiHref() + 'roles/', options);
   }
 
   hasRole(role: string): boolean {
