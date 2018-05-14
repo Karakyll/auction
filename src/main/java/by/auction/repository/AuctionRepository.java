@@ -1,32 +1,29 @@
 package by.auction.repository;
 
 import by.auction.entity.Auction;
-import by.auction.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Repository for data management in a table "auctions"
  */
-@Repository
 public interface AuctionRepository extends JpaRepository<Auction, Long>{
 
-    List<Auction> findAll();
+    /**
+     * Finds all finished auctions
+     * @param finished
+     * @return
+     */
+    List<Auction> findByFinished(boolean finished);
 
-    Optional<Auction> findById(Long id);
+    List<Auction> findByProductCategoryName(String categoryName);
 
-    List<Auction> findAuctionsByFinished(Boolean finished);
+    List<Auction> findByProductNameContains(String searchTag);
 
-    List<Auction> findAuctionsByProductCategoryName(String categoryName);
+    List<Auction> findByOwnerUserName(String userName);
 
-    List<Auction> findAuctionsByProductNameContains(String searchTag);
-
-    List<Auction> findAuctionsByOwnerUserName(String userName);
-
-    List<Auction> findAuctionsByEndTimeIsLessThan(Date date);
+    List<Auction> findByEndTimeIsLessThan(Date date);
 
 }

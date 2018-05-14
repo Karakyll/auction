@@ -22,13 +22,13 @@ import java.util.Optional;
 @Transactional
 public class AuctionServiceImpl implements AuctionService {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuctionServiceImpl.class);
+
     @Autowired
     private AuctionRepository auctionRepository;
 
     @Autowired
     private MessageSource messageSource;
-
-    private static final Logger logger = LoggerFactory.getLogger(AuctionServiceImpl.class);
 
     /**
      * Find all auctions in DB
@@ -59,7 +59,7 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public List<Auction> findFinished(Boolean finished) {
         logger.debug(messageSource.getMessage("service.auction.find.finished", new Object[]{finished}, Locale.getDefault()));
-        return auctionRepository.findAuctionsByFinished(finished);
+        return auctionRepository.findByFinished(finished);
     }
 
     /**
@@ -70,7 +70,7 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public List<Auction> findByCategoryName(String categoryName) {
         logger.debug(messageSource.getMessage("service.auction.find.by.category.name", new Object[]{categoryName}, Locale.getDefault()));
-        return auctionRepository.findAuctionsByProductCategoryName(categoryName);
+        return auctionRepository.findByProductCategoryName(categoryName);
     }
 
     /**
@@ -81,7 +81,7 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public List<Auction> findByProductNameContains(String searchTag) {
         logger.debug(messageSource.getMessage("service.auction.find.by.product.name", new Object[]{searchTag}, Locale.getDefault()));
-        return auctionRepository.findAuctionsByProductNameContains(searchTag);
+        return auctionRepository.findByProductNameContains(searchTag);
     }
 
     /**
@@ -92,7 +92,7 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public List<Auction> findByUserName(String userName) {
         logger.debug(messageSource.getMessage("service.auction.find.by.user.name", new Object[]{userName}, Locale.getDefault()));
-        return auctionRepository.findAuctionsByOwnerUserName(userName);
+        return auctionRepository.findByOwnerUserName(userName);
     }
 
     /**
@@ -103,7 +103,7 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public List<Auction> findByEndTimeLessThan(Date date) {
         logger.debug(messageSource.getMessage("service.auction.find.by.end.time", new Object[]{date}, Locale.getDefault()));
-        return auctionRepository.findAuctionsByEndTimeIsLessThan(date);
+        return auctionRepository.findByEndTimeIsLessThan(date);
     }
 
     /**

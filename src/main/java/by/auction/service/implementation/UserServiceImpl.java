@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<User> findByEnabled(Boolean enabled) {
         logger.debug(messageSource.getMessage("service.user.find.by.enabled", new Object[]{enabled}, Locale.getDefault()));
-        return userRepository.findUsersByEnabled(enabled);
+        return userRepository.findByEnabled(enabled);
     }
 
     /**
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService{
     public void enable(Boolean enable, String userName) {
         logger.debug(messageSource.getMessage("service.user.enable.user", new Object[]{enable, userName}, Locale.getDefault()));
         User user = findByUserName(userName).get();
-        if (!roleRepository.findRoleByUserAndRole(user, "ROLE_USER").isPresent()) {
+        if (!roleRepository.findByUserAndRole(user, "ROLE_USER").isPresent()) {
             Role role = new Role("ROLE_USER");
             logger.debug(messageSource.getMessage("service.user.save.role", new Object[]{userName, role}, Locale.getDefault()));
             role.setUser(user);
@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService{
     public void promote(String userName) {
         logger.debug(messageSource.getMessage("service.user.promote", new Object[]{userName}, Locale.getDefault()));
         User user = userRepository.findByUserName(userName).get();
-        if (!roleRepository.findRoleByUserAndRole(user, "ROLE_MANAGER").isPresent()) {
+        if (!roleRepository.findByUserAndRole(user, "ROLE_MANAGER").isPresent()) {
             Role role = new Role("ROLE_MANAGER");
             logger.debug(messageSource.getMessage("service.user.save.role", new Object[]{userName, role}, Locale.getDefault()));
             role.setUser(user);
@@ -131,9 +131,9 @@ public class UserServiceImpl implements UserService{
     public void demote(String userName) {
         logger.debug(messageSource.getMessage("service.user.demote", new Object[]{userName}, Locale.getDefault()));
         User user = userRepository.findByUserName(userName).get();
-        if (roleRepository.findRoleByUserAndRole(user, "ROLE_MANAGER").isPresent()) {
+        if (roleRepository.findByUserAndRole(user, "ROLE_MANAGER").isPresent()) {
             logger.debug(messageSource.getMessage("service.user.delete.role", new Object[]{userName, "ROLE_MANAGER"}, Locale.getDefault()));
-            roleRepository.deleteRoleByUserAndRole(user, "ROLE_MANAGER");
+            roleRepository.deleteByUserAndRole(user, "ROLE_MANAGER");
         }
     }
 }

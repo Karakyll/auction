@@ -58,7 +58,7 @@ public class BetServiceImpl implements BetService {
     @Override
     public List<Bet> findByAuctionId(Long id) {
         logger.debug(messageSource.getMessage("service.bet.find.by.auction.id", new Object[]{id}, Locale.getDefault()));
-        return betRepository.findBetsByAuctionId(id);
+        return betRepository.findByAuctionId(id);
     }
 
     /**
@@ -69,7 +69,7 @@ public class BetServiceImpl implements BetService {
     @Override
     public List<Bet> findByUserName(String userName) {
         logger.debug(messageSource.getMessage("service.bet.find.by.user.name", new Object[]{userName}, Locale.getDefault()));
-        return betRepository.findBetsByUserUserName(userName);
+        return betRepository.findByUserUserName(userName);
     }
 
     /**
