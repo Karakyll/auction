@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { Auction } from '../../models/auction';
 import { AuctionService } from '../../services/auction/auction.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './auction-details.component.html',
   styleUrls: ['./auction-details.component.css']
 })
-export class AuctionDetailsComponent implements OnInit {
+export class AuctionDetailsComponent implements OnInit, OnDestroy {
 
   @ViewChild('confirmModal') confirmModal: ModalDirective;
 
@@ -30,6 +30,8 @@ export class AuctionDetailsComponent implements OnInit {
   bets: Bet[];
   finished: boolean = false;
 
+  private alive: boolean = true;
+
   constructor(
     private auth: LoginService,
     private interact: InteractionService,
@@ -40,10 +42,17 @@ export class AuctionDetailsComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
     this.subscribeRoute();
     this.subscribeRefreshBets();
+    setInterval( () => {
+      this.interact.refreshBets();
+    }, 5000);
   }
+
 
   isAuthenticated() {
     return this.auth.isAuthenticated();
@@ -71,7 +80,9 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   confirmStopAuction() {
-    this.auctionService.finish(this.auction.id).subscribe(res => {
+    this.auctionService.finish(this.auction.id)
+      .takeWhile(() => this.alive)
+      .subscribe(res => {
       this.auction = res;
       this.finished = res.finished;
     });
@@ -91,8 +102,12 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   subscribeRefreshBets() {
-    this.interact._betsRefresh.subscribe(() => {
-      this.betService.findByAuctionId(this.auction.id).subscribe(res => {
+    this.interact._betsRefresh
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
+      this.betService.findByAuctionId(this.auction.id)
+        .takeWhile(() => this.alive)
+        .subscribe(res => {
         if (res.length !== 0) {
           this.bets = res;
         }
@@ -101,17 +116,31 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   subscribeRoute() {
-    this.route.params.subscribe(params => {
-      this.auctionService.findById(+params['id']).subscribe(res => {
+    this.route.params
+      .takeWhile(() => this.alive)
+      .subscribe(params => {
+      this.auctionService.findById(+params['id'])
+        .takeWhile(() => this.alive)
+        .subscribe(res => {
         this.auction = res;
         this.finished = res.finished;
       });
-      this.betService.findByAuctionId(+params['id']).subscribe(res => {
+      this.betService.findByAuctionId(+params['id'])
+        .takeWhile(() => this.alive)
+        .subscribe(res => {
         if (res.length !== 0) {
           this.bets = res;
         }
       });
     });
+  }
+
+  /**
+   * Run when component destroy.
+   * Unsubscribe all subscription.
+   */
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }
