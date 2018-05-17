@@ -53,10 +53,9 @@ public class AdminController {
         if (userService.findByUserName(username).isPresent()) {
             logger.debug(messageSource.getMessage("controller.admin.users.get.user.by.username.ok", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.ok(userService.findByUserName(username).get());
-        } else {
-            logger.debug(messageSource.getMessage("controller.admin.users.error.user.not.found", new Object[]{username}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.admin.users.error.user.not.found", new Object[]{username}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
     /**
@@ -84,22 +83,21 @@ public class AdminController {
         if (userService.findByUserName(user.getUserName()).isPresent()) {
             logger.debug(messageSource.getMessage("controller.admin.users.post.save.user.error", new Object[]{user.getUserName()}, Locale.getDefault()));
             return ResponseEntity.unprocessableEntity().build();
-        } else {
-            User result = new User();
-
-            result.setUserName(user.getUserName());
-            result.setPassword(user.getSet_password());
-            result.setEnabled(false);
-
-            result = userService.save(result);
-
-            URI location = ServletUriComponentsBuilder
-                    .fromCurrentRequest().path("?username={username}")
-                    .buildAndExpand(result.getUserName()).toUri();
-
-            logger.debug(messageSource.getMessage("controller.admin.users.post.save.user.ok", new Object[]{result.getUserName()}, Locale.getDefault()));
-            return ResponseEntity.created(location).body(result);
         }
+        User result = new User();
+
+        result.setUserName(user.getUserName());
+        result.setPassword(user.getSet_password());
+        result.setEnabled(false);
+
+        result = userService.save(result);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("?username={username}")
+                .buildAndExpand(result.getUserName()).toUri();
+
+        logger.debug(messageSource.getMessage("controller.admin.users.post.save.user.ok", new Object[]{result.getUserName()}, Locale.getDefault()));
+        return ResponseEntity.created(location).body(result);
     }
 
     /**
@@ -116,10 +114,9 @@ public class AdminController {
             userService.deleteByUserName(username);
             logger.debug(messageSource.getMessage("controller.admin.users.delete.user.ok", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.ok().build();
-        } else {
-            logger.debug(messageSource.getMessage("controller.admin.users.delete.user.error", new Object[]{username}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.admin.users.delete.user.error", new Object[]{username}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
     /**
@@ -137,10 +134,9 @@ public class AdminController {
             userService.enable(enable, username);
             logger.debug(messageSource.getMessage("controller.admin.users.put.enable.user.ok", new Object[]{username, enable}, Locale.getDefault()));
             return ResponseEntity.ok(userService.findByUserName(username).get());
-        } else {
-            logger.debug(messageSource.getMessage("controller.admin.users.error.user.not.found", new Object[]{username}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.admin.users.error.user.not.found", new Object[]{username}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
     /**
@@ -181,22 +177,21 @@ public class AdminController {
         if (!userService.findByUserName(user.getUserName()).isPresent()) {
             logger.debug(messageSource.getMessage("controller.admin.users.put.edit.user.error", new Object[]{user.getUserName()}, Locale.getDefault()));
             return ResponseEntity.notFound().build();
-        } else {
-            User result = new User();
-
-            result.setUserName(user.getUserName());
-            result.setPassword(user.getSet_password());
-            result.setEnabled(user.getEnabled());
-
-            result = userService.save(result);
-
-            URI location = ServletUriComponentsBuilder
-                    .fromCurrentRequest().path("?username={username}")
-                    .buildAndExpand(result.getUserName()).toUri();
-
-            logger.debug(messageSource.getMessage("controller.admin.users.put.edit.user.ok", new Object[]{result.getUserName()}, Locale.getDefault()));
-            return ResponseEntity.created(location).body(result);
         }
+        User result = new User();
+
+        result.setUserName(user.getUserName());
+        result.setPassword(user.getSet_password());
+        result.setEnabled(user.getEnabled());
+
+        result = userService.save(result);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("?username={username}")
+                .buildAndExpand(result.getUserName()).toUri();
+
+        logger.debug(messageSource.getMessage("controller.admin.users.put.edit.user.ok", new Object[]{result.getUserName()}, Locale.getDefault()));
+        return ResponseEntity.created(location).body(result);
     }
 
 }

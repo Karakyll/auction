@@ -58,10 +58,9 @@ public class ProductController {
         if ((productService.findById(productId)).isPresent()) {
             logger.debug(messageSource.getMessage("controller.product.get.by.id.ok", new Object[]{productId}, Locale.getDefault()));
             return ResponseEntity.ok(productService.findById(productId).get());
-        } else {
-            logger.debug(messageSource.getMessage("controller.product.error.product.not.found", new Object[]{productId}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.product.error.product.not.found", new Object[]{productId}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
     /**
@@ -110,10 +109,9 @@ public class ProductController {
             productService.deleteById(productId);
             logger.debug(messageSource.getMessage("controller.product.delete.product.ok", new Object[]{productId}, Locale.getDefault()));
             return ResponseEntity.ok().build();
-        } else {
-            logger.debug(messageSource.getMessage("controller.product.error.bet.not.found", new Object[]{productId}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.product.error.bet.not.found", new Object[]{productId}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
 }

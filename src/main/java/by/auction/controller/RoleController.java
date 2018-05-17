@@ -32,10 +32,9 @@ public class RoleController {
         if (userService.findByUserName(username).isPresent()) {
             logger.debug(messageSource.getMessage("controller.role.get.by.username.ok", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.ok(userService.findByUserName(username).get().getRoles());
-        } else {
-            logger.debug(messageSource.getMessage("controller.role.error.user.not.found", new Object[]{username}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.role.error.user.not.found", new Object[]{username}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
 }

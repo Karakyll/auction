@@ -51,10 +51,9 @@ public class CategoryController {
         if (categoryService.findByName(category.getName()).isPresent()) {
             logger.debug(messageSource.getMessage("controller.category.post.save.category.error", new Object[]{category}, Locale.getDefault()));
             return ResponseEntity.unprocessableEntity().build();
-        } else {
-            logger.debug(messageSource.getMessage("controller.category.post.save.category.ok", new Object[]{category}, Locale.getDefault()));
-            return ResponseEntity.ok(categoryService.save(category));
         }
+        logger.debug(messageSource.getMessage("controller.category.post.save.category.ok", new Object[]{category}, Locale.getDefault()));
+        return ResponseEntity.ok(categoryService.save(category));
     }
 
     /**
@@ -71,10 +70,9 @@ public class CategoryController {
             categoryService.deleteByName(category);
             logger.debug(messageSource.getMessage("controller.category.delete.category.ok", new Object[]{category}, Locale.getDefault()));
             return ResponseEntity.ok().build();
-        } else {
-            logger.debug(messageSource.getMessage("controller.category.error.category.not.found", new Object[]{category}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.category.error.category.not.found", new Object[]{category}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
 }
