@@ -20,7 +20,7 @@
       <td>{{bet.betTime | date:'dd.MM.yyyy HH:mm'}}</td>
       <td>{{bet.price}}</td>
       <td>
-        <span class="btn fa fa-times-rectangle-o dis" (click)="openModal(template); selectedBet=bet"></span>
+        <span class="btn fa fa-times-rectangle-o dis" (click)="openConfirmDeleteModal(template); selectedBet=bet"></span>
       </td>
     </tr>
     </tbody>

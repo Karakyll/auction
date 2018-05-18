@@ -32,7 +32,7 @@
     <tr *ngFor="let category of categories">
       <td>{{category.name}}</td>
       <td>
-        <span class="btn fa fa-times-rectangle-o dis" (click)="openModal(template); selectedCategory=category"></span>
+        <span class="btn fa fa-times-rectangle-o dis" (click)="openConfirmDeleteModal(template); selectedCategory=category"></span>
       </td>
     </tr>
     </tbody>

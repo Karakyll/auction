@@ -32,6 +32,16 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
 
   private alive: boolean = true;
 
+  /**
+   * Constructor for Auction-details component
+   * @param {LoginService} auth
+   * @param {InteractionService} interact
+   * @param {AuctionService} auctionService
+   * @param {BetService} betService
+   * @param {ActivatedRoute} route
+   * @param {Router} router
+   * @param {TranslateService} translate
+   */
   constructor(private auth: LoginService,
               private interact: InteractionService,
               private auctionService: AuctionService,
@@ -51,35 +61,69 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
     }, 5000);
   }
 
+  /**
+   * Get max bet price i bets
+   * If bets empty - return null
+   * @returns {number}
+   */
   getMaxBetPrice() {
-    return this.bets.length ? this.bets.reduce((prev,cur) => cur.price > prev.price ? cur : prev).price : null;
+    return this.bets.length ? this.bets.reduce((prev, cur) => cur.price > prev.price ? cur : prev).price : null;
   }
 
+  /**
+   * Check is user authenticated
+   * @returns {boolean}
+   */
   isAuthenticated() {
     return this.auth.isAuthenticated();
   }
 
+  /**
+   * Check is current user owner of this auction
+   * @returns {boolean | boolean}
+   */
   checkOwner() {
     return this.auction ? this.auth.getUserData().userName == this.auction.owner_name : false;
   }
 
+  /**
+   * Handle category button click
+   * @param category
+   */
   showCategory(category) {
     this.router.navigate(['/auctions', {category: category}]);
   }
 
+  /**
+   * Handle bets history button click
+   * Call bets history modal
+   * @param auction
+   */
   clickHistory(auction) {
     this.isAuthenticated() ? this.interact.toggleBetsHistoryModal(auction) : this.router.navigateByUrl("/login");
   }
 
+  /**
+   * Handle ne bet button click
+   * Call new bet modal
+   * @param auction
+   */
   clickNewBet(auction) {
     this.isAuthenticated() ? this.interact.toggleNewBetModal(auction) : this.router.navigateByUrl("/login");
   }
 
+  /**
+   * Handle stop auction button click
+   */
   stopAuction() {
     this.confirmModal.config = this.config;
     this.confirmModal.toggle();
   }
 
+  /**
+   * Confirm stop auction message
+   * Set for current auction status finished
+   */
   confirmStopAuction() {
     this.auctionService.finish(this.auction.id)
       .takeWhile(() => this.alive)
@@ -90,18 +134,34 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
     this.confirmModal.hide();
   }
 
+  /**
+   * Decline stop auction message
+   * Hide confirm modal
+   */
   declineStopAuction() {
     this.confirmModal.hide();
   }
 
+  /**
+   * Check is current user manager
+   * @returns {Role | undefined | boolean}
+   */
   isManager() {
     return this.isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role === 'ROLE_MANAGER') : false;
   }
 
+  /**
+   * Check is current user admin
+   * @returns {Role | undefined | boolean}
+   */
   isAdmin() {
     return this.isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role === 'ROLE_ADMIN') : false;
   }
 
+  /**
+   * Subscribe to refresh bets event
+   * If emitted - refresh bets list
+   */
   subscribeRefreshBets() {
     this.interact._betsRefresh
       .takeWhile(() => this.alive)
@@ -116,6 +176,9 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
       })
   }
 
+  /**
+   * Subscribe routing to /auctions/{id}
+   */
   subscribeRoute() {
     this.route.params
       .takeWhile(() => this.alive)

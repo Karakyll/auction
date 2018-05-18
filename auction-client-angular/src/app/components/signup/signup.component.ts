@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { UserService } from '../../services/user/user.service';
-import { User } from '../../models/user';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {UserService} from '../../services/user/user.service';
+import {User} from '../../models/user';
+import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 /**
  * Component view /signup page
@@ -21,11 +21,16 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   private alive: boolean = true;
 
-  constructor(
-    private userService: UserService,
-    private router: Router,
-    private translate: TranslateService
-  ) { }
+  /**
+   * Constructor for signup component
+   * @param {UserService} userService
+   * @param {Router} router
+   * @param {TranslateService} translate
+   */
+  constructor(private userService: UserService,
+              private router: Router,
+              private translate: TranslateService) {
+  }
 
   /**
    * Run when component initialize
@@ -34,24 +39,31 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.userExist = false;
   }
 
+  /**
+   * Handle submitting sign up form
+   * Save new user
+   */
   onSubmit() {
     this.buttonLocked = true;
     this.userExist = false;
     this.userService.save(new User(this.signData.username, this.signData.password, null, null))
       .takeWhile(() => this.alive)
       .subscribe(
-      () => {
-        this.success = true;
-        this.buttonLocked = false;
-      },
-      () => {
-        console.log('error. User already exist');
-        this.userExist = true;
-        this.buttonLocked = false;
-      }
-    )
+        () => {
+          this.success = true;
+          this.buttonLocked = false;
+        },
+        () => {
+          console.log('error. User already exist');
+          this.userExist = true;
+          this.buttonLocked = false;
+        }
+      )
   }
 
+  /**
+   * Navigate to main page
+   */
   mainPage() {
     this.router.navigate(['/']);
   }

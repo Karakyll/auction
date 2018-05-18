@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
-import { Category } from '../../../models/category';
-import { CategoryService } from '../../../services/category/category.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { InteractionService } from '../../../services/interaction/interaction.service';
-import { TranslateService } from '@ngx-translate/core';
+import {Category} from '../../../models/category';
+import {CategoryService} from '../../../services/category/category.service';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {InteractionService} from '../../../services/interaction/interaction.service';
+import {TranslateService} from '@ngx-translate/core';
 
 /**
  * Component view /management categories tab
@@ -24,12 +24,18 @@ export class ManageCategoriesComponent implements OnInit, OnDestroy {
 
   private alive: boolean = true;
 
-  constructor(
-    private interact: InteractionService,
-    private categoryService: CategoryService,
-    private modalService: BsModalService,
-    private translate: TranslateService
-  ) { }
+  /**
+   * Constructor for manage-categories component
+   * @param {InteractionService} interact
+   * @param {CategoryService} categoryService
+   * @param {BsModalService} modalService
+   * @param {TranslateService} translate
+   */
+  constructor(private interact: InteractionService,
+              private categoryService: CategoryService,
+              private modalService: BsModalService,
+              private translate: TranslateService) {
+  }
 
   /**
    * Run when component initialize
@@ -38,35 +44,49 @@ export class ManageCategoriesComponent implements OnInit, OnDestroy {
     this.getCategoryList();
   }
 
+  /**
+   * Get categories list
+   */
   getCategoryList() {
     this.categoryService.findAll().subscribe(res => {
       this.categories = res;
     })
   }
 
+  /**
+   * Add new category
+   */
   addNewCategory() {
     this.buttonLocked = true;
     this.categoryService.save(new Category(this.newCategory))
       .takeWhile(() => this.alive)
       .subscribe(
-      res => {
-        this.interact.callCategoryChanging();
-        this.newCategory = '';
-        this.categories.push(res);
-        this.buttonLocked = false;
-      },
-      () => {
-        console.log('err. category exist.')
-        this.failed = true;
-        this.buttonLocked = false;
-      }
-    )
+        res => {
+          this.interact.callCategoryChanging();
+          this.newCategory = '';
+          this.categories.push(res);
+          this.buttonLocked = false;
+        },
+        () => {
+          console.log('err. category exist.')
+          this.failed = true;
+          this.buttonLocked = false;
+        }
+      )
   }
 
-  openModal(template: TemplateRef<any>) {
+  /**
+   * Open confirm delete modal
+   * @param {TemplateRef<any>} template
+   */
+  openConfirmDeleteModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
+  /**
+   * Confirm deleting
+   * Delete category
+   */
   confirmDeleteCategory(): void {
     this.categoryService.deleteCategory(this.selectedCategory)
       .takeWhile(() => this.alive)
@@ -77,6 +97,10 @@ export class ManageCategoriesComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * Decline deleting
+   * Hide modal
+   */
   declineDeleteCategory(): void {
     this.modalRef.hide();
   }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {Component, OnInit} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 /**
  * Component view /management page
@@ -11,9 +11,12 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ManagementComponent implements OnInit {
 
-  constructor(
-    private translate: TranslateService
-  ) { }
+  /**
+   * Constructor for Management component
+   * @param {TranslateService} translate
+   */
+  constructor(private translate: TranslateService) {
+  }
 
   /**
    * Run when component initialize

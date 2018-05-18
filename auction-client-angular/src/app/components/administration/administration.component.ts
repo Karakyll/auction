@@ -141,7 +141,7 @@ export class AdministrationComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Check is user manager
+   * Check is current user manager
    * @param {User} user - checked user
    * @returns {Role | undefined} true | false
    */
@@ -150,7 +150,7 @@ export class AdministrationComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Check is user admin
+   * Check is current user admin
    * @param {User} user - checked user
    * @returns {Role | undefined} true | false
    */

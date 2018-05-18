@@ -1,25 +1,44 @@
-import { Injectable } from '@angular/core';
-import { HttpHeaders } from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpHeaders} from "@angular/common/http";
 
+/**
+ * Configuration service
+ */
 @Injectable()
 export class ConfigService {
 
-  private API_BASE_HREF = 'http://localhost:8081/';
+  private BASE_HREF = 'http://localhost:8081/';
   private HEADERS = new HttpHeaders({
     'Content-type': 'application/json',
     'Accept': 'application/json'
   });
 
-  constructor() { }
+  /**
+   * Constructor for configuration service
+   */
+  constructor() {
+  }
 
+  /**
+   * Get base href
+   * @returns {string}
+   */
   getBaseHref() {
-    return this.API_BASE_HREF;
+    return this.BASE_HREF;
   }
 
+  /**
+   * Get API base href
+   * @returns {string}
+   */
   getApiHref() {
-    return this.API_BASE_HREF + 'api/';
+    return this.BASE_HREF + 'api/';
   }
 
+  /**
+   * Get deafault headers
+   * @returns {HttpHeaders}
+   */
   getHeaders() {
     return this.HEADERS;
   }

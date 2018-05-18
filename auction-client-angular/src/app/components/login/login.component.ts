@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit} from '@angular/core';
-import { LoginService } from '../../services/login/login.service';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {LoginService} from '../../services/login/login.service';
+import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 /**
  * Component view /login page
@@ -24,16 +24,15 @@ export class LoginComponent implements OnInit, OnDestroy {
    * @param {Router} router - router service
    * @param {TranslateService} translate - translate service
    */
-  constructor(
-    private auth: LoginService,
-    private router: Router,
-    private translate: TranslateService
-  ){ }
+  constructor(private auth: LoginService,
+              private router: Router,
+              private translate: TranslateService) {
+  }
 
   /**
    * Run when component initialize
    */
-  ngOnInit(){
+  ngOnInit() {
     this.subscribeLoggedChange();
     this.subscribeOnLoginError();
   }
@@ -64,10 +63,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.auth._loggedChange
       .takeWhile(() => this.alive)
       .subscribe(res => {
-      this.router.navigateByUrl('/');
-      this.buttonLocked = res;
-      this.isFailed = false;
-    })
+        this.router.navigateByUrl('/');
+        this.buttonLocked = res;
+        this.isFailed = false;
+      })
   }
 
   /**
@@ -77,9 +76,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.auth._loginError
       .takeWhile(() => this.alive)
       .subscribe(() => {
-      this.buttonLocked = false;
-      this.isFailed = true;
-    })
+        this.buttonLocked = false;
+        this.isFailed = true;
+      })
   }
 
   /**

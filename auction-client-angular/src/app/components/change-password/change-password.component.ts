@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap/modal';
-import { InteractionService } from '../../services/interaction/interaction.service';
-import { User } from '../../models/user';
-import { UserService } from '../../services/user/user.service';
-import { TranslateService } from '@ngx-translate/core';
+import {ModalDirective} from 'ngx-bootstrap/modal';
+import {InteractionService} from '../../services/interaction/interaction.service';
+import {User} from '../../models/user';
+import {UserService} from '../../services/user/user.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-change-password',
@@ -14,7 +14,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
 
   @ViewChild('changePasswordModal') changePasswordModal: ModalDirective;
 
-  user:User;
+  user: User;
 
   public passwords = {password: '', confirm: ''};
 
@@ -25,11 +25,16 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     backdrop: false
   };
 
-  constructor(
-    private interact: InteractionService,
-    private userService: UserService,
-    private translate: TranslateService
-  ) { }
+  /**
+   * Constructor for Change-password component
+   * @param {InteractionService} interact
+   * @param {UserService} userService
+   * @param {TranslateService} translate
+   */
+  constructor(private interact: InteractionService,
+              private userService: UserService,
+              private translate: TranslateService) {
+  }
 
   /**
    * Run when component initialize
@@ -38,20 +43,31 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     this.subscribePasswordChangeModalCalled();
   }
 
+  /**
+   * Subscribe password change modal called
+   * If emitted - toggle password change modal
+   */
   subscribePasswordChangeModalCalled() {
     this.interact._passwordChangeModalCalled
       .takeWhile(() => this.alive)
       .subscribe(user => {
-      this.user = user;
-      this.changePasswordModal.config = this.config;
-      this.changePasswordModal.toggle();
-    })
+        this.user = user;
+        this.changePasswordModal.config = this.config;
+        this.changePasswordModal.toggle();
+      })
   }
 
-  hidePasswordModal() {
+  /**
+   * Hide password change modal
+   */
+  hidePasswordChangeModal() {
     this.changePasswordModal.hide();
   }
 
+  /**
+   * Handle submitting password change message
+   * Change user password
+   */
   onSubmitPasswordChange() {
     this.userService.changePassword(
       new User(

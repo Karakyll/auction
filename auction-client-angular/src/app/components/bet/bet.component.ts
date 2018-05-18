@@ -36,6 +36,14 @@ export class BetComponent implements OnInit, OnDestroy {
 
   unset: boolean;
 
+  /**
+   * Constructor for Bet component
+   * @param {InteractionService} interact
+   * @param {BetService} betService
+   * @param {AuctionService} auctionService
+   * @param {LoginService} auth
+   * @param {TranslateService} translate
+   */
   constructor(private interact: InteractionService,
               private betService: BetService,
               private auctionService: AuctionService,
@@ -47,18 +55,28 @@ export class BetComponent implements OnInit, OnDestroy {
    * Run when component initialize
    */
   ngOnInit() {
-    this.subscribeBetsCall();
+    this.subscribeBetsHistoryCall();
     this.subscribeNewBetCall();
   }
 
+  /**
+   * Hide bets modal
+   */
   hideBetsModal() {
     this.betsModal.hide();
   }
 
+  /**
+   * Hide new bet modal
+   */
   hideNewBetModal() {
     this.newBetModal.hide();
   }
 
+  /**
+   * Handle submitting new bet form
+   * Place new bet
+   */
   onSubmitNewBet() {
     if (!this.buttonLocked) {
       let bet = new Bet(null, this.auction.id, this.auth.getUserData().userName, null, this.newBet);
@@ -77,8 +95,12 @@ export class BetComponent implements OnInit, OnDestroy {
     this.buttonLocked = true;
   }
 
-  subscribeBetsCall() {
-    this.interact._betsModalCalled
+  /**
+   * Subscribe to bets history call
+   * If emitted - find bets by auction ID and toggle bets modal
+   */
+  subscribeBetsHistoryCall() {
+    this.interact._betsHistoryModalCalled
       .takeWhile(() => this.alive)
       .subscribe(auction => {
         this.auction = auction;
@@ -94,6 +116,10 @@ export class BetComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * Subscribe to new bet call
+   * If emitted - toggle new bet modal
+   */
   subscribeNewBetCall() {
     this.interact._newBetModalCalled
       .takeWhile(() => this.alive)
@@ -117,8 +143,12 @@ export class BetComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * Get max bet price in bets
+   * @returns {number}
+   */
   getMaxBetPrice() {
-    return this.bets.length ? this.bets.reduce((prev,cur) => cur.price > prev.price ? cur : prev).price :
+    return this.bets.length ? this.bets.reduce((prev, cur) => cur.price > prev.price ? cur : prev).price :
       this.auction ? this.auction.product.price : null;
   }
 
