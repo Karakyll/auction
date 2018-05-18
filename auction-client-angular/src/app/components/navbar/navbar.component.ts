@@ -21,6 +21,9 @@ export class NavbarComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
   }
 

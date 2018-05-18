@@ -10,7 +10,6 @@ import { UserService } from '../../../services/user/user.service';
 import { LoginService } from '../../../services/login/login.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import "rxjs/add/operator/takeWhile";
 
 /**
  * Component view /user operations modals
@@ -49,6 +48,9 @@ export class UserOperationsComponent implements OnInit, OnDestroy {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
     this.subscribeUserAuctionsModalCalled();
     this.subscribeUserBetsModalCalled();
@@ -112,7 +114,9 @@ export class UserOperationsComponent implements OnInit, OnDestroy {
   }
 
   confirmDeleteUser() {
-    this.userService.deleteUser(this.user.userName).subscribe(() => {
+    this.userService.deleteUser(this.user.userName)
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
     });
     this.auth.logout();
     this.router.navigateByUrl('/');
@@ -122,6 +126,10 @@ export class UserOperationsComponent implements OnInit, OnDestroy {
     this.confirmDeleteModal.hide();
   }
 
+  /**
+   * Run when component destroy.
+   * Unsubscribe all subscription.
+   */
   ngOnDestroy() {
     this.alive = false;
   }

@@ -60,7 +60,7 @@
       || buttonLocked
       || !newAuction.description"
       class="btn btn-secondary"
-      (click)="startAuction()">{{ 'startAuction.form.button' | translate }}
+      (click)="startAuction(); buttonLocked = true">{{ 'startAuction.form.button' | translate }}
     </button>
   </div>
 </div>

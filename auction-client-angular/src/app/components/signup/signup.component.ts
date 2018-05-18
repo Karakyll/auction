@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
@@ -12,12 +12,14 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
 
   public signData = {username: '', password: '', confirm: ''};
   public userExist: boolean;
   public success: boolean = false;
   buttonLocked: boolean = false;
+
+  private alive: boolean = true;
 
   constructor(
     private userService: UserService,
@@ -25,6 +27,9 @@ export class SignupComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
     this.userExist = false;
   }
@@ -32,7 +37,9 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     this.buttonLocked = true;
     this.userExist = false;
-    this.userService.save(new User(this.signData.username, this.signData.password, null, null)).subscribe(
+    this.userService.save(new User(this.signData.username, this.signData.password, null, null))
+      .takeWhile(() => this.alive)
+      .subscribe(
       () => {
         this.success = true;
         this.buttonLocked = false;
@@ -47,6 +54,14 @@ export class SignupComponent implements OnInit {
 
   mainPage() {
     this.router.navigate(['/']);
+  }
+
+  /**
+   * Run when component destroy.
+   * Unsubscribe all subscription.
+   */
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

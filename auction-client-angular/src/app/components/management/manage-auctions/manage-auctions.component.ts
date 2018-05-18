@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import {Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Auction } from '../../../models/auction';
 import { AuctionService } from '../../../services/auction/auction.service';
@@ -13,11 +13,12 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './manage-auctions.component.html',
   styleUrls: ['./manage-auctions.component.css']
 })
-export class ManageAuctionsComponent implements OnInit {
+export class ManageAuctionsComponent implements OnInit, OnDestroy {
 
   auctions: Auction[];
   modalRef: BsModalRef;
   selectedAuction: Auction;
+  private alive: boolean = true;
 
   constructor(
     private interact: InteractionService,
@@ -26,6 +27,9 @@ export class ManageAuctionsComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
     this.getAuctions();
     this.subscribeUserListChanging();
@@ -34,7 +38,9 @@ export class ManageAuctionsComponent implements OnInit {
   }
 
   getAuctions() {
-    this.auctionService.findAll().subscribe(res => {
+    this.auctionService.findAll()
+      .takeWhile(() => this.alive)
+      .subscribe(res => {
       this.auctions = res;
     })
   }
@@ -44,7 +50,9 @@ export class ManageAuctionsComponent implements OnInit {
   }
 
   confirmDeleteAuction(): void {
-    this.auctionService.deleteById(this.selectedAuction.id).subscribe(() => {
+    this.auctionService.deleteById(this.selectedAuction.id)
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.interact.callAuctionChanging();
       this.auctions.splice(this.auctions.indexOf(this.selectedAuction),1);
       this.modalRef.hide();
@@ -56,21 +64,35 @@ export class ManageAuctionsComponent implements OnInit {
   }
 
   subscribeUserListChanging() {
-    this.interact._userListChanged.subscribe(() => {
+    this.interact._userListChanged
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.getAuctions();
     })
   }
 
   subscribeProductListChanging() {
-    this.interact._productListChanged.subscribe(() => {
+    this.interact._productListChanged
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.getAuctions();
     })
   }
 
   subscribeCategoryListChanging() {
-    this.interact._categoryListChanged.subscribe(() => {
+    this.interact._categoryListChanged
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.getAuctions();
     })
+  }
+
+  /**
+   * Run when component destroy.
+   * Unsubscribe all subscription.
+   */
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

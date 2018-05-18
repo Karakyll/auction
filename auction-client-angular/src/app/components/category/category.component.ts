@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { CategoryService } from '../../services/category/category.service';
 import { Category } from '../../models/category';
 import { Router } from '@angular/router';
@@ -12,11 +12,13 @@ import { InteractionService } from '../../services/interaction/interaction.servi
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, OnDestroy {
 
   isOpen = false;
 
   categories:Category[];
+
+  private alive: boolean = true;
 
   constructor(
     private categoryService: CategoryService,
@@ -24,10 +26,15 @@ export class CategoryComponent implements OnInit {
     private router: Router
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
     this.subscribeListCategory();
     this.subscribeCategoryListChanged();
-    this.interact._categoryTabToggled.subscribe(() => {
+    this.interact._categoryTabToggled
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.isOpen = !this.isOpen;
     })
   }
@@ -41,15 +48,27 @@ export class CategoryComponent implements OnInit {
   }
 
   subscribeListCategory() {
-    this.categoryService.findAll().subscribe((res) => {
+    this.categoryService.findAll()
+      .takeWhile(() => this.alive)
+      .subscribe((res) => {
       this.categories = res;
     });
   }
 
   subscribeCategoryListChanged() {
-    this.interact._categoryListChanged.subscribe(() => {
+    this.interact._categoryListChanged
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.subscribeListCategory();
     })
+  }
+
+  /**
+   * Run when component destroy.
+   * Unsubscribe all subscription.
+   */
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

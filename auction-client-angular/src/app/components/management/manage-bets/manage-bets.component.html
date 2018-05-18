@@ -17,7 +17,7 @@
       <td>{{bet.id}}</td>
       <td><span class="btn btn-link" routerLink="/auctions/{{bet.auction_id}}">{{bet.auction_id}}</span></td>
       <td>{{bet.user_name}}</td>
-      <td>{{bet.betTime}}</td>
+      <td>{{bet.betTime | date:'dd.MM.yyyy HH:mm'}}</td>
       <td>{{bet.price}}</td>
       <td>
         <span class="btn fa fa-times-rectangle-o dis" (click)="openModal(template); selectedBet=bet"></span>

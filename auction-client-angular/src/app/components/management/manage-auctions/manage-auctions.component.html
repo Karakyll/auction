@@ -19,7 +19,7 @@
       <td>{{auction.owner_name}}</td>
       <td>{{auction.product.id}}</td>
       <td>{{auction.product.name}}</td>
-      <td>{{auction.createTime}}</td>
+      <td>{{auction.createTime | date:'dd.MM.yyyy HH:mm'}}</td>
       <td>
         <span *ngIf="!auction.finished" class="en">{{ 'management.auctions.table.status.ongoing' | translate }}</span>
         <span *ngIf="auction.finished" class="dis">{{ 'management.auctions.table.status.finished' | translate }}</span>

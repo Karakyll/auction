@@ -63,8 +63,8 @@ export class AuctionService {
     });
   }
 
-  save(auction: Auction): Observable<Auction> {
-    return this.http.post<Auction>(this.uri(), auction);
+  save(auction: Auction, duration): Observable<Auction> {
+    return this.http.post<Auction>(this.uri(), auction, {params: new HttpParams().set('duration', duration)});
   }
 
   deleteById(id: number) {

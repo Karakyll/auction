@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {Component, OnInit} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 /**
  * Component view /about page
@@ -11,10 +11,16 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor(
-    private translate: TranslateService
-  ) { }
+  /**
+   * Constructor for About component
+   * @param {TranslateService} translate - translate service
+   */
+  constructor(private translate: TranslateService) {
+  }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
   }
 

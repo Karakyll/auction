@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import {Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import { Category } from '../../../models/category';
 import { CategoryService } from '../../../services/category/category.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './manage-categories.component.html',
   styleUrls: ['./manage-categories.component.css']
 })
-export class ManageCategoriesComponent implements OnInit {
+export class ManageCategoriesComponent implements OnInit, OnDestroy {
 
   categories: Category[];
   newCategory: string = '';
@@ -22,6 +22,8 @@ export class ManageCategoriesComponent implements OnInit {
   failed: boolean = false;
   buttonLocked: boolean = false;
 
+  private alive: boolean = true;
+
   constructor(
     private interact: InteractionService,
     private categoryService: CategoryService,
@@ -29,6 +31,9 @@ export class ManageCategoriesComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
     this.getCategoryList();
   }
@@ -41,7 +46,9 @@ export class ManageCategoriesComponent implements OnInit {
 
   addNewCategory() {
     this.buttonLocked = true;
-    this.categoryService.save(new Category(this.newCategory)).subscribe(
+    this.categoryService.save(new Category(this.newCategory))
+      .takeWhile(() => this.alive)
+      .subscribe(
       res => {
         this.interact.callCategoryChanging();
         this.newCategory = '';
@@ -61,15 +68,25 @@ export class ManageCategoriesComponent implements OnInit {
   }
 
   confirmDeleteCategory(): void {
-    this.categoryService.deleteCategory(this.selectedCategory).subscribe(() => {
-      this.interact.callCategoryChanging();
-      this.categories.splice(this.categories.indexOf(this.selectedCategory),1);
-      this.modalRef.hide();
-    });
+    this.categoryService.deleteCategory(this.selectedCategory)
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
+        this.interact.callCategoryChanging();
+        this.categories.splice(this.categories.indexOf(this.selectedCategory), 1);
+        this.modalRef.hide();
+      });
   }
 
   declineDeleteCategory(): void {
     this.modalRef.hide();
+  }
+
+  /**
+   * Run when component destroy.
+   * Unsubscribe all subscription.
+   */
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

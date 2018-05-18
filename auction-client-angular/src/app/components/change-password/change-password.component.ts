@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { InteractionService } from '../../services/interaction/interaction.service';
 import { User } from '../../models/user';
@@ -10,13 +10,15 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.css']
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent implements OnInit, OnDestroy {
 
   @ViewChild('changePasswordModal') changePasswordModal: ModalDirective;
 
   user:User;
 
   public passwords = {password: '', confirm: ''};
+
+  private alive: boolean = true;
 
   config = {
     keyboard: true,
@@ -29,12 +31,17 @@ export class ChangePasswordComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
     this.subscribePasswordChangeModalCalled();
   }
 
   subscribePasswordChangeModalCalled() {
-    this.interact._passwordChangeModalCalled.subscribe(user => {
+    this.interact._passwordChangeModalCalled
+      .takeWhile(() => this.alive)
+      .subscribe(user => {
       this.user = user;
       this.changePasswordModal.config = this.config;
       this.changePasswordModal.toggle();
@@ -55,6 +62,14 @@ export class ChangePasswordComponent implements OnInit {
       )).subscribe(() => {
       this.changePasswordModal.hide();
     })
+  }
+
+  /**
+   * Run when component destroy.
+   * Unsubscribe all subscription.
+   */
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

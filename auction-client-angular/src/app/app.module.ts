@@ -7,6 +7,7 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 import { CollapseModule, BsModalRef, ModalModule, ButtonsModule} from "ngx-bootstrap";
 import { TabsModule } from 'ngx-bootstrap';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import "rxjs/add/operator/takeWhile";
 
 import { AppComponent } from './app.component';
 import { AuctionComponent } from "./components/auction/auction.component";
@@ -36,7 +37,6 @@ import { CategoryService } from "./services/category/category.service";
 import { BetService } from "./services/bet/bet.service";
 import { UserService } from "./services/user/user.service";
 import { LoginService } from "./services/login/login.service";
-import { DateService } from "./services/date/date.service";
 import { LoggedInGuard } from "./services/guard/logged-in-guard.service";
 import { InteractionService } from "./services/interaction/interaction.service";
 import { ConfigService } from "./services/config/config.service";
@@ -109,7 +109,6 @@ const appRoutes: Routes = [
     UserService,
     LoginService,
     BsModalRef,
-    DateService,
     LoggedInGuard,
     InteractionService,
     AdminGuard,

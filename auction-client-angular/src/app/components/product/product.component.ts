@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ProductService } from '../../services/product/product.service';
 import { Product } from '../../models/product';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnDestroy {
 
   @ViewChild('newProductModal') newProductModal: ModalDirective;
   @ViewChild('selectProductModal') selectProductModal: ModalDirective;
@@ -29,7 +29,8 @@ export class ProductComponent implements OnInit {
   categories: Category[];
   products: Product[];
 
-  unset: boolean;
+  unset;
+  private alive: boolean = true;
 
   newProduct:Product = {
     id: null,
@@ -46,6 +47,9 @@ export class ProductComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
     this.subscribeCreateProductCall();
     this.subscribeEditNewProductCall();
@@ -53,7 +57,9 @@ export class ProductComponent implements OnInit {
   }
 
   subscribeSelectProductCall() {
-    this.interact._selectExistProductCalled.subscribe(() => {
+    this.interact._selectExistProductCalled
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.getProductList();
       this.selectProductModal.config = this.config;
       this.selectProductModal.toggle();
@@ -61,7 +67,9 @@ export class ProductComponent implements OnInit {
   }
 
   subscribeCreateProductCall() {
-    this.interact._createNewProductCalled.subscribe(() => {
+    this.interact._createNewProductCalled
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.getCategoryList();
       this.newProductModal.config = this.config;
       this.newProductModal.toggle();
@@ -69,20 +77,26 @@ export class ProductComponent implements OnInit {
   }
 
   subscribeEditNewProductCall() {
-    this.interact._editNewProductCalled.subscribe(() => {
+    this.interact._editNewProductCalled
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.newProductModal.config = this.config;
       this.newProductModal.toggle();
     })
   }
 
   getProductList() {
-    this.productService.findAll().subscribe(res => {
+    this.productService.findAll()
+      .takeWhile(() => this.alive)
+      .subscribe(res => {
       this.products = res;
     })
   }
 
   getCategoryList() {
-    this.categoryService.findAll().subscribe(res => {
+    this.categoryService.findAll()
+      .takeWhile(() => this.alive)
+      .subscribe(res => {
       this.categories = res;
     })
   }
@@ -103,6 +117,14 @@ export class ProductComponent implements OnInit {
   selectProduct(product) {
     this.interact.selectProduct(product);
     this.selectProductModal.hide();
+  }
+
+  /**
+   * Run when component destroy.
+   * Unsubscribe all subscription.
+   */
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import {Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import { Product } from '../../../models/product';
 import { ProductService } from '../../../services/product/product.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
@@ -13,11 +13,13 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './manage-products.component.html',
   styleUrls: ['./manage-products.component.css']
 })
-export class ManageProductsComponent implements OnInit {
+export class ManageProductsComponent implements OnInit, OnDestroy {
 
   products: Product[];
   modalRef: BsModalRef;
   selectedProduct: Product;
+
+  private alive: boolean = true;
 
   constructor(
     private interact: InteractionService,
@@ -26,13 +28,18 @@ export class ManageProductsComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
     this.getProducts();
     this.subscribeCategoryListChanging();
   }
 
   getProducts() {
-    this.productService.findAll().subscribe(res => {
+    this.productService.findAll()
+      .takeWhile(() => this.alive)
+      .subscribe(res => {
       this.products = res;
     })
   }
@@ -42,7 +49,9 @@ export class ManageProductsComponent implements OnInit {
   }
 
   confirmDeleteProduct(): void {
-    this.productService.deleteById(this.selectedProduct.id).subscribe(() => {
+    this.productService.deleteById(this.selectedProduct.id)
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.interact.callProductChanging();
       this.products.splice(this.products.indexOf(this.selectedProduct),1);
       this.modalRef.hide();
@@ -54,9 +63,19 @@ export class ManageProductsComponent implements OnInit {
   }
 
   subscribeCategoryListChanging() {
-    this.interact._categoryListChanged.subscribe(() => {
+    this.interact._categoryListChanged
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.getProducts();
     })
+  }
+
+  /**
+   * Run when component destroy.
+   * Unsubscribe all subscription.
+   */
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

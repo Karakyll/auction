@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import {Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Bet } from '../../../models/bet';
 import { BetService } from '../../../services/bet/bet.service';
@@ -13,11 +13,13 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './manage-bets.component.html',
   styleUrls: ['./manage-bets.component.css']
 })
-export class ManageBetsComponent implements OnInit {
+export class ManageBetsComponent implements OnInit, OnDestroy {
 
   bets: Bet[];
   modalRef: BsModalRef;
   selectedBet: Bet;
+
+  private alive: boolean = true;
 
   constructor(
     private interact: InteractionService,
@@ -26,6 +28,9 @@ export class ManageBetsComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
     this.getBets();
     this.subscribeUserListChanging();
@@ -35,7 +40,9 @@ export class ManageBetsComponent implements OnInit {
   }
 
   getBets() {
-    this.betService.findAll().subscribe(res => {
+    this.betService.findAll()
+      .takeWhile(() => this.alive)
+      .subscribe(res => {
       this.bets = res;
     })
   }
@@ -45,7 +52,9 @@ export class ManageBetsComponent implements OnInit {
   }
 
   confirmDeleteBet(): void {
-    this.betService.deleteById(this.selectedBet.id).subscribe(() => {
+    this.betService.deleteById(this.selectedBet.id)
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.interact.callBetChanging();
       this.bets.splice(this.bets.indexOf(this.selectedBet),1);
       this.modalRef.hide();
@@ -57,27 +66,43 @@ export class ManageBetsComponent implements OnInit {
   }
 
   subscribeUserListChanging() {
-    this.interact._userListChanged.subscribe(() => {
+    this.interact._userListChanged
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.getBets();
     })
   }
 
   subscribeProductListChanging() {
-    this.interact._productListChanged.subscribe(() => {
+    this.interact._productListChanged
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.getBets();
     })
   }
 
   subscribeCategoryListChanging() {
-    this.interact._categoryListChanged.subscribe(() => {
+    this.interact._categoryListChanged
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.getBets();
     })
   }
 
   subscribeAuctionListChanging() {
-    this.interact._auctionListChanged.subscribe(() => {
+    this.interact._auctionListChanged
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       this.getBets();
     })
+  }
+
+  /**
+   * Run when component destroy.
+   * Unsubscribe all subscription.
+   */
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuctionService } from '../../services/auction/auction.service';
 import { Auction } from '../../models/auction';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,11 +14,13 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './auction.component.html',
   styleUrls: ['./auction.component.css']
 })
-export class AuctionComponent implements OnInit {
+export class AuctionComponent implements OnInit, OnDestroy {
 
   auctions: Auction[];
 
   showFin: boolean = false;
+
+  private alive: boolean = true;
 
   constructor(
     private auctionService: AuctionService,
@@ -29,22 +31,31 @@ export class AuctionComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
     let search = this.route.snapshot.paramMap.get('search');
     let category = this.route.snapshot.paramMap.get('category');
     let refresh = this.route.snapshot.paramMap.get('refresh');
     if (refresh) {
-      this.auctionService.findOngoing().subscribe(res => {
+      this.auctionService.findOngoing()
+        .takeWhile(() => this.alive)
+        .subscribe(res => {
         this.auctions = res;
       });
     }
     if (search) {
-      this.auctionService.findByProductNameContains(search).subscribe(res => {
+      this.auctionService.findByProductNameContains(search)
+        .takeWhile(() => this.alive)
+        .subscribe(res => {
         this.auctions = res;
       });
     }
     if (category) {
-      this.auctionService.findByCategory(category).subscribe(res => {
+      this.auctionService.findByCategory(category)
+        .takeWhile(() => this.alive)
+        .subscribe(res => {
         this.auctions = res;
       });
     }
@@ -55,7 +66,9 @@ export class AuctionComponent implements OnInit {
 
   showFinished() {
     if (!this.showFin) {
-      this.auctionService.findFinished().subscribe(res => {
+      this.auctionService.findFinished()
+        .takeWhile(() => this.alive)
+        .subscribe(res => {
         this.auctions = res;
         this.showFin = true;
       })
@@ -64,7 +77,9 @@ export class AuctionComponent implements OnInit {
 
   showOngoing() {
     if (this.showFin) {
-      this.auctionService.findOngoing().subscribe(res => {
+      this.auctionService.findOngoing()
+        .takeWhile(() => this.alive)
+        .subscribe(res => {
         this.auctions = res;
         this.showFin = false;
       });
@@ -80,24 +95,36 @@ export class AuctionComponent implements OnInit {
   }
 
   subscribeSearchChange() {
-    this.interact._searchTagChanged.subscribe(searchTag => {
-      this.auctionService.findByProductNameContains(searchTag).subscribe(res => {
+    this.interact._searchTagChanged
+      .takeWhile(() => this.alive)
+      .subscribe(searchTag => {
+      this.auctionService.findByProductNameContains(searchTag)
+        .takeWhile(() => this.alive)
+        .subscribe(res => {
         this.auctions = res;
       })
     });
   }
 
   subscribeCategoryChange() {
-    this.interact._categoryChanged.subscribe(category => {
-      this.auctionService.findByCategory(category).subscribe(res => {
+    this.interact._categoryChanged
+      .takeWhile(() => this.alive)
+      .subscribe(category => {
+      this.auctionService.findByCategory(category)
+        .takeWhile(() => this.alive)
+        .subscribe(res => {
         this.auctions = res;
       })
     });
   }
 
   subscribeTabClicked() {
-    this.interact._auctionTabClicked.subscribe(() => {
-      this.auctionService.findOngoing().subscribe(res => {
+    this.interact._auctionTabClicked
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
+      this.auctionService.findOngoing()
+        .takeWhile(() => this.alive)
+        .subscribe(res => {
         this.auctions = res;
       });
     })
@@ -109,6 +136,14 @@ export class AuctionComponent implements OnInit {
 
   isAdmin() {
     return this. isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role === 'ROLE_ADMIN') : false;
+  }
+
+  /**
+   * Run when component destroy.
+   * Unsubscribe all subscription.
+   */
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

@@ -15,6 +15,9 @@ export class ManagementComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
   }
 

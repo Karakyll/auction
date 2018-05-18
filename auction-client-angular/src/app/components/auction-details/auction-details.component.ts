@@ -1,13 +1,13 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { Auction } from '../../models/auction';
-import { AuctionService } from '../../services/auction/auction.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Bet } from '../../models/bet';
-import { LoginService } from '../../services/login/login.service';
-import { InteractionService } from '../../services/interaction/interaction.service';
-import { BetService } from '../../services/bet/bet.service';
-import { ModalDirective } from 'ngx-bootstrap/modal';
-import { TranslateService } from '@ngx-translate/core';
+import {Auction} from '../../models/auction';
+import {AuctionService} from '../../services/auction/auction.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Bet} from '../../models/bet';
+import {LoginService} from '../../services/login/login.service';
+import {InteractionService} from '../../services/interaction/interaction.service';
+import {BetService} from '../../services/bet/bet.service';
+import {ModalDirective} from 'ngx-bootstrap/modal';
+import {TranslateService} from '@ngx-translate/core';
 
 /**
  * Component view /auctions/:id page
@@ -32,27 +32,28 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
 
   private alive: boolean = true;
 
-  constructor(
-    private auth: LoginService,
-    private interact: InteractionService,
-    private auctionService: AuctionService,
-    private betService: BetService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private translate: TranslateService
-  ) { }
+  constructor(private auth: LoginService,
+              private interact: InteractionService,
+              private auctionService: AuctionService,
+              private betService: BetService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private translate: TranslateService) {
+  }
 
   /**
    * Run when component initialize
    */
   ngOnInit() {
     this.subscribeRoute();
-    this.subscribeRefreshBets();
-    setInterval( () => {
+    setInterval(() => {
       this.interact.refreshBets();
     }, 5000);
   }
 
+  getMaxBetPrice() {
+    return this.bets.length ? this.bets.reduce((prev,cur) => cur.price > prev.price ? cur : prev).price : null;
+  }
 
   isAuthenticated() {
     return this.auth.isAuthenticated();
@@ -66,7 +67,7 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
     this.router.navigate(['/auctions', {category: category}]);
   }
 
-  clickHistory (auction) {
+  clickHistory(auction) {
     this.isAuthenticated() ? this.interact.toggleBetsHistoryModal(auction) : this.router.navigateByUrl("/login");
   }
 
@@ -83,9 +84,9 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
     this.auctionService.finish(this.auction.id)
       .takeWhile(() => this.alive)
       .subscribe(res => {
-      this.auction = res;
-      this.finished = res.finished;
-    });
+        this.auction = res;
+        this.finished = res.finished;
+      });
     this.confirmModal.hide();
   }
 
@@ -98,41 +99,42 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   }
 
   isAdmin() {
-    return this. isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role === 'ROLE_ADMIN') : false;
+    return this.isAuthenticated() ? this.auth.getUserData().roles.find(r => r.role === 'ROLE_ADMIN') : false;
   }
 
   subscribeRefreshBets() {
     this.interact._betsRefresh
       .takeWhile(() => this.alive)
       .subscribe(() => {
-      this.betService.findByAuctionId(this.auction.id)
-        .takeWhile(() => this.alive)
-        .subscribe(res => {
-        if (res.length !== 0) {
-          this.bets = res;
-        }
-      });
-    })
+        this.betService.findByAuctionId(this.auction.id)
+          .takeWhile(() => this.alive)
+          .subscribe(res => {
+            if (res.length !== 0) {
+              this.bets = res;
+            }
+          });
+      })
   }
 
   subscribeRoute() {
     this.route.params
       .takeWhile(() => this.alive)
       .subscribe(params => {
-      this.auctionService.findById(+params['id'])
-        .takeWhile(() => this.alive)
-        .subscribe(res => {
-        this.auction = res;
-        this.finished = res.finished;
+        this.auctionService.findById(+params['id'])
+          .takeWhile(() => this.alive)
+          .subscribe(res => {
+            this.auction = res;
+            this.finished = res.finished;
+            this.subscribeRefreshBets();
+          });
+        this.betService.findByAuctionId(+params['id'])
+          .takeWhile(() => this.alive)
+          .subscribe(res => {
+            if (res.length !== 0) {
+              this.bets = res;
+            }
+          });
       });
-      this.betService.findByAuctionId(+params['id'])
-        .takeWhile(() => this.alive)
-        .subscribe(res => {
-        if (res.length !== 0) {
-          this.bets = res;
-        }
-      });
-    });
   }
 
   /**

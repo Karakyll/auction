@@ -27,7 +27,7 @@
           </div>
           <div class="card-body">
             <p class="card-text">{{auction.product.description}}</p>
-            <p class="card-text">End time: {{auction.endTime}}</p>
+            <p class="card-text">End time: {{auction.endTime | date:'dd.MM.yyyy HH:mm'}}</p>
           </div>
           <div class="card-footer">
             <p class="card-text"><b>Price:</b> {{auction.product.price}} $</p>

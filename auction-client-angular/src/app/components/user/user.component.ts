@@ -24,6 +24,9 @@ export class UserComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
     this.user =  this.auth.getUserData();
   }

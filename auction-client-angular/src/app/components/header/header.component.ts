@@ -25,6 +25,9 @@ export class HeaderComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
     this.isLogged = this.auth.isAuthenticated();
     this.auth._loggedChange.subscribe(res => {
