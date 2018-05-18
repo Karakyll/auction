@@ -6,7 +6,7 @@ export class Bet {
     public id: number,
     public auction_id: number,
     public user_name: string,
-    public betTime: string,
+    public betTime: Date,
     public price: number
   ) {}
 }
