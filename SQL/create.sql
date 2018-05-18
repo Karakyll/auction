@@ -34,7 +34,7 @@ CREATE TABLE products (
 CREATE TABLE auctions (
 	id bigserial NOT NULL,
 	owner varchar(50) NOT NULL REFERENCES users(username) ON DELETE CASCADE,
-	product_id bigint NOT NULL UNIQUE REFERENCES products(id) ON DELETE CASCADE,
+	product_id bigint NOT NULL REFERENCES products(id) ON DELETE CASCADE,
 	create_time TIMESTAMP NOT NULL,
 	end_time TIMESTAMP NOT NULL,
 	description varchar(255) NOT NULL,
