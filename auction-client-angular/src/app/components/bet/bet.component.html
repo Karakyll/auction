@@ -19,7 +19,7 @@
       </div>
       <div class="modal-body" *ngFor="let bet of bets" #unset>
         <div class="row">
-          <div class="col col-sm-5"><b>{{ 'bet.body.date' | translate }}</b>{{bet.betTime}}</div>
+          <div class="col col-sm-5"><b>{{ 'bet.body.date' | translate }}</b>{{bet.betTime | date:'dd.MM.yyyy HH:mm'}}</div>
           <div class="col col-sm"><b>{{ 'bet.body.user' | translate }}</b>{{bet.user_name}}</div>
           <div class="col col-sm"><b>{{ 'bet.body.price' | translate }}</b>{{bet.price}} $</div>
         </div>
@@ -49,15 +49,15 @@
                    name="newBet"
                    id="newBet"
                    [(ngModel)]="newBet"
-                   [min]="undefined !== bets ? bets[bets.length - 1] : +auction.product.price.toFixed(2)"
+                   [min]="undefined !== bets ? getMaxBetPrice()*1.1 : +auction.product.price.toFixed(2)"
                    [step]="undefined !== auction ? +(auction.product.price * 0.1).toFixed(2) : 10"
                    #betInput="ngModel"
                    required>
             <button class="btn btn-primary"
                     type="submit"
                     [disabled]="!newBetForm.form.valid
-                    || auction ? newBet < auction.product.price : true
-                    || bets ? newBet < bets[bets.length - 1].price : true
+                    || bets ? newBet <= getMaxBetPrice() : true
+                    || auction ? newBet <= auction.product.price : true
                     || buttonLocked">{{ 'bet.newBet.form.button' | translate }}
             </button>
           </div>
