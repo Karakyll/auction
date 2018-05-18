@@ -5,7 +5,12 @@
   <div class="form-group row">
     <label for="newCategory"><b>{{ 'management.categories.form.label' | translate }}</b></label>
     <div class="col">
-      <input type="text" [(ngModel)]="newCategory" class="form-control input-sm" id="newCategory" #newInput="ngModel">
+      <input type="text"
+             [(ngModel)]="newCategory"
+             class="form-control input-sm"
+             id="newCategory"
+             maxlength="25"
+             #newInput="ngModel">
       <div [hidden]="!failed || newInput.pristine"
            class="alert alert-danger">{{ 'management.categories.form.failed' | translate }}
       </div>
@@ -27,7 +32,7 @@
     <tr *ngFor="let category of categories">
       <td>{{category.name}}</td>
       <td>
-        <span class="btn fa fa-times-rectangle-o dis" (click)="openModal(template); selectedCategory=category"></span>
+        <span class="btn fa fa-times-rectangle-o dis" (click)="openConfirmDeleteModal(template); selectedCategory=category"></span>
       </td>
     </tr>
     </tbody>

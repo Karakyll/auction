@@ -54,7 +54,7 @@ public class AuctionServiceTest {
 
     @Test
     public void findFinished() {
-        when(auctionRepositoryMock.findAuctionsByFinished(true)).thenReturn(auctions);
+        when(auctionRepositoryMock.findByFinished(true)).thenReturn(auctions);
 
         List<Auction> result = auctionService.findFinished(true);
         assertNotNull(result);
@@ -63,7 +63,7 @@ public class AuctionServiceTest {
 
     @Test
     public void findByCategoryName() {
-        when(auctionRepositoryMock.findAuctionsByProductCategoryName("FirstCategory")).thenReturn(auctions);
+        when(auctionRepositoryMock.findByProductCategoryName("FirstCategory")).thenReturn(auctions);
 
         List<Auction> result = auctionService.findByCategoryName("FirstCategory");
         assertNotNull(result);
@@ -72,7 +72,7 @@ public class AuctionServiceTest {
 
     @Test
     public void findByProductNameContains() {
-        when(auctionRepositoryMock.findAuctionsByProductNameContains("FirstProduct")).thenReturn(auctions);
+        when(auctionRepositoryMock.findByProductNameContains("FirstProduct")).thenReturn(auctions);
 
         List<Auction> result = auctionService.findByProductNameContains("FirstProduct");
         assertNotNull(result);
@@ -81,7 +81,7 @@ public class AuctionServiceTest {
 
     @Test
     public void findByUserName() {
-        when(auctionRepositoryMock.findAuctionsByOwnerUserName("FirstUser")).thenReturn(auctions);
+        when(auctionRepositoryMock.findByOwnerUserName("FirstUser")).thenReturn(auctions);
 
         List<Auction> result = auctionService.findByUserName("FirstUser");
         assertNotNull(result);
@@ -90,7 +90,7 @@ public class AuctionServiceTest {
 
     @Test
     public void findByEndTimeLessThan() {
-        when(auctionRepositoryMock.findAuctionsByEndTimeIsLessThan(new Date(2000000000))).thenReturn(auctions);
+        when(auctionRepositoryMock.findByEndTimeIsLessThan(new Date(2000000000))).thenReturn(auctions);
 
         List<Auction> result = auctionService.findByEndTimeLessThan(new Date(2000000000));
         assertNotNull(result);

@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from "rxjs/Observable";
-import {Bet} from "../../models/bet";
-
-const uri = 'http://localhost:8081/api/bets';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import {Bet} from '../../models/bet';
+import {ConfigService} from "../config/config.service";
 
 /**
  * Service to access bets data
@@ -11,38 +10,82 @@ const uri = 'http://localhost:8081/api/bets';
 @Injectable()
 export class BetService {
 
-  constructor(private http:HttpClient) { }
-
-  getAllBets():Observable<Bet[]> {
-    return this.http.get<Bet[]>(uri);
+  /**
+   * Constructor for bet service
+   * @param {HttpClient} http
+   * @param {ConfigService} config
+   */
+  constructor(private http: HttpClient,
+              private config: ConfigService) {
   }
 
-  getBetById(id):Observable<Bet> {
-    return this.http.get<Bet>(uri, {
-      params:new HttpParams().set('id', id)
+  /**
+   * Get api uri
+   * @returns {string}
+   */
+  uri() {
+    return this.config.getApiHref() + 'bets';
+  }
+
+  /**
+   * Find all bets
+   * @returns {Observable<Bet[]>}
+   */
+  findAll(): Observable<Bet[]> {
+    return this.http.get<Bet[]>(this.uri());
+  }
+
+  /**
+   * Find bet by id
+   * @param id
+   * @returns {Observable<Bet>}
+   */
+  findById(id): Observable<Bet> {
+    return this.http.get<Bet>(this.uri(), {
+      params: new HttpParams().set('id', id)
     });
   }
 
-  getBetsByAuctionId(id):Observable<Bet[]> {
-    return this.http.get<Bet[]>(uri, {
-      params:new HttpParams().set('auctionId', id)
+  /**
+   * Find bets by auction id
+   * @param id
+   * @returns {Observable<Bet[]>}
+   */
+  findByAuctionId(id): Observable<Bet[]> {
+    return this.http.get<Bet[]>(this.uri(), {
+      params: new HttpParams().set('auctionId', id)
     });
   }
 
-  getBetsByUsername(user):Observable<Bet[]> {
-    return this.http.get<Bet[]>(uri, {
-      params:new HttpParams().set('username', user)
+  /**
+   * Find bets by username
+   * @param user
+   * @returns {Observable<Bet[]>}
+   */
+  findByUsername(user): Observable<Bet[]> {
+    return this.http.get<Bet[]>(this.uri(), {
+      params: new HttpParams().set('username', user)
     });
   }
 
-  saveBet(bet:Bet):Observable<Bet> {
-    return this.http.post<Bet>(uri, bet);
+  /**
+   * Save bet
+   * @param {Bet} bet
+   * @returns {Observable<Bet>}
+   */
+  save(bet: Bet): Observable<Bet> {
+    return this.http.post<Bet>(this.uri(), bet);
   }
 
-  deleteBet(id) {
-    return this.http.delete(uri, {
-      params:new HttpParams().set('delete', id)
-    })
+  /**
+   * Delete bet by id
+   * @param id
+   * @returns {Observable<Object>}
+   */
+  deleteById(id) {
+    return this.http.delete(this.uri(), {
+      params: new HttpParams().set('delete', id)
+    });
   }
 
 }

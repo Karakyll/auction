@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from "rxjs/Observable";
-import { Product } from "../../models/product";
-
-const uri= 'http://localhost:8081/api/products';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import {Product} from '../../models/product';
+import {ConfigService} from "../config/config.service";
 
 /**
  * Service to access products data
@@ -11,21 +10,55 @@ const uri= 'http://localhost:8081/api/products';
 @Injectable()
 export class ProductService {
 
-  constructor(private http:HttpClient) { }
-
-  getAllProducts():Observable<Product[]> {
-    return this.http.get<Product[]>(uri);
+  /**
+   * Constructor for product service
+   * @param {HttpClient} http
+   * @param {ConfigService} config
+   */
+  constructor(private http: HttpClient,
+              private config: ConfigService) {
   }
 
-  getProductById(id:number):Observable<Product> {
-    return this.http.get<Product>(uri + "/" + id);
+  /**
+   * Get api uri
+   * @returns {string}
+   */
+  uri() {
+    return this.config.getApiHref() + 'products';
   }
 
-  saveProduct(product:Product):Observable<Product> {
-    return this.http.post<Product>(uri, product);
+  /**
+   * Find all products
+   * @returns {Observable<Product[]>}
+   */
+  findAll(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.uri());
   }
 
-  deleteProduct(id:number) {
-    return this.http.delete(uri + "/" + id);
+  /**
+   * Find product by id
+   * @param {number} id
+   * @returns {Observable<Product>}
+   */
+  findById(id: number): Observable<Product> {
+    return this.http.get<Product>(this.uri() + '/' + id);
+  }
+
+  /**
+   * Save product
+   * @param {Product} product
+   * @returns {Observable<Product>}
+   */
+  save(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.uri(), product);
+  }
+
+  /**
+   * Delete product by id
+   * @param {number} id
+   * @returns {Observable<Object>}
+   */
+  deleteById(id: number) {
+    return this.http.delete(this.uri() + '/' + id);
   }
 }

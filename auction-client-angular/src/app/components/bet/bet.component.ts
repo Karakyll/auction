@@ -1,13 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { BetService } from "../../services/bet/bet.service";
-import { Bet } from "../../models/bet";
-import { ModalDirective } from 'ngx-bootstrap/modal';
-import { Auction } from "../../models/auction";
-import { AuctionService } from "../../services/auction/auction.service";
-import { DateService } from "../../services/date/date.service";
-import {InteractionService} from "../../services/interaction/interaction.service";
-import {LoginService} from "../../services/login/login.service";
-import {TranslateService} from "@ngx-translate/core";
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {BetService} from '../../services/bet/bet.service';
+import {Bet} from '../../models/bet';
+import {ModalDirective} from 'ngx-bootstrap/modal';
+import {Auction} from '../../models/auction';
+import {AuctionService} from '../../services/auction/auction.service';
+import {InteractionService} from '../../services/interaction/interaction.service';
+import {LoginService} from '../../services/login/login.service';
+import {TranslateService} from '@ngx-translate/core';
 
 /**
  * Component view bets history and new bet modals
@@ -17,7 +16,7 @@ import {TranslateService} from "@ngx-translate/core";
   templateUrl: './bet.component.html',
   styleUrls: ['./bet.component.css']
 })
-export class BetComponent implements OnInit {
+export class BetComponent implements OnInit, OnDestroy {
 
   @ViewChild('betsModal') betsModal: ModalDirective;
   @ViewChild('newBetModal') newBetModal: ModalDirective;
@@ -27,82 +26,138 @@ export class BetComponent implements OnInit {
     backdrop: false
   };
 
-  buttonLocked:boolean = false;
+  buttonLocked: boolean = false;
 
-  bets:Bet[];
-  auction:Auction;
-  newBet:number;
+  private alive: boolean = true;
 
-  constructor(
-    private interact:InteractionService,
-    private betService:BetService,
-    private auctionService:AuctionService,
-    private dateService:DateService,
-    private auth:LoginService,
-    private translate: TranslateService
-  ) { }
+  bets: Bet[];
+  auction: Auction;
+  newBet: number;
 
+  unset: boolean;
+
+  /**
+   * Constructor for Bet component
+   * @param {InteractionService} interact
+   * @param {BetService} betService
+   * @param {AuctionService} auctionService
+   * @param {LoginService} auth
+   * @param {TranslateService} translate
+   */
+  constructor(private interact: InteractionService,
+              private betService: BetService,
+              private auctionService: AuctionService,
+              private auth: LoginService,
+              private translate: TranslateService) {
+  }
+
+  /**
+   * Run when component initialize
+   */
   ngOnInit() {
-    this.subscribeBetsCall();
+    this.subscribeBetsHistoryCall();
     this.subscribeNewBetCall();
   }
 
-  hideBetsModal () {
+  /**
+   * Hide bets modal
+   */
+  hideBetsModal() {
     this.betsModal.hide();
   }
 
-  hideNewBetModal () {
+  /**
+   * Hide new bet modal
+   */
+  hideNewBetModal() {
     this.newBetModal.hide();
   }
 
+  /**
+   * Handle submitting new bet form
+   * Place new bet
+   */
   onSubmitNewBet() {
+    if (!this.buttonLocked) {
+      let bet = new Bet(null, this.auction.id, this.auth.getUserData().userName, null, this.newBet);
+      this.betService.save(bet)
+        .takeWhile(() => this.alive)
+        .subscribe(() => {
+            this.newBetModal.hide();
+            this.interact.refreshBets();
+          },
+          error => {
+            console.log('User or auction not found');
+            console.log(error);
+            this.hideNewBetModal();
+          })
+    }
     this.buttonLocked = true;
-    let bet = new Bet(null, this.auction.id, this.auth.getUserData().userName, this.dateService.getDateTime(), this.newBet);
-    this.betService.saveBet(bet).subscribe(() => {
-      this.interact.refreshBets();
-      this.newBetModal.hide();
-        this.buttonLocked = false;
-    },
-      error => {
-      console.log("User or auction not found");
-      console.log(error);
-        this.buttonLocked = false;
-      })
   }
 
-  subscribeBetsCall() {
-    this.interact._betsModalCalled.subscribe(auction => {
-      this.auction = auction;
-      if (auction) {
-        this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {
-          this.bets = bets;
-        })
-      }
-      this.betsModal.config = this.config;
-      this.betsModal.toggle();
-    });
+  /**
+   * Subscribe to bets history call
+   * If emitted - find bets by auction ID and toggle bets modal
+   */
+  subscribeBetsHistoryCall() {
+    this.interact._betsHistoryModalCalled
+      .takeWhile(() => this.alive)
+      .subscribe(auction => {
+        this.auction = auction;
+        if (auction) {
+          this.betService.findByAuctionId(auction.id)
+            .takeWhile(() => this.alive)
+            .subscribe(bets => {
+              this.bets = bets;
+            })
+        }
+        this.betsModal.config = this.config;
+        this.betsModal.toggle();
+      });
   }
 
+  /**
+   * Subscribe to new bet call
+   * If emitted - toggle new bet modal
+   */
   subscribeNewBetCall() {
-    this.interact._newBetModalCalled.subscribe(auction => {
-      this.auction = auction;
-      if (auction) {
-        this.betService.getBetsByAuctionId(auction.id).subscribe(bets => {
-          this.bets = bets;
-          if (this.bets.length == 0 ){
-            this.newBet = +(auction.product.price * 1.1).toFixed(2);
-          } else {
-            this.newBet = +(this.bets[this.bets.length - 1].price * 1.1).toFixed(2);
-          }
-        })
-      }
-      this.newBetModal.config = this.config;
-      this.newBetModal.toggle();
-    });
+    this.interact._newBetModalCalled
+      .takeWhile(() => this.alive)
+      .subscribe(auction => {
+        this.auction = auction;
+        if (auction) {
+          this.betService.findByAuctionId(auction.id)
+            .takeWhile(() => this.alive)
+            .subscribe(bets => {
+              this.bets = bets;
+              if (this.bets.length == 0) {
+                this.newBet = +(auction.product.price * 1.1).toFixed(2);
+              } else {
+                this.newBet = +(this.bets[this.bets.length - 1].price * 1.1).toFixed(2);
+              }
+            })
+        }
+        this.newBetModal.config = this.config;
+        this.newBetModal.toggle();
+        this.buttonLocked = false;
+      });
   }
 
-  calcMinPrice() {
+  /**
+   * Get max bet price in bets
+   * @returns {number}
+   */
+  getMaxBetPrice() {
+    return this.bets.length ? this.bets.reduce((prev, cur) => cur.price > prev.price ? cur : prev).price :
+      this.auction ? this.auction.product.price : null;
+  }
 
+  /**
+   * Run when component destroy.
+   * Unsubscribe all subscription.
+   */
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

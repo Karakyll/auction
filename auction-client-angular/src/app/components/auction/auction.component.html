@@ -1,19 +1,17 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="row">
-    <div class="col col-sm">
-      <div class="btn-group" btnRadioGroup>
-        <button class="btn btn-success" btnRadio="ongoing"
-                role="button" (click)="showOngoing()">{{ 'auction.header.ongoing' | translate }}
-        </button>
-        <button class="btn btn-success" btnRadio="finished"
-                role="button" (click)="showFinished()">{{ 'auction.header.finished' | translate }}
-        </button>
+    <div class="col">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active" (click)="showOngoing()">
+          <input type="radio" name="options" id="option1" autocomplete="off" checked >{{ 'auction.header.ongoing' | translate }}
+        </label>
+        <label class="btn btn-secondary" (click)="showFinished()">
+          <input type="radio" name="options" id="option2" autocomplete="off" >{{ 'auction.header.finished' | translate }}
+        </label>
       </div>
     </div>
-    <div class="col"></div>
-    <div class="col"></div>
     <div class="col">
-      <button class="btn btn-primary" (click)="startNewAuction()">
+      <button *ngIf="!isAdmin() && !isManager()" class="btn btn-primary" (click)="startNewAuction()">
         {{ 'auction.header.startNew' | translate }}
       </button>
     </div>
@@ -29,7 +27,7 @@
           </div>
           <div class="card-body">
             <p class="card-text">{{auction.product.description}}</p>
-            <p class="card-text">End time: {{auction.endTime}}</p>
+            <p class="card-text">End time: {{auction.endTime | date:'dd.MM.yyyy HH:mm'}}</p>
           </div>
           <div class="card-footer">
             <p class="card-text"><b>Price:</b> {{auction.product.price}} $</p>

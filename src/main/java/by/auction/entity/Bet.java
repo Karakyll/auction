@@ -34,7 +34,7 @@ public class Bet implements Serializable {
     }
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "auction_id")
     public Auction getAuction() {
         return auction;
@@ -57,7 +57,7 @@ public class Bet implements Serializable {
     }
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "username")
     public User getUser() {
         return user;
@@ -79,7 +79,6 @@ public class Bet implements Serializable {
         return user_name;
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy hh:mm")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "bet_time", nullable = false)
     public Date getBetTime() {

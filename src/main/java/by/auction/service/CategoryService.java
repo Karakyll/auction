@@ -10,12 +10,30 @@ import java.util.Optional;
  */
 public interface CategoryService {
 
+    /**
+     * Find all categories
+     * @return list of found categories
+     */
     List<Category> findAll();
 
+    /**
+     * Find category by name
+     * @param name
+     * @return Optional of found category
+     */
     Optional<Category> findByName(String name);
 
+    /**
+     * Save category in DB
+     * @param category
+     * @return saved category
+     */
     Category save(final Category category);
 
+    /**
+     * Delete category by ID
+     * @param name
+     */
     void deleteByName(String name);
 
 }

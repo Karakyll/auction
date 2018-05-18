@@ -2,7 +2,6 @@ package by.auction.repository;
 
 import by.auction.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,13 +9,10 @@ import java.util.Optional;
 /**
  * Repository for data management in a table "users"
  */
-@Repository
 public interface UserRepository extends JpaRepository<User, String>{
-
-    List<User> findAll();
 
     Optional<User> findByUserName(String userName);
 
-    List<User> findUsersByEnabled(Boolean enabled);
+    List<User> findByEnabled(Boolean enabled);
 
 }

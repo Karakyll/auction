@@ -1,12 +1,14 @@
 .card {
   margin: 10px;
   size: 100px;
-
 }
 .card-deck {
   margin: 10px;
 }
-
+.col {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 .col-sm {
   min-width: 340px;
   max-width: 340px;

@@ -61,6 +61,7 @@
         "enable": "Enable",
         "promote": "Promote",
         "demote": "Demote",
+        "changePassword": "Change password",
         "delete": "Delete"
       },
       "body": {
@@ -84,6 +85,7 @@
   },
   "auctionDet": {
     "category": "Category:",
+    "endTime": "End time",
     "startPrice": "Start price: ",
     "owner": "Owner: ",
     "currentBet": "Current bet: ",

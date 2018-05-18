@@ -2,23 +2,16 @@ package by.auction.repository;
 
 import by.auction.entity.Bet;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Repository for data management in a table "bets"
  */
-@Repository
 public interface BetRepository extends JpaRepository<Bet, Long>{
 
-    List<Bet> findAll();
+    List<Bet> findByAuctionId(Long id);
 
-    Optional<Bet> findById(Long id);
-
-    List<Bet> findBetsByAuctionId(Long id);
-
-    List<Bet> findBetsByUserUserName(String userName);
+    List<Bet> findByUserUserName(String userName);
 
 }

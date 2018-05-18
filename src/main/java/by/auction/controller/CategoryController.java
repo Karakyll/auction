@@ -15,7 +15,6 @@ import java.util.Locale;
  * Rest controller. Implement category api to manage categories.
  * Map all /categories requests
  */
-@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/categories")
 public class CategoryController {
@@ -34,7 +33,7 @@ public class CategoryController {
      * @return - JSON with found categories
      */
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity getAllCategory() {
+    ResponseEntity findAll() {
         logger.debug(messageSource.getMessage("controller.category.get", null, Locale.getDefault()));
         return ResponseEntity.ok(categoryService.findAll());
     }
@@ -47,15 +46,14 @@ public class CategoryController {
      * @return - JSON with saved category
      */
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity saveCategory(@RequestBody Category category) {
-        logger.debug(messageSource.getMessage("controller.category.post.save.category", new Object[]{category}, Locale.getDefault()));
+    ResponseEntity save(@RequestBody Category category) {
+        logger.info(messageSource.getMessage("controller.category.post.save.category", new Object[]{category}, Locale.getDefault()));
         if (categoryService.findByName(category.getName()).isPresent()) {
             logger.debug(messageSource.getMessage("controller.category.post.save.category.error", new Object[]{category}, Locale.getDefault()));
             return ResponseEntity.unprocessableEntity().build();
-        } else {
-            logger.debug(messageSource.getMessage("controller.category.post.save.category.ok", new Object[]{category}, Locale.getDefault()));
-            return ResponseEntity.ok(categoryService.save(category));
         }
+        logger.debug(messageSource.getMessage("controller.category.post.save.category.ok", new Object[]{category}, Locale.getDefault()));
+        return ResponseEntity.ok(categoryService.save(category));
     }
 
     /**
@@ -66,16 +64,15 @@ public class CategoryController {
      * @return - status Ok
      */
     @RequestMapping(params = "delete", method = RequestMethod.DELETE)
-    ResponseEntity deleteCategory(@RequestParam("delete") String category) {
-        logger.debug(messageSource.getMessage("controller.category.delete.category", new Object[]{category}, Locale.getDefault()));
+    ResponseEntity delete(@RequestParam("delete") String category) {
+        logger.info(messageSource.getMessage("controller.category.delete.category", new Object[]{category}, Locale.getDefault()));
         if (categoryService.findByName(category).isPresent()) {
             categoryService.deleteByName(category);
             logger.debug(messageSource.getMessage("controller.category.delete.category.ok", new Object[]{category}, Locale.getDefault()));
             return ResponseEntity.ok().build();
-        } else {
-            logger.debug(messageSource.getMessage("controller.category.error.category.not.found", new Object[]{category}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.category.error.category.not.found", new Object[]{category}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
 }

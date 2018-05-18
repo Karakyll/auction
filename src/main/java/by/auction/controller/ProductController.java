@@ -19,7 +19,6 @@ import java.util.Locale;
  * Rest controller. Implement product api to manage products.
  * Map all /products requests
  */
-@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/products")
 public class ProductController {
@@ -41,7 +40,7 @@ public class ProductController {
      * @return - JSON with found products
      */
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity getAllProducts() {
+    ResponseEntity findAll() {
         logger.debug(messageSource.getMessage("controller.product.get", null, Locale.getDefault()));
         return ResponseEntity.ok(productService.findAll());
     }
@@ -54,15 +53,14 @@ public class ProductController {
      * @return - JSOn with found product
      */
     @RequestMapping(value = "/{productId:[\\d]+}", method = RequestMethod.GET)
-    ResponseEntity getProductById(@PathVariable Long productId) {
+    ResponseEntity findById(@PathVariable Long productId) {
         logger.debug(messageSource.getMessage("controller.product.get.by.id", new Object[]{productId}, Locale.getDefault()));
         if ((productService.findById(productId)).isPresent()) {
             logger.debug(messageSource.getMessage("controller.product.get.by.id.ok", new Object[]{productId}, Locale.getDefault()));
             return ResponseEntity.ok(productService.findById(productId).get());
-        } else {
-            logger.debug(messageSource.getMessage("controller.product.error.product.not.found", new Object[]{productId}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.product.error.product.not.found", new Object[]{productId}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
     /**
@@ -73,8 +71,8 @@ public class ProductController {
      * @return - slink to saved product with JSON in body
      */
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity saveProduct(@RequestBody Product product) {
-        logger.debug(messageSource.getMessage("controller.product.save.product", new Object[]{product}, Locale.getDefault()));
+    ResponseEntity save(@RequestBody Product product) {
+        logger.info(messageSource.getMessage("controller.product.save.product", new Object[]{product}, Locale.getDefault()));
         if (!categoryService.findByName(product.getCategory_name()).isPresent()) {
             logger.debug(messageSource.getMessage("controller.product.save.product.error", new Object[]{product}, Locale.getDefault()));
             return ResponseEntity.unprocessableEntity().build();
@@ -105,16 +103,15 @@ public class ProductController {
      * @return - status Ok
      */
     @RequestMapping(value = "/{productId:[\\d]+}", method = RequestMethod.DELETE)
-    ResponseEntity deleteProduct(@PathVariable Long productId) {
-        logger.debug(messageSource.getMessage("controller.product.delete.product", new Object[]{productId}, Locale.getDefault()));
+    ResponseEntity delete(@PathVariable Long productId) {
+        logger.info(messageSource.getMessage("controller.product.delete.product", new Object[]{productId}, Locale.getDefault()));
         if (productService.findById(productId).isPresent()) {
             productService.deleteById(productId);
             logger.debug(messageSource.getMessage("controller.product.delete.product.ok", new Object[]{productId}, Locale.getDefault()));
             return ResponseEntity.ok().build();
-        } else {
-            logger.debug(messageSource.getMessage("controller.product.error.bet.not.found", new Object[]{productId}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.product.error.bet.not.found", new Object[]{productId}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
 }

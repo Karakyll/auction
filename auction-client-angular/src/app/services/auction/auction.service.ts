@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from "rxjs/Observable";
-import { Auction } from "../../models/auction";
-
-const uri= 'http://localhost:8081/api/auctions';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import {Auction} from '../../models/auction';
+import {ConfigService} from "../config/config.service";
 
 /**
  * Service to access auctions data
@@ -11,63 +10,131 @@ const uri= 'http://localhost:8081/api/auctions';
 @Injectable()
 export class AuctionService {
 
-  constructor(private http:HttpClient) { }
-
-  getAllAuctions():Observable<Auction[]> {
-    return this.http.get<Auction[]>(uri);
+  /**
+   * Constructor for auction service
+   * @param {HttpClient} http
+   * @param {ConfigService} config
+   */
+  constructor(private http: HttpClient,
+              private config: ConfigService) {
   }
 
-  getAuctionById(id:number):Observable<Auction> {
-    return this.http.get<Auction>(uri + "/" + id);
+  /**
+   * Get api uri
+   * @returns {string}
+   */
+  uri() {
+    return this.config.getApiHref() + 'auctions'
   }
 
-  getOngoingAuctions():Observable<Auction[]> {
-    return this.http.get<Auction[]>(uri, {
-      params:new HttpParams().set('finished', "false")
+  /**
+   * Find all auctions
+   * @returns {Observable<Auction[]>}
+   */
+  findAll(): Observable<Auction[]> {
+    return this.http.get<Auction[]>(this.uri());
+  }
+
+  /**
+   * Find auction by id
+   * @param {number} id
+   * @returns {Observable<Auction>}
+   */
+  findById(id: number): Observable<Auction> {
+    return this.http.get<Auction>(this.uri() + '/' + id);
+  }
+
+  /**
+   * Find all ongoing auctions
+   * @returns {Observable<Auction[]>}
+   */
+  findOngoing(): Observable<Auction[]> {
+    return this.http.get<Auction[]>(this.uri(), {
+      params: new HttpParams().set('finished', 'false')
     });
   }
 
-  getFinishedAuctions():Observable<Auction[]> {
-    return this.http.get<Auction[]>(uri, {
-      params:new HttpParams().set('finished', "true")
+  /**
+   * Find all finished auctions
+   * @returns {Observable<Auction[]>}
+   */
+  findFinished(): Observable<Auction[]> {
+    return this.http.get<Auction[]>(this.uri(), {
+      params: new HttpParams().set('finished', 'true')
     });
   }
 
-  getAuctionsByCategory(category):Observable<Auction[]> {
-    return this.http.get<Auction[]>(uri, {
-      params:new HttpParams().set('category', category)
+  /**
+   * Find auctions by category name
+   * @param category
+   * @returns {Observable<Auction[]>}
+   */
+  findByCategory(category): Observable<Auction[]> {
+    return this.http.get<Auction[]>(this.uri(), {
+      params: new HttpParams().set('category', category)
     });
   }
 
-  getAuctionsProductContains(searchTag):Observable<Auction[]> {
-    return this.http.get<Auction[]>(uri, {
-      params:new HttpParams().set('search', searchTag)
+  /**
+   * Finda auctions by product name contains tag
+   * @param searchTag
+   * @returns {Observable<Auction[]>}
+   */
+  findByProductNameContains(searchTag): Observable<Auction[]> {
+    return this.http.get<Auction[]>(this.uri(), {
+      params: new HttpParams().set('search', searchTag)
     });
   }
 
-  getAuctionsByUserName(username):Observable<Auction[]> {
-    return this.http.get<Auction[]>(uri, {
-      params:new HttpParams().set('user', username)
+  /**
+   * Find auctions by username
+   * @param username
+   * @returns {Observable<Auction[]>}
+   */
+  findByUserName(username): Observable<Auction[]> {
+    return this.http.get<Auction[]>(this.uri(), {
+      params: new HttpParams().set('user', username)
     });
   }
 
-  getAuctionsEndBefore(date):Observable<Auction[]> {
-    return this.http.get<Auction[]>(uri, {
-      params:new HttpParams().set('endBefore', date)
+  /**
+   * Find auctions what end before param date
+   * @param date
+   * @returns {Observable<Auction[]>}
+   */
+  findByEndBefore(date): Observable<Auction[]> {
+    return this.http.get<Auction[]>(this.uri(), {
+      params: new HttpParams().set('endBefore', date)
     });
   }
 
-  saveAuction(auction:Auction):Observable<Auction> {
-    return this.http.post<Auction>(uri, auction);
+  /**
+   * Save new auction
+   * @param {Auction} auction
+   * @param duration
+   * @returns {Observable<Auction>}
+   */
+  save(auction: Auction, duration): Observable<Auction> {
+    return this.http.post<Auction>(this.uri(), auction, {params: new HttpParams().set('duration', duration)});
   }
 
-  deleteAuctionById(id:number) {
-    return this.http.delete(uri + "/" + id);
+  /**
+   * Delete auction by id
+   * @param {number} id
+   * @returns {Observable<Object>}
+   */
+  deleteById(id: number) {
+    return this.http.delete(this.uri() + '/' + id);
   }
 
-  finishAuction(id:number):Observable<Auction> {
-    return this.http.put<Auction>(uri + "/" + id, null, {
-      params:new HttpParams().set('finish', "true")
+  /**
+   * Finish auction
+   * @param {number} id
+   * @returns {Observable<Auction>}
+   */
+  finish(id: number): Observable<Auction> {
+    return this.http.put<Auction>(this.uri() + '/' + id, null, {
+      params: new HttpParams().set('finish', 'true')
     });
   }
 

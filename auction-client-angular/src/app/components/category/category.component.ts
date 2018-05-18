@@ -1,8 +1,8 @@
-import { Component, OnInit} from '@angular/core';
-import { CategoryService } from "../../services/category/category.service";
-import { Category } from "../../models/category";
-import { Router } from "@angular/router";
-import {InteractionService} from "../../services/interaction/interaction.service";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {CategoryService} from '../../services/category/category.service';
+import {Category} from '../../models/category';
+import {Router} from '@angular/router';
+import {InteractionService} from '../../services/interaction/interaction.service';
 
 /**
  * Component view categories sidebar
@@ -12,47 +12,80 @@ import {InteractionService} from "../../services/interaction/interaction.service
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, OnDestroy {
 
   isOpen = false;
 
-  categories:Category[];
+  categories: Category[];
 
-  constructor(
-    private categoryService:CategoryService,
-    private interact:InteractionService,
-    private router:Router
-  ) { }
+  private alive: boolean = true;
 
-  ngOnInit() {
-    this.subscribeListCategory();
-    this.subscribeCategoryListChanged();
-    this.interact._categoryTabToggled.subscribe(() => {
-      this.isOpen = !this.isOpen;
-    })
+  /**
+   * Constructor fo Category component
+   * @param {CategoryService} categoryService
+   * @param {InteractionService} interact
+   * @param {Router} router
+   */
+  constructor(private categoryService: CategoryService,
+              private interact: InteractionService,
+              private router: Router) {
   }
 
+  /**
+   * Run when component initialize
+   */
+  ngOnInit() {
+    this.getCategories();
+    this.subscribeCategoryListChanged();
+    this.interact._categoryTabToggled
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
+        this.isOpen = !this.isOpen;
+      })
+  }
+
+  /**
+   * Handle click on category
+   * Navigate to auctions page with selected category filter
+   * @param category
+   */
   changeCategory(category) {
     if (category) {
       this.interact.categoryChange(category);
       this.isOpen = false;
-      this.router.navigate(["/auctions", {category: category}]);
+      this.router.navigate(['/auctions', {category: category}]);
     }
   }
 
-  subscribeListCategory() {
-    this.categoryService.getAllCategories().subscribe((res) => {
-      this.categories = res;
-      while (this.categories.length < 10) {
-        this.categories.push(new Category(null));
-      }
-    });
+  /**
+   * Get categories list
+   */
+  getCategories() {
+    this.categoryService.findAll()
+      .takeWhile(() => this.alive)
+      .subscribe((res) => {
+        this.categories = res;
+      });
   }
 
+  /**
+   * Subscribe to category list changed
+   * If emitted - refresh category list
+   */
   subscribeCategoryListChanged() {
-    this.interact._categoryListChanged.subscribe(() => {
-      this.subscribeListCategory();
-    })
+    this.interact._categoryListChanged
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
+        this.getCategories();
+      })
+  }
+
+  /**
+   * Run when component destroy.
+   * Unsubscribe all subscription.
+   */
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }

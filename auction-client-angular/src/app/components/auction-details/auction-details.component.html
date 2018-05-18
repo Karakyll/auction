@@ -1,65 +1,84 @@
-<div class="row">
-  <div class="col col-sm-2"></div>
-  <div class="col col-sm-8">
-    <div class="jumbotron">
-      <div class="container">
-        <div class="row">
-          <div class="col col-8">
-            <h2 *ngIf="auction">{{auction.product.name}}</h2>
-          </div>
-          <div class="col col-4">
-            <h5 *ngIf="auction">{{ 'auctionDet.category' | translate }}
-              <a class="btn btn-link" (click)="showCategory(auction.product.category_name)">
-                {{auction.product.category_name}}
-              </a>
-            </h5>
-          </div>
-        </div>
-        <table class="table">
-          <tr>
-            <td>
-              <h5 *ngIf="auction">{{auction.product.description}}</h5>
-              <p *ngIf="auction">{{auction.description}}</p>
-            </td>
-            <td>
-              <div *ngIf="auction"><b>{{ 'auctionDet.startPrice' | translate }}</b>{{auction.product.price}} $</div>
-              <div *ngIf="auction"><b>{{ 'auctionDet.owner' | translate }}</b>{{auction.owner_name}}</div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div *ngIf="bets"><b>{{ 'auctionDet.currentBet' | translate }}</b> {{bets[bets.length - 1].price}} $</div>
-              <button *ngIf="isAuthenticated()"
-                      type="button"
-                      class="btn btn-sm btn-link"
-                      (click)="clickHistory(auction)">{{ 'auctionDet.betsHistory' | translate }}
-              </button>
-            </td>
-            <td>
-              <button *ngIf="!finished && !checkOwner() && !isAdmin() && !isManager()"
-                      type="button" class="btn btn-primary"
-                      (click)="clickNewBet(auction)">{{ 'auctionDet.placeBet' | translate }}</button>
-              <button *ngIf="checkOwner() && !finished && !isAdmin() && !isManager()"
-                      type="button"
-                      class="btn btn-danger"
-                      (click)="stopAuction()">{{ 'auctionDet.stopAuction' | translate }}</button>
-            </td>
-          </tr>
-        </table>
+<div class="col">
+  <div class="jumbotron">
+    <h2 *ngIf="auction">{{auction.product.name}}</h2>
+    <div class="row">
+      <div class="col">
+        <h5 *ngIf="auction">{{ 'auctionDet.category' | translate }}
+          <a class="btn btn-link" (click)="showCategory(auction.product.category_name)">
+            {{auction.product.category_name}}
+          </a>
+        </h5>
       </div>
-      <div>
+      <div class="col">
+        <h5 *ngIf="auction">{{ 'auctionDet.endTime' | translate }}
+          <a class="btn btn-link" (click)="showCategory(auction.product.category_name)">
+            {{auction.endTime | date:'dd.MM.yyyy HH:mm'}}
+          </a>
+        </h5>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <h5 *ngIf="auction">{{auction.product.description}}</h5>
+      </div>
+      <div class="col">
+        <div class="unBreak" *ngIf="auction"><b>{{ 'auctionDet.startPrice' | translate }}</b>{{auction.product.price}}
+          $
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p *ngIf="auction">{{auction.description}}</p>
+      </div>
+      <div class="col">
+        <div class="unBreak" *ngIf="auction"><b>{{ 'auctionDet.owner' | translate }}</b>{{auction.owner_name}}</div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <div class="unBreak" *ngIf="bets"><b>{{ 'auctionDet.currentBet' | translate }}</b> {{getMaxBetPrice()}} $
+        </div>
+      </div>
+      <div class="col">
+        <button *ngIf="!finished && !checkOwner() && !isAdmin() && !isManager()"
+                type="button" class="btn btn-primary"
+                (click)="clickNewBet(auction)">{{ 'auctionDet.placeBet' | translate }}
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button *ngIf="isAuthenticated()"
+                type="button"
+                class="btn btn-sm btn-link"
+                (click)="clickHistory(auction)">{{ 'auctionDet.betsHistory' | translate }}
+        </button>
+      </div>
+      <div class="col">
+        <button *ngIf="checkOwner() && !finished && !isAdmin() && !isManager()"
+                type="button"
+                class="btn btn-danger"
+                (click)="stopAuction()">{{ 'auctionDet.stopAuction' | translate }}
+        </button>
       </div>
     </div>
   </div>
-  <div class="col col-sm-2"></div>
 </div>
+
 <div bsModal #confirmModal="bs-modal" class="modal ">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body text-center">
         <p>{{ 'auctionDet.confirm.message' | translate }}</p>
-        <button type="button" class="btn btn-default" (click)="confirmStopAuction()" >{{ 'auctionDet.confirm.yes' | translate }}</button>
-        <button type="button" class="btn btn-primary" (click)="declineStopAuction()" >{{ 'auctionDet.confirm.no' | translate }}</button>
+        <button type="button" class="btn btn-default" (click)="confirmStopAuction()">{{ 'auctionDet.confirm.yes' |
+          translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="declineStopAuction()">{{ 'auctionDet.confirm.no' |
+          translate }}
+        </button>
       </div>
     </div>
   </div>

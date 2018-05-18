@@ -1,10 +1,10 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="row">
-    <div class="col"></div>
-    <div class="col">
-      <h3>{{ 'user.header' | translate }}{{user.userName}}</h3>
+    <div class="col-sm-3"></div>
+    <div class="col-7">
+      <h3><span>{{ 'user.header' | translate }}{{user.userName}}</span></h3>
     </div>
-    <div class="col"></div>
+
   </div>
 </div>
 <div class="row">
@@ -13,7 +13,7 @@
   </div>
   <div class="col">
     <div class="row">
-      <div class="col col-sm-3"><h6>{{ 'user.operations.auctions.header' | translate }}</h6></div>
+      <div class="col col-sm-4"><h6>{{ 'user.operations.auctions.header' | translate }}</h6></div>
       <div class="col">
         <div class="row">
           <div class="btn btn-sm btn-link ongoing"
@@ -23,7 +23,7 @@
     </div>
     <hr>
     <div class="row">
-      <div class="col col-sm-3"><h6>{{ 'user.operations.bets.header' | translate }}</h6></div>
+      <div class="col col-sm-4"><h6>{{ 'user.operations.bets.header' | translate }}</h6></div>
       <div class="col">
         <div class="row">
           <div class="btn btn-sm btn-link ongoing"
@@ -33,7 +33,7 @@
     </div>
     <hr>
     <div class="row">
-      <div class="col col-sm-3"><h6>{{ 'user.operations.profile.header' | translate }}</h6></div>
+      <div class="col col-sm-4"><h6>{{ 'user.operations.profile.header' | translate }}</h6></div>
       <div class="col">
         <div class="row">
           <div class="btn btn-sm btn-link"
@@ -47,7 +47,7 @@
     </div>
     <hr *ngIf="isManager()">
     <div *ngIf="isManager()" class="row">
-      <div class="col col-sm-3"><h6>{{ 'user.operations.management.header' | translate }}</h6></div>
+      <div class="col col-sm-4"><h6>{{ 'user.operations.management.header' | translate }}</h6></div>
       <div class="col">
         <div class="row">
           <div class="btn btn-sm btn-link mng"
@@ -57,7 +57,7 @@
     </div>
     <hr *ngIf="isAdmin()">
     <div *ngIf="isAdmin()" class="row">
-      <div class="col col-sm-3"><h6>{{ 'user.operations.administration.header' | translate }}</h6></div>
+      <div class="col col-sm-4"><h6>{{ 'user.operations.administration.header' | translate }}</h6></div>
       <div class="col">
         <div class="row">
           <div class="btn btn-sm btn-link adm"
@@ -68,3 +68,4 @@
   </div>
 </div>
 <app-user-operations></app-user-operations>
+<app-change-password></app-change-password>

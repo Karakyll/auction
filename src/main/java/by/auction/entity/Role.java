@@ -34,7 +34,7 @@ public class Role implements Serializable {
     }
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "username")
     public User getUser() {
         return user;

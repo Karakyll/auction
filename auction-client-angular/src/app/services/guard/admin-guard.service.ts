@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from "@angular/router";
-import { LoginService } from "../login/login.service";
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
+import {LoginService} from '../login/login.service';
 
 /**
  * Service to manage routing for admin
@@ -8,10 +8,21 @@ import { LoginService } from "../login/login.service";
 @Injectable()
 export class AdminGuard implements CanActivate {
 
-  constructor(private auth:LoginService) { }
+  /**
+   * Constructor for admin-guard service
+   * @param {LoginService} auth
+   */
+  constructor(private auth: LoginService) {
+  }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean {
-    return !!this.auth.getUserData().roles.find(r => r.role == "ROLE_ADMIN");
+  /**
+   * Check if current user can activate routing
+   * @param {ActivatedRouteSnapshot} route
+   * @param {RouterStateSnapshot} state
+   * @returns {boolean}
+   */
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    return !!this.auth.getUserData().roles.find(r => r.role === 'ROLE_ADMIN');
   }
 
 }

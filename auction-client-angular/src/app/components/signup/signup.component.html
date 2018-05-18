@@ -10,6 +10,7 @@
              id="username"
              [(ngModel)]="signData.username"
              #usernameInput="ngModel"
+             maxlength="50"
              required>
       <div id="usernameWarning" [hidden]="usernameInput.valid || usernameInput.pristine"
            class="alert alert-danger">{{ 'signup.username.valid' | translate }}
@@ -26,6 +27,7 @@
              id="password"
              [(ngModel)]="signData.password"
              #passwordInput="ngModel"
+             maxlength="255"
              required>
       <div id="passwordWarning" [hidden]="passwordInput.valid || passwordInput.pristine"
            class="alert alert-danger">{{ 'signup.password.valid' | translate }}
@@ -39,6 +41,7 @@
              id="confirm"
              [(ngModel)]="signData.confirm"
              #confirmInput="ngModel"
+             maxlength="255"
              required>
       <div id="confirmWarning" [hidden]="signData.confirm==signData.password || confirmInput.pristine"
            class="alert alert-danger">{{ 'signup.confirm.valid' | translate }}

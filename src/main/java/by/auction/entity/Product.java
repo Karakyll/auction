@@ -41,7 +41,7 @@ public class Product implements Serializable {
     }
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "category")
     public Category getCategory() {
         return category;

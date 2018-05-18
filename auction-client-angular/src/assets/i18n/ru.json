@@ -61,6 +61,7 @@
         "enable": "Активен",
         "promote": "Повысить",
         "demote": "Понизить",
+        "changePassword": "Сменить пароль",
         "delete": "Удалить"
       },
       "body": {
@@ -84,6 +85,7 @@
   },
   "auctionDet": {
     "category": "Категория: ",
+    "endTime": "Время окончания",
     "startPrice": "Стартовая цена: ",
     "owner": "Владелец: ",
     "currentBet": "Текущая ставка: ",

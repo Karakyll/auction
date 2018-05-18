@@ -1,7 +1,10 @@
-.row {
-  margin-top: 20px;
-}
 .col-4 {
   padding: 0px;
   padding-top: 5px;
+}
+table tr td {
+  word-break: break-all;
+}
+.unBreak {
+  word-break: keep-all;
 }

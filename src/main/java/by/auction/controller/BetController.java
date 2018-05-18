@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.Locale;
 
 /**
  * Rest controller. Implement bet api to manage bets.
  * Map all /bets requests
  */
-@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/bets")
 public class BetController {
@@ -44,7 +44,7 @@ public class BetController {
      * @return - JSON with found bets
      */
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity getAllBets() {
+    ResponseEntity findAll() {
         logger.debug(messageSource.getMessage("controller.bet.get", null, Locale.getDefault()));
         return ResponseEntity.ok(betService.findAll());
     }
@@ -57,15 +57,14 @@ public class BetController {
      * @return - JSON with found bet
      */
     @RequestMapping(params = "id", method = RequestMethod.GET)
-    ResponseEntity getBetById(@RequestParam("id") Long id) {
+    ResponseEntity findById(@RequestParam("id") Long id) {
         logger.debug(messageSource.getMessage("controller.bet.get.by.id", new Object[]{id}, Locale.getDefault()));
         if (betService.findById(id).isPresent()) {
             logger.debug(messageSource.getMessage("controller.bet.get.by.id.ok", new Object[]{id}, Locale.getDefault()));
             return ResponseEntity.ok(betService.findById(id).get());
-        } else {
-            logger.debug(messageSource.getMessage("controller.bet.error.bet.not.found", new Object[]{id}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.bet.error.bet.not.found", new Object[]{id}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
     /**
@@ -76,15 +75,14 @@ public class BetController {
      * @return - JSON with found bets
      */
     @RequestMapping(params = "auctionId", method = RequestMethod.GET)
-    ResponseEntity getBetsByAuctionId(@RequestParam("auctionId") Long auctionId) {
+    ResponseEntity findByAuctionId(@RequestParam("auctionId") Long auctionId) {
         logger.debug(messageSource.getMessage("controller.bet.get.by.auction.id", new Object[]{auctionId}, Locale.getDefault()));
         if (auctionService.findById(auctionId).isPresent()) {
             logger.debug(messageSource.getMessage("controller.bet.get.by.auction.id.ok", new Object[]{auctionId}, Locale.getDefault()));
             return ResponseEntity.ok(betService.findByAuctionId(auctionId));
-        } else {
-            logger.debug(messageSource.getMessage("controller.bet.get.by.auction.id.error", new Object[]{auctionId}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.bet.get.by.auction.id.error", new Object[]{auctionId}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
     /**
@@ -95,15 +93,14 @@ public class BetController {
      * @return - JSON with found bets
      */
     @RequestMapping(params = "username", method = RequestMethod.GET)
-    ResponseEntity getBetsByUserName(@RequestParam("username") String username) {
+    ResponseEntity findByUserName(@RequestParam("username") String username) {
         logger.debug(messageSource.getMessage("controller.bet.get.by.username", new Object[]{username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
             logger.debug(messageSource.getMessage("controller.bet.get.by.username.ok", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.ok(betService.findByUserName(username));
-        } else {
-            logger.debug(messageSource.getMessage("controller.bet.get.by.username.error", new Object[]{username}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.bet.get.by.username.error", new Object[]{username}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
     /**
@@ -114,8 +111,8 @@ public class BetController {
      * @return - link to saved bet with JSON in body
      */
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity saveBet(@RequestBody Bet bet) {
-        logger.debug(messageSource.getMessage("controller.bet.post.save.bet", new Object[]{bet}, Locale.getDefault()));
+    ResponseEntity save(@RequestBody Bet bet) {
+        logger.info(messageSource.getMessage("controller.bet.post.save.bet", new Object[]{bet}, Locale.getDefault()));
         if(!auctionService.findById(bet.getAuction_id()).isPresent()
                 || !userService.findByUserName(bet.getUser_name()).isPresent()) {
             logger.debug(messageSource.getMessage("controller.bet.post.save.bet.error", new Object[]{bet}, Locale.getDefault()));
@@ -126,7 +123,7 @@ public class BetController {
 
         result.setAuction(auctionService.findById(bet.getAuction_id()).get());
         result.setUser(userService.findByUserName(bet.getUser_name()).get());
-        result.setBetTime(bet.getBetTime());
+        result.setBetTime(new Date());
         result.setPrice(bet.getPrice());
 
         result = betService.save(result);
@@ -147,16 +144,15 @@ public class BetController {
      * @return - status Ok
      */
     @RequestMapping(params = "delete", method = RequestMethod.DELETE)
-    ResponseEntity deleteBet(@RequestParam("delete") Long id) {
-        logger.debug(messageSource.getMessage("controller.bet.delete.bet", new Object[]{id}, Locale.getDefault()));
+    ResponseEntity delete(@RequestParam("delete") Long id) {
+        logger.info(messageSource.getMessage("controller.bet.delete.bet", new Object[]{id}, Locale.getDefault()));
         if (betService.findById(id).isPresent()) {
             betService.deleteById(id);
             logger.debug(messageSource.getMessage("controller.bet.delete.bet.ok", new Object[]{id}, Locale.getDefault()));
             return ResponseEntity.ok().build();
-        } else {
-            logger.debug(messageSource.getMessage("controller.bet.error.bet.not.found", new Object[]{id}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.bet.error.bet.not.found", new Object[]{id}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
 }

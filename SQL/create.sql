@@ -18,7 +18,7 @@ CREATE TABLE user_roles (
 );
 
 CREATE TABLE categories (
-	name varchar(50) NOT NULL UNIQUE,
+	name varchar(25) NOT NULL UNIQUE,
 	CONSTRAINT categories_pk PRIMARY KEY (name)
 );
 
@@ -27,17 +27,17 @@ CREATE TABLE products (
 	name varchar(50) NOT NULL,
 	category varchar(50) NOT NULL REFERENCES categories(name) ON DELETE CASCADE,
 	price float8 NOT NULL,
-	description varchar,
+	description varchar(255),
 	CONSTRAINT products_pk PRIMARY KEY (id)
 );
 
 CREATE TABLE auctions (
 	id bigserial NOT NULL,
 	owner varchar(50) NOT NULL REFERENCES users(username) ON DELETE CASCADE,
-	product_id bigint NOT NULL UNIQUE REFERENCES products(id) ON DELETE CASCADE,
+	product_id bigint NOT NULL REFERENCES products(id) ON DELETE CASCADE,
 	create_time TIMESTAMP NOT NULL,
 	end_time TIMESTAMP NOT NULL,
-	description varchar NOT NULL,
+	description varchar(255) NOT NULL,
 	finished BOOLEAN NOT NULL DEFAULT false,
 	CONSTRAINT auctions_pk PRIMARY KEY (id)
 );

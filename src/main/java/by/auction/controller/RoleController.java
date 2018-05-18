@@ -14,7 +14,6 @@ import java.util.Locale;
  * Rest controller. Implement product api to manage products.
  * Map all /roles requests
  */
-@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/roles")
 public class RoleController {
@@ -28,15 +27,14 @@ public class RoleController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     @RequestMapping(params = "username", method = RequestMethod.GET)
-    ResponseEntity getUserRoles(@RequestParam("username") String username) {
-        logger.debug(messageSource.getMessage("controller.role.get.by.username", new Object[]{username}, Locale.getDefault()));
+    ResponseEntity findUserRoles(@RequestParam("username") String username) {
+        logger.info(messageSource.getMessage("controller.role.get.by.username", new Object[]{username}, Locale.getDefault()));
         if (userService.findByUserName(username).isPresent()) {
             logger.debug(messageSource.getMessage("controller.role.get.by.username.ok", new Object[]{username}, Locale.getDefault()));
             return ResponseEntity.ok(userService.findByUserName(username).get().getRoles());
-        } else {
-            logger.debug(messageSource.getMessage("controller.role.error.user.not.found", new Object[]{username}, Locale.getDefault()));
-            return ResponseEntity.notFound().build();
         }
+        logger.debug(messageSource.getMessage("controller.role.error.user.not.found", new Object[]{username}, Locale.getDefault()));
+        return ResponseEntity.notFound().build();
     }
 
 }
