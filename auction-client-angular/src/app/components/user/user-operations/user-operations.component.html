@@ -25,8 +25,8 @@
             </div>
           </div>
           <div class="row">
-            <div class="col"><b>{{ 'userOperations.auctions.body.createTime' | translate }}</b>{{auction.createTime}}</div>
-            <div class="col"><b>{{ 'userOperations.auctions.body.endTime' | translate }}</b>{{auction.endTime}}</div>
+            <div class="col"><b>{{ 'userOperations.auctions.body.createTime' | translate }}</b>{{auction.createTime | date:'dd.MM.yyyy HH:mm'}}</div>
+            <div class="col"><b>{{ 'userOperations.auctions.body.endTime' | translate }}</b>{{auction.endTime | date:'dd.MM.yyyy HH:mm'}}</div>
           </div>
           <div class="row">
             <div class="col">
@@ -64,7 +64,7 @@
       <div class="modal-body" *ngFor="let bet of bets" #unset>
         <div class="btn" routerLink="/auctions/{{bet.auction_id}}">
           <div class="row">
-            <div class="col col-sm-5"><b>{{ 'userOperations.bets.body.date' | translate }}</b>{{bet.betTime}}</div>
+            <div class="col col-sm-5"><b>{{ 'userOperations.bets.body.date' | translate }}</b>{{bet.betTime | date:'dd.MM.yyyy HH:mm'}}</div>
             <div class="col col-sm">
               <a class="float-right">
                 <b>{{ 'userOperations.bets.body.price' | translate }}</b>{{bet.price}} $
