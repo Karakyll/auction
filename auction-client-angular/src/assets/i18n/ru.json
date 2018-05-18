@@ -85,6 +85,7 @@
   },
   "auctionDet": {
     "category": "Категория: ",
+    "endTime": "Время окончания",
     "startPrice": "Стартовая цена: ",
     "owner": "Владелец: ",
     "currentBet": "Текущая ставка: ",

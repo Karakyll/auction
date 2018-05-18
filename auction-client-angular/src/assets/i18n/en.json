@@ -85,6 +85,7 @@
   },
   "auctionDet": {
     "category": "Category:",
+    "endTime": "End time",
     "startPrice": "Start price: ",
     "owner": "Owner: ",
     "currentBet": "Current bet: ",
