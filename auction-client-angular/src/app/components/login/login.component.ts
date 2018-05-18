@@ -42,19 +42,19 @@ export class LoginComponent implements OnInit, OnDestroy {
    * Login user with user data.
    * Use this in production mode.
    */
-  // login() {
-  //   this.buttonLocked = true;
-  //   this.auth.loginUser(this.loginData);
-  // }
+  login() {
+    this.buttonLocked = true;
+    this.auth.loginUser(this.loginData);
+  }
 
   /**
    * Login with mocked test data.
    * Use this to debug and develop.
    */
-  login() {
-    this.buttonLocked = true;
-    this.auth.test(this.loginData);
-  }
+  // login() {
+  //   this.buttonLocked = true;
+  //   this.auth.test(this.loginData);
+  // }
 
   /**
    * Subscribe to logged status changing.
