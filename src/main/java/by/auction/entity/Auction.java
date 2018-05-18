@@ -35,7 +35,7 @@ public class Auction implements Serializable {
     }
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "owner")
     public User getOwner() {
         return owner;
@@ -67,7 +67,6 @@ public class Auction implements Serializable {
         this.product = product;
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy hh:mm")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", nullable = false)
     public Date getCreateTime() {
@@ -78,7 +77,6 @@ public class Auction implements Serializable {
         this.createTime = createTime;
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy hh:mm")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "end_time", nullable = false)
     public Date getEndTime() {

@@ -23,7 +23,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:properties/database.properties")
-@ComponentScan("by.auction")
+@ComponentScan(value = {"by.auction.entity", "by.auction.repository", "by.auction.service.implementation"})
 @EnableJpaRepositories(basePackages = "by.auction.repository")
 public class DataConfig {
 
