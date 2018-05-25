@@ -10,6 +10,11 @@ import java.util.Optional;
  */
 public interface CategoryRepository extends JpaRepository<Category, String>{
 
+    /**
+     * Find category by category name
+     * @param name - nameof category
+     * @return - Optional of found category
+     */
     Optional<Category> findByName(String name);
 
 }

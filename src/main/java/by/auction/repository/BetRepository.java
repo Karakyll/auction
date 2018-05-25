@@ -10,8 +10,18 @@ import java.util.List;
  */
 public interface BetRepository extends JpaRepository<Bet, Long>{
 
+    /**
+     * Find bets by auction id
+     * @param id - auction identifier
+     * @return - List of found bets
+     */
     List<Bet> findByAuctionId(Long id);
 
+    /**
+     * FInd bets by Username
+     * @param userName - username whose bets we look for
+     * @return - List of found bets
+     */
     List<Bet> findByUserUserName(String userName);
 
 }

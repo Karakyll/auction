@@ -62,7 +62,7 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Get max bet price i bets
+   * Get max bet price in bets
    * If bets empty - return null
    * @returns {number}
    */

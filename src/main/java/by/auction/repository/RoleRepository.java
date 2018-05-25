@@ -11,8 +11,19 @@ import java.util.Optional;
  */
 public interface RoleRepository extends JpaRepository<Role, Long>{
 
+    /**
+     * Find role by user and role
+     * @param user - User
+     * @param role - string of role name
+     * @return - Optional of found Role
+     */
     Optional<Role> findByUserAndRole(User user, String role);
 
+    /**
+     * Delete role by User and role
+     * @param user - User
+     * @param role - string of role name
+     */
     void deleteByUserAndRole(User user, String role);
 
 }

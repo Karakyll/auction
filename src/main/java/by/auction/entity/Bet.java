@@ -22,6 +22,10 @@ public class Bet implements Serializable {
     private Date betTime;
     private Double price;
 
+    /**
+     * Get bet id
+     * @return - bet identifier
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
@@ -29,10 +33,19 @@ public class Bet implements Serializable {
         return id;
     }
 
+    /**
+     * Set bet id
+     * @param id - bet identifier
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Get bet auction
+     * Not serialize to JSON
+     * @return - bet Auction
+     */
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "auction_id")
@@ -40,13 +53,18 @@ public class Bet implements Serializable {
         return auction;
     }
 
+    /**
+     * Set bet auction
+     * @param auction - bet Auction
+     */
     public void setAuction(Auction auction) {
         this.auction = auction;
     }
 
     /**
      * This field need to represent only "auction_id" property instead full auction object
-     * @return
+     * Not include in mapping to DB
+     * @return - auction identifier
      */
     @Transient
     public Long getAuction_id() {

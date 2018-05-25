@@ -26,6 +26,13 @@ public class RoleController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
+    /**
+     * Map /api/roles GET requests
+     * find roles by username
+     * If user not found - response with NotFound status
+     * @param username
+     * @return
+     */
     @RequestMapping(params = "username", method = RequestMethod.GET)
     ResponseEntity findUserRoles(@RequestParam("username") String username) {
         logger.info(messageSource.getMessage("controller.role.get.by.username", new Object[]{username}, Locale.getDefault()));
